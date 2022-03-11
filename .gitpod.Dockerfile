@@ -1,33 +1,34 @@
 FROM gitpod/workspace-base:latest
 
-RUN apt update
+RUN sudo apt update
 
 # Install AWS CLI
 RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
     unzip awscliv2.zip && \
-    ./aws/install
+    sudo ./aws/install
 
 ## Install Terraform
 RUN curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add - && \
-    apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main" && \
-    apt-get install terraform && \
+    sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main" && \
+    sudo apt-get install terraform && \
     terraform -install-autocomplete
 
 # Install AWS CDK
-RUN python -m pip install aws-cdk-lib
+RUN sudo npm install -g aws-cdk
 
 # Install AWS SAM
-RUN wget https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli-linux-x86_64.zip \
-    & unzip aws-sam-cli-linux-x86_64.zip -d sam-installation \
-    & sudo ./sam-installation/install
+RUN wget https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli-linux-x86_64.zip && \
+    unzip aws-sam-cli-linux-x86_64.zip -d sam-installation && \
+    sudo ./sam-installation/install
 
 # Install Serverless
-RUN npm install -g serverless \
-    & npm update -g serverless
+RUN sudo npm install -g serverless && \
+    sudo npm update -g serverless
 
 ## Install Kubectl
 RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl && \
-    chmod +x ./kubectl && sudo mv ./kubectl /usr/local/bin/kubectl && \
+    chmod +x ./kubectl && \
+    sudo mv ./kubectl /usr/local/bin/kubectl && \
     mkdir ~/.kube && \
     echo 'alias k="kubectl"' >> /home/gitpod/.bashrc
 
