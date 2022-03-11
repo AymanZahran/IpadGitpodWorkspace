@@ -5,7 +5,8 @@ RUN sudo apt update
 # Install AWS CLI
 RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
     unzip awscliv2.zip && \
-    sudo ./aws/install
+    sudo ./aws/install && \
+    mkdir ~/.aws
 
 ## Install Terraform
 RUN curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add - && \
@@ -62,5 +63,6 @@ RUN set -x; cd "$(mktemp -d)" && \
     kubectl krew install ns
 
 # Update
-RUN sudo apt update && \
+RUN sudo apt update -y && \
+    sudo apt upgrade -y && \
     sudo npm update -g
