@@ -13,9 +13,11 @@ RUN curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add - && \
     sudo apt-get install terraform && \
     terraform -install-autocomplete
 
+# Install npm
+RUN sudo apt install -y npm
+
 # Install AWS CDK
-RUN sudo apt install -y npm && \
-    sudo npm install -g aws-cdk
+RUN sudo npm install -g aws-cdk
 
 # Install AWS SAM
 RUN wget https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli-linux-x86_64.zip && \
@@ -23,8 +25,7 @@ RUN wget https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli
     sudo ./sam-installation/install
 
 # Install Serverless
-RUN sudo npm install -g serverless && \
-    sudo npm update -g serverless
+RUN sudo npm install -g serverless
 
 ## Install Kubectl
 RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl && \
@@ -60,4 +61,6 @@ RUN set -x; cd "$(mktemp -d)" && \
     kubectl krew install ctx && \
     kubectl krew install ns
 
-RUN apt update
+# Update
+RUN sudo apt update && \
+    sudo npm update -g
