@@ -14,7 +14,8 @@ RUN curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add - && \
     terraform -install-autocomplete
 
 # Install AWS CDK
-RUN sudo npm install -g aws-cdk
+RUN sudo apt install npm && \
+    sudo npm install -g aws-cdk
 
 # Install AWS SAM
 RUN wget https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli-linux-x86_64.zip && \
