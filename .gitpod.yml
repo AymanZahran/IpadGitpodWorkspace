@@ -6,3 +6,6 @@ tasks:
 vscode:
   extensions:
     - ms-azuretools.vscode-docker
+    - ms-kubernetes-tools.vscode-kubernetes-tools
+    - amazonwebservices.aws-toolkit-vscode
+    - 
