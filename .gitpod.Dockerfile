@@ -20,6 +20,9 @@ RUN sudo apt install -y npm
 # Install AWS CDK
 RUN sudo npm install -g aws-cdk
 
+# Install Projen
+RUN sudo npm install projen
+
 # Install AWS SAM
 RUN wget https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli-linux-x86_64.zip && \
     unzip aws-sam-cli-linux-x86_64.zip -d sam-installation && \
