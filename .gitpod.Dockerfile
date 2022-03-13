@@ -1,6 +1,24 @@
 FROM gitpod/workspace-base:latest
 
-RUN sudo apt update
+RUN sudo apt update -y && \
+    sudo apt upgrade -y
+
+# Install npm and node
+RUN sudo apt install -y npm && \
+    sudo npm install -g npm@latest && \
+    curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash - && \
+    sudo apt-get install -y nodejs
+
+# Install python and pip
+RUN sudo apt install -y python && \
+    sudo apt install -y python3 && \
+    sudo apt install -y pip && \
+    sudo apt-get install -y python3-pip && \
+    sudo apt install -y python-is-python3 && \
+    sudo apt install -y python3.8-venv
+
+# Install yarn
+RUN sudo apt install -y yarn
 
 # Install AWS CLI
 RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
@@ -14,15 +32,6 @@ RUN curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add - && \
     sudo apt-get install terraform && \
     terraform -install-autocomplete
 
-# Install npm
-RUN sudo apt install -y npm
-
-# Install AWS CDK
-RUN sudo npm install -g aws-cdk
-
-# Install Projen
-RUN sudo npm install projen
-
 # Install AWS SAM
 RUN wget https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli-linux-x86_64.zip && \
     unzip aws-sam-cli-linux-x86_64.zip -d sam-installation && \
@@ -30,6 +39,24 @@ RUN wget https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli
 
 # Install Serverless
 RUN sudo npm install -g serverless
+
+# Install AWS CDK
+RUN sudo npm install -g aws-cdk && \
+    sudo pip install aws-cdk-lib
+
+# Install Projen
+RUN sudo npm install -g projen && \
+    echo 'alias pj="npx projen"' >> /home/gitpod/.bashrc
+
+# Install Terragrunt
+RUN wget https://github.com/gruntwork-io/terragrunt/releases/download/v0.36.3/terragrunt_linux_arm64 && \
+    sudo mv terragrunt_linux_arm64 /usr/local/bin/terragrunt && \
+    sudo chmod +x /usr/local/bin/terragrunt
+
+# Install Runway
+RUN wget https://oni.ca/runway/latest/linux && \
+    sudo mv linux /usr/local/bin/runway && \
+    sudo chmod +x /usr/local/bin/runway
 
 ## Install Kubectl
 RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl && \

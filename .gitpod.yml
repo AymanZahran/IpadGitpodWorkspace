@@ -1,5 +1,5 @@
-image:
-  file: .gitpod.Dockerfile
+image: aymanzahran/ipad-gitpod-image:latest
+  # file: .gitpod.Dockerfile
 tasks:
   - name: persist env
     command: eval $(gp env -e)
@@ -13,13 +13,9 @@ tasks:
       echo "aws_secret_access_key = $AWS_SECRET_ACCESS_KEY" >> ~/.aws/credentials
   - name: CDK bootstrap
     command: cdk bootstrap aws://$AWS_ACCOUNT_NUMBER/$AWS_DEFAULT_REGION
-  - name: Configure KubeConfig
-    command: echo $K8S_CONFIG | base64 -d > ~/.kube/config
 vscode:
   extensions:
     - ms-azuretools.vscode-docker
     - ms-kubernetes-tools.vscode-kubernetes-tools
     - amazonwebservices.aws-toolkit-vscode
-    - rangav.vscode-thunder-client
-    - ms-python.python
     - ms-toolsai.jupyter
