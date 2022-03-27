@@ -3,14 +3,20 @@ FROM gitpod/workspace-base:latest
 RUN sudo apt update -y && \
     sudo apt upgrade -y
 
-# Install npm, node, yarn, typecsript
-RUN sudo apt install -y npm && \
-    sudo npm install -g npm && \
-    sudo npm install -g yarn typescript
+# Install nvm, npm, node, yarn, typecsript
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash && \
+    nvm install --lts && \
+    npm install -g yarn typescript
 
 # Install python, python3, pip, pip3, venv, pipenv
-RUN sudo apt install -y python python3 pip python3-pip python-is-python3 python3.8-venv && \
+RUN sudo apt install -y python3 python3-pip python3.8-venv && \
     pip install pipenv
+
+# Update
+RUN sudo apt update -y && \
+    sudo apt upgrade -y && \
+    sudo npm update -g && \
+    python3 -m pip install --upgrade pip
 
 # Install AWS CLI
 RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
@@ -35,7 +41,6 @@ RUN sudo npm install -g serverless
 # Install AWS CDK, CDK8s, Projen
 RUN sudo npm install -g aws-cdk cdk8s-cli projen && \
     echo 'alias pj="npx projen"' >> /home/gitpod/.bashrc
-
 
 # Install Terragrunt
 RUN wget https://github.com/gruntwork-io/terragrunt/releases/download/v0.36.3/terragrunt_linux_arm64 && \
@@ -71,17 +76,10 @@ RUN set -x; cd "$(mktemp -d)" && \
     ./"${KREW}" install krew && \
     export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH" && \
     echo 'export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"' >> /home/gitpod/.bashrc && \
-    kubectl krew install neat && \
-    kubectl krew install access-matrix && \
-    kubectl krew install advise-psp && \
-    kubectl krew install cert-manager && \
-    kubectl krew install ca-cert && \
-    kubectl krew install get-all && \
-    kubectl krew install ingress-nginx && \
-    kubectl krew install ctx && \
-    kubectl krew install ns
+    kubectl krew install neat access-matrix advise-psp cert-manager ca-cert get-all ingress-nginx ctx ns
 
 # Update
 RUN sudo apt update -y && \
     sudo apt upgrade -y && \
-    sudo npm update -g
+    sudo npm update -g && \
+    python3 -m pip install --upgrade pip
