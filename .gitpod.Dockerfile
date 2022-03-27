@@ -4,11 +4,12 @@ RUN sudo apt update -y && \
     sudo apt upgrade -y
 
 # Install nvm, npm, node, yarn, typecsript
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash && \
-    nvm install --lts && \
-    npm install -g yarn typescript
+RUN wget https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh && \
+    sudo bash install.sh && \
+    sudo nvm install --lts && \
+    sudo npm install -g yarn typescript
 
-# Install python, python3, pip, pip3, venv, pipenv
+# Install python3, pip3, venv, pipenv
 RUN sudo apt install -y python3 python3-pip python3.8-venv && \
     pip install pipenv
 
