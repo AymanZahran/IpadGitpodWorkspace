@@ -1,23 +1,15 @@
 FROM gitpod/workspace-base:latest
 
-RUN sudo apt update -y && \
-    sudo apt upgrade -y
+# Update
+RUN sudo apt update -y && sudo apt upgrade -y
 
-# Install nvm, npm, node, yarn, typecsript
-RUN wget https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh && \
-    sudo bash install.sh && \
-    sudo nvm install --lts && \
-    sudo npm install -g yarn typescript
+# Install npm, node, yarn, typecsript
+RUN sudo apt install npm && \
+    sudo npm install -g npm yarn typescript
 
 # Install python3, pip3, venv, pipenv
-RUN sudo apt install -y python3 python3-pip python3.8-venv && \
-    pip install pipenv
-
-# Update
-RUN sudo apt update -y && \
-    sudo apt upgrade -y && \
-    sudo npm update -g && \
-    python3 -m pip install --upgrade pip
+RUN sudo apt install -y python3 python3-pip && \
+    sudo pip3 install virtualenv pipenv
 
 # Install AWS CLI
 RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
@@ -80,7 +72,5 @@ RUN set -x; cd "$(mktemp -d)" && \
     kubectl krew install neat access-matrix advise-psp cert-manager ca-cert get-all ingress-nginx ctx ns
 
 # Update
-RUN sudo apt update -y && \
-    sudo apt upgrade -y && \
-    sudo npm update -g && \
-    python3 -m pip install --upgrade pip
+RUN sudo apt update -y && sudo apt upgrade -y && \
+    sudo npm update -g && python3 -m pip install --upgrade pip
