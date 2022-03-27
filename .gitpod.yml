@@ -25,3 +25,4 @@ vscode:
     - christian-kohler.path-intellisense
     - ms-python.python
     - rangav.vscode-thunder-client
+    - PKief.material-icon-theme
