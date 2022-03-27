@@ -4,17 +4,14 @@ FROM gitpod/workspace-base:latest
 RUN sudo apt update -y && sudo apt upgrade -y
 
 # Install npm, node, yarn, typecsript
-RUN sudo apt install -y npm && \
-    sudo npm install -g npm yarn typescript
+RUN curl -fsSL https://deb.nodesource.com/setup_current.x | sudo -E bash - && \
+    sudo apt install -y nodejs && \
+    sudo npm install -g yarn typescript
 
 # Install python3, pip3, venv, pipenv
 RUN sudo apt install -y python3 python3-pip && \
     sudo pip3 install virtualenv pipenv
-
-# Update
-RUN sudo apt update -y && sudo apt upgrade -y && \
-    sudo npm update -g && python3 -m pip install --upgrade pip
-
+    
 # Install AWS CLI
 RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
     unzip awscliv2.zip && \
