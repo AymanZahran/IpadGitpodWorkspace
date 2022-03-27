@@ -4,7 +4,7 @@ FROM gitpod/workspace-base:latest
 RUN sudo apt update -y && sudo apt upgrade -y
 
 # Install npm, node, yarn, typecsript
-RUN sudo apt install npm && \
+RUN sudo apt install -y npm && \
     sudo npm install -g npm yarn typescript
 
 # Install python3, pip3, venv, pipenv
@@ -31,8 +31,8 @@ RUN wget https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli
 # Install Serverless
 RUN sudo npm install -g serverless
 
-# Install AWS CDK, CDK8s, Projen
-RUN sudo npm install -g aws-cdk cdk8s-cli projen && \
+# Install AWS CDK, CDKtf, CDK8s, Projen
+RUN sudo npm install -g aws-cdk cdktf-cli cdk8s-cli projen && \
     echo 'alias pj="npx projen"' >> /home/gitpod/.bashrc
 
 # Install Terragrunt
