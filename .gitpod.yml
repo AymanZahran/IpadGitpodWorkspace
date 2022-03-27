@@ -1,5 +1,5 @@
-image: aymanzahran/ipad-gitpod-image:latest
-  # file: .gitpod.Dockerfile
+image: #aymanzahran/ipad-gitpod-image:latest
+  file: .gitpod.Dockerfile
 tasks:
   - name: persist env
     command: eval $(gp env -e)
@@ -11,11 +11,17 @@ tasks:
       echo "[gitpod]" >> ~/.aws/credentials
       echo "aws_access_key_id = $AWS_ACCESS_KEY_ID" >> ~/.aws/credentials
       echo "aws_secret_access_key = $AWS_SECRET_ACCESS_KEY" >> ~/.aws/credentials
-  - name: CDK bootstrap
-    command: cdk bootstrap aws://$AWS_ACCOUNT_NUMBER/$AWS_DEFAULT_REGION
 vscode:
   extensions:
     - ms-azuretools.vscode-docker
     - ms-kubernetes-tools.vscode-kubernetes-tools
     - amazonwebservices.aws-toolkit-vscode
     - ms-toolsai.jupyter
+    - esbenp.prettier-vscode
+    - dbaeumer.vscode-eslint
+    - hashicorp.terraform
+    - eg2.vscode-npm-script
+    - christian-kohler.npm-intellisense
+    - christian-kohler.path-intellisense
+    - ms-python.python
+    - rangav.vscode-thunder-client

@@ -3,22 +3,14 @@ FROM gitpod/workspace-base:latest
 RUN sudo apt update -y && \
     sudo apt upgrade -y
 
-# Install npm and node
+# Install npm, node, yarn, typecsript
 RUN sudo apt install -y npm && \
-    sudo npm install -g npm@latest && \
-    curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash - && \
-    sudo apt-get install -y nodejs
+    sudo npm install -g npm && \
+    sudo npm install -g yarn typescript
 
-# Install python and pip
-RUN sudo apt install -y python && \
-    sudo apt install -y python3 && \
-    sudo apt install -y pip && \
-    sudo apt-get install -y python3-pip && \
-    sudo apt install -y python-is-python3 && \
-    sudo apt install -y python3.8-venv
-
-# Install yarn
-RUN sudo apt install -y yarn
+# Install python, python3, pip, pip3, venv, pipenv
+RUN sudo apt install -y python python3 pip python3-pip python-is-python3 python3.8-venv && \
+    pip install pipenv
 
 # Install AWS CLI
 RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
@@ -40,13 +32,10 @@ RUN wget https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli
 # Install Serverless
 RUN sudo npm install -g serverless
 
-# Install AWS CDK
-RUN sudo npm install -g aws-cdk && \
-    sudo pip install aws-cdk-lib
-
-# Install Projen
-RUN sudo npm install -g projen && \
+# Install AWS CDK, CDK8s, Projen
+RUN sudo npm install -g aws-cdk cdk8s-cli projen && \
     echo 'alias pj="npx projen"' >> /home/gitpod/.bashrc
+
 
 # Install Terragrunt
 RUN wget https://github.com/gruntwork-io/terragrunt/releases/download/v0.36.3/terragrunt_linux_arm64 && \
