@@ -20,7 +20,7 @@ RUN sudo apt install -y python3 python3-pip && \
 RUN wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb && \
     sudo dpkg -i packages-microsoft-prod.deb && \
     sudo apt install -y apt-transport-https && \
-    sudo apt install -y dotnet-sdk-3.1 nuget
+    sudo apt update -y && sudo apt install -y dotnet-sdk-6.0 nuget
 
 # Install Java, Maven
 RUN sudo apt install -y maven
