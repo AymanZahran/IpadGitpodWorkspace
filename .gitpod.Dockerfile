@@ -62,10 +62,24 @@ RUN wget https://oni.ca/runway/latest/linux && \
     sudo mv linux /usr/local/bin/runway && \
     sudo chmod +x /usr/local/bin/runway
 
+# Install troposphere
+RUN pip3 install troposphere
+
+# Install AWSTOE
+RUN wget https://awstoe-us-east-1.s3.us-east-1.amazonaws.com/latest/linux/amd64/awstoe && \
+    sudo mv awstoe /usr/local/bin/awstoe && \
+    sudo chmod +x /usr/local/bin/awstoe
+
 # Install cloud-nuke [DANGER]
 RUN wget https://github.com/gruntwork-io/cloud-nuke/releases/download/v0.11.3/cloud-nuke_linux_amd64 && \
     sudo mv cloud-nuke_linux_amd64 /usr/local/bin/cloud-nuke && \
     sudo chmod +x /usr/local/bin/cloud-nuke
+
+# Install Pulumi
+RUN curl -fsSL https://get.pulumi.com | bash
+
+# Install Amplify
+RUN curl -sL https://aws-amplify.github.io/amplify-cli/install | bash && $SHELL
 
 ## Install Kubectl
 RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl && \
