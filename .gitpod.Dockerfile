@@ -62,6 +62,11 @@ RUN wget https://oni.ca/runway/latest/linux && \
     sudo mv linux /usr/local/bin/runway && \
     sudo chmod +x /usr/local/bin/runway
 
+# Install cloud-nuke [DANGER]
+RUN wget https://github.com/gruntwork-io/cloud-nuke/releases/download/v0.11.3/cloud-nuke_linux_amd64 && \
+    sudo mv cloud-nuke_linux_amd64 /usr/local/bin/cloud-nuke && \
+    sudo chmod +x /usr/local/bin/cloud-nuke
+
 ## Install Kubectl
 RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl && \
     chmod +x ./kubectl && \
