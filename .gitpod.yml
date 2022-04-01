@@ -5,6 +5,7 @@ tasks:
     command: eval $(gp env -e)
   - name: Configure AWS Profile
     command: |
+      mkdir ~/.aws
       echo "[gitpod]" >> ~/.aws/config
       echo "region = $AWS_DEFAULT_REGION" >> ~/.aws/config
       echo "cli_auto_prompt = on-partial" >> ~/.aws/config
