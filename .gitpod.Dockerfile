@@ -3,6 +3,8 @@ FROM ubuntu:focal
 ARG USERNAME="clouduser"
 ENV HOME=/home/$USERNAME
 ARG DEBIAN_FRONTEND=noninteractive
+RUN locale-gen en_US.UTF-8
+ENV LANG=en_US.UTF-8
 
 # Install Utils
 RUN yes | unminimize && apt install -y ca-certificates curl netbase wget tzdata gnupg dirmngr bzr git mercurial openssh-client subversion \
@@ -11,10 +13,7 @@ RUN yes | unminimize && apt install -y ca-certificates curl netbase wget tzdata 
         libmagickwand-dev libmaxminddb-dev libncurses5-dev libncursesw5-dev libpng-dev libpq-dev libreadline-dev libsqlite3-dev \
         libssl-dev libtool libwebp-dev libxml2-dev libxslt-dev libyaml-dev make patch zip unzip xz-utils zlib1g-dev \
         git-lfs bash-completion build-essential ninja-build htop jq less locales man-db nano ripgrep software-properties-common \
-        sudo time emacs-nox vim multitail lsof ssl-cert fish zsh && \
-    sudo rm -rf /var/lib/apt/lists/* && locale-gen en_US.UTF-8
-
-ENV LANG=en_US.UTF-8
+        sudo time emacs-nox vim multitail lsof ssl-cert fish zsh
 
 RUN useradd -l -u 10101 -G sudo -md /home/$USERNAME -s /bin/bash -p $USERNAME $USERNAME \
     && sed -i.bkp -e 's/%sudo\s\+ALL=(ALL\(:ALL\)\?)\s\+ALL/%sudo ALL=NOPASSWD:ALL/g' /etc/sudoers
