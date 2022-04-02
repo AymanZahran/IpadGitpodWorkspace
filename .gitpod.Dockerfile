@@ -12,7 +12,7 @@ RUN yes | unminimize && apt install -y ca-certificates curl netbase wget tzdata 
         libssl-dev libtool libwebp-dev libxml2-dev libxslt-dev libyaml-dev make patch zip unzip xz-utils zlib1g-dev \
         git-lfs bash-completion build-essential ninja-build htop jq less locales man-db nano ripgrep software-properties-common \
         sudo time emacs-nox vim multitail lsof ssl-cert fish zsh && \
-    rm -rf /var/lib/apt/lists/* && locale-gen en_US.UTF-8
+    sudo rm -rf /var/lib/apt/lists/* && locale-gen en_US.UTF-8
 
 ENV LANG=en_US.UTF-8
 
