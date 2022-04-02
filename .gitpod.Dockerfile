@@ -25,8 +25,8 @@ RUN { echo && echo "PS1='\[\033[01;32m\]\u\[\033[00m\] \[\033[01;34m\]\w\[\033[0
 
 USER $USERNAME
 RUN sudo echo "Running 'sudo' for $USERNAME: success" && \
-    mkdir -p ~/.bashrc.d && \
-    (echo; echo "for i in \$(ls -A \$HOME/.bashrc.d/); do source \$HOME/.bashrc.d/\$i; done"; echo) >> ~/.bashrc
+    mkdir -p $HOME/.bashrc.d && \
+    (echo; echo "for i in \$(ls -A \$HOME/.bashrc.d/); do source \$HOME/.bashrc.d/\$i; done"; echo) >> $HOME/.bashrc
 
 # Update
 RUN sudo apt update -y && sudo apt upgrade -y
@@ -82,13 +82,13 @@ RUN set -x; cd "$(mktemp -d)" && \
     tar zxvf "${KREW}.tar.gz" && \
     ./"${KREW}" install krew && \
     export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH" && \
-    echo 'export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"' >> ~/.bashrc && \
+    echo 'export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"' >> $HOME/.bashrc && \
     kubectl krew install neat access-matrix advise-psp cert-manager ca-cert get-all ingress-nginx ctx ns
 
 # Configs
-RUN mkdir ~/.aws && \
-    echo 'alias pj="npx projen"' >> ~/.bashrc && \
-    mkdir ~/.kube && echo 'alias k="kubectl"' >> ~/.bashrc
+RUN mkdir $HOME/.aws && \
+    echo 'alias pj="npx projen"' >> $HOME/.bashrc && \
+    mkdir $HOME/.kube && echo 'alias k="kubectl"' >> $HOME/.bashrc
 
 # Update
 RUN sudo apt update -y && sudo apt upgrade -y && \
