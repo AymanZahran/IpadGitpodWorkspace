@@ -3,8 +3,6 @@ FROM ubuntu:focal
 ARG USERNAME="clouduser"
 ENV HOME=/home/$USERNAME
 ARG DEBIAN_FRONTEND=noninteractive
-RUN locale-gen en_US.UTF-8
-ENV LANG=en_US.UTF-8
 
 # Install Utils
 RUN yes | unminimize && apt install -y ca-certificates curl netbase wget tzdata gnupg dirmngr bzr git mercurial openssh-client subversion \
@@ -15,6 +13,10 @@ RUN yes | unminimize && apt install -y ca-certificates curl netbase wget tzdata 
         git-lfs bash-completion build-essential ninja-build htop jq less locales man-db nano ripgrep software-properties-common \
         sudo time emacs-nox vim multitail lsof ssl-cert fish zsh
 
+RUN locale-gen en_US.UTF-8
+ENV LANG=en_US.UTF-8
+
+# Add User
 RUN useradd -l -u 10101 -G sudo -md /home/$USERNAME -s /bin/bash -p $USERNAME $USERNAME \
     && sed -i.bkp -e 's/%sudo\s\+ALL=(ALL\(:ALL\)\?)\s\+ALL/%sudo ALL=NOPASSWD:ALL/g' /etc/sudoers
 
@@ -27,7 +29,7 @@ RUN sudo echo "Running 'sudo' for $USERNAME: success" && \
     (echo; echo "for i in \$(ls -A \$HOME/.bashrc.d/); do source \$HOME/.bashrc.d/\$i; done"; echo) >> ~/.bashrc
 
 # Update
-RUN sudo apt update -y && sudo apt upgrade -y && rm -rf /var/lib/apt/lists/*
+RUN sudo apt update -y && sudo apt upgrade -y
 
 # Install npm, node, yarn, typecsript, python3, pip3, venv, pipenv, Java, Maven, .NET, NuGet
 RUN curl -fsSL https://deb.nodesource.com/setup_current.x | sudo -E bash - && \
@@ -90,5 +92,4 @@ RUN mkdir ~/.aws && \
 
 # Update
 RUN sudo apt update -y && sudo apt upgrade -y && \
-    sudo npm update -g && python3 -m pip install --upgrade pip && \
-    rm -rf /var/lib/apt/lists/*
+    sudo npm update -g && python3 -m pip install --upgrade pip
