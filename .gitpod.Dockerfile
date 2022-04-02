@@ -1,20 +1,27 @@
-FROM buildpack-deps:focal
+FROM ubuntu:focal
+ARG USERNAME="IpadUser"
+ENV HOME=/home/$USERNAME
 
 # Install Utils
+RUN apt install ca-certificates curl netbase wget tzdata gnupg dirmngr bzr git mercurial openssh-client subversion \
+        procps autoconf automake bzip2 dpkg-dev file g++ gcc imagemagick libbz2-dev libc6-dev libcurl4-openssl-dev libdb-dev \
+        libevent-dev libffi-dev libgdbm-dev libglib2.0-dev libgmp-dev libjpeg-dev libkrb5-dev liblzma-dev libmagickcore-dev \
+        libmagickwand-dev libmaxminddb-dev libncurses5-dev libncursesw5-dev libpng-dev libpq-dev libreadline-dev libsqlite3-dev \
+        libssl-dev libtool libwebp-dev libxml2-dev libxslt-dev libyaml-dev make patch unzip xz-utils zlib1g-dev && \
+    rm -rf /var/lib/apt/lists/*
+
 RUN yes | unminimize && \
     apt install -y curl wget git git-lfs zip unzip bash-completion build-essential ninja-build htop \
         jq less locales man-db nano ripgrep software-properties-common sudo time emacs-nox vim \
         multitail lsof ssl-cert fish zsh && \
-    git lfs install --system && \
+    rm -rf /var/lib/apt/lists/* && \
     locale-gen en_US.UTF-8
 
 ENV LANG=en_US.UTF-8
 
-ARG USERNAME="gitpod"
-
 RUN useradd -l -u 33333 -G sudo -md /home/$USERNAME -s /bin/bash -p $USERNAME $USERNAME \
     && sed -i.bkp -e 's/%sudo\s\+ALL=(ALL\(:ALL\)\?)\s\+ALL/%sudo ALL=NOPASSWD:ALL/g' /etc/sudoers
-ENV HOME=/home/$USERNAME
+
 WORKDIR $HOME
 RUN { echo && echo "PS1='\[\033[01;32m\]\u\[\033[00m\] \[\033[01;34m\]\w\[\033[00m\]\$(__git_ps1 \" (%s)\") $ '" ; } >> .bashrc
 
@@ -24,7 +31,7 @@ RUN sudo echo "Running 'sudo' for $USERNAME: success" && \
     (echo; echo "for i in \$(ls -A \$HOME/.bashrc.d/); do source \$HOME/.bashrc.d/\$i; done"; echo) >> ~/.bashrc
 
 # Update
-RUN sudo apt update -y && sudo apt upgrade -y
+RUN sudo apt update -y && sudo apt upgrade -y && rm -rf /var/lib/apt/lists/*
 
 # Install npm, node, yarn, typecsript, python3, pip3, venv, pipenv, Java, Maven, .NET, NuGet
 RUN curl -fsSL https://deb.nodesource.com/setup_current.x | sudo -E bash - && \
@@ -89,4 +96,5 @@ RUN mkdir ~/.aws && \
 
 # Update
 RUN sudo apt update -y && sudo apt upgrade -y && \
-    sudo npm update -g && python3 -m pip install --upgrade pip
+    sudo npm update -g && python3 -m pip install --upgrade pip && \
+    rm -rf /var/lib/apt/lists/*
