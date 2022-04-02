@@ -6,7 +6,7 @@ RUN yes | unminimize && \
         jq less locales man-db nano ripgrep software-properties-common sudo time emacs-nox vim \
         multitail lsof ssl-cert fish zsh && \
     sudo git lfs install --system && \
-    locale-gen en_US.UTF-8 && 
+    locale-gen en_US.UTF-8
 
 ENV LANG=en_US.UTF-8
 
