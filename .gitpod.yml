@@ -1,5 +1,5 @@
-image: aymanzahran/cloud-development:latest
-  #file: .gitpod.Dockerfile
+image: #aymanzahran/ipad-gitpod-image
+  file: .gitpod.Dockerfile
 tasks:
   - name: persist env
     command: eval $(gp env -e)
