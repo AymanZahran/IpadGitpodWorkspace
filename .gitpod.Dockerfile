@@ -1,7 +1,27 @@
-FROM gitpod/workspace-base:latest
+FROM buildpack-deps:focal
 
 # Install Utils
-RUN sudo apt install -y curl wget git unzip
+RUN yes | unminimize && \
+    sudo apt install -y curl wget git git-lfs zip unzip bash-completion build-essential ninja-build htop \
+        jq less locales man-db nano ripgrep software-properties-common sudo time emacs-nox vim \
+        multitail lsof ssl-cert fish zsh && \
+    sudo git lfs install --system && \
+    locale-gen en_US.UTF-8 && 
+
+ENV LANG=en_US.UTF-8
+
+ARG USERNAME="gitpod"
+
+RUN useradd -l -u 33333 -G sudo -md /home/$USERNAME -s /bin/bash -p $USERNAME $USERNAME \
+    && sed -i.bkp -e 's/%sudo\s\+ALL=(ALL\(:ALL\)\?)\s\+ALL/%sudo ALL=NOPASSWD:ALL/g' /etc/sudoers
+ENV HOME=/home/$USERNAME
+WORKDIR $HOME
+RUN { echo && echo "PS1='\[\033[01;32m\]\u\[\033[00m\] \[\033[01;34m\]\w\[\033[00m\]\$(__git_ps1 \" (%s)\") $ '" ; } >> .bashrc
+
+USER $USERNAME
+RUN sudo echo "Running 'sudo' for $USERNAME: success" && \
+    mkdir -p ~/.bashrc.d && \
+    (echo; echo "for i in \$(ls -A \$HOME/.bashrc.d/); do source \$HOME/.bashrc.d/\$i; done"; echo) >> ~/.bashrc
 
 # Update
 RUN sudo apt update -y && sudo apt upgrade -y
@@ -18,6 +38,9 @@ RUN curl -fsSL https://deb.nodesource.com/setup_current.x | sudo -E bash - && \
     sudo dpkg -i packages-microsoft-prod.deb && \
     sudo apt install -y apt-transport-https && \
     sudo apt update -y && sudo apt install -y dotnet-sdk-6.0 nuget
+
+# Install troposphere, cfn-lint
+RUN pip3 install troposphere cfn-lint
 
 # Install AWS CLI, SAM
 RUN curl https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -o awscliv2.zip && unzip awscliv2.zip && sudo ./aws/install && \
@@ -37,11 +60,8 @@ RUN sudo curl -Lo /usr/local/bin/terragrunt https://github.com/gruntwork-io/terr
     sudo curl -Lo /usr/local/bin/runway https://oni.ca/runway/latest/linux && \
     sudo curl -Lo /usr/local/bin/awstoe https://awstoe-us-east-1.s3.us-east-1.amazonaws.com/latest/linux/amd64/awstoe && \
     sudo curl -Lo /usr/local/bin/cloud-nuke https://github.com/gruntwork-io/cloud-nuke/releases/download/v0.11.3/cloud-nuke_linux_amd64 && \
-    sudo curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256" && mv kubectl /usr/local/bin/kubectl && \
+    sudo curl -Lo /usr/local/bin/kubectl https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl && \
     sudo chmod +x /usr/local/bin/*
-
-# Install troposphere, cfn-lint
-RUN pip3 install troposphere cfn-lint
 
 # Install Pulumi, Amplify, Helm, Kustomize, Azure CLI
 RUN curl -fsSL https://get.pulumi.com | sudo bash && \
