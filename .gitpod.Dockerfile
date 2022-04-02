@@ -1,16 +1,17 @@
 FROM ubuntu:focal
 
 ARG TIMEZONE=Africa/Cairo
-RUN ln -snf /usr/share/zoneinfo/$TIMEZONE /etc/localtime && echo $TIMEZONE > /etc/timezone
+RUN ln -snf /usr/share/zoneinfo/$TIMEZONE /etc/localtime && echo $TIMEZONE > /etc/timezone && \
+    add-apt-repository -y ppa:git-core/ppa
 
 # Install Utils
 RUN yes | unminimize && apt install -y ca-certificates curl netbase wget tzdata gnupg dirmngr bzr git mercurial openssh-client subversion \
-        procps autoconf automake bzip2 dpkg-dev file g++ gcc imagemagick libbz2-dev libc6-dev libcurl4-openssl-dev libdb-dev \
-        libevent-dev libffi-dev libgdbm-dev libglib2.0-dev libgmp-dev libjpeg-dev libkrb5-dev liblzma-dev libmagickcore-dev \
-        libmagickwand-dev libmaxminddb-dev libncurses5-dev libncursesw5-dev libpng-dev libpq-dev libreadline-dev libsqlite3-dev \
-        libssl-dev libtool libwebp-dev libxml2-dev libxslt-dev libyaml-dev make patch zip unzip xz-utils zlib1g-dev \
-        git-lfs bash-completion build-essential ninja-build htop jq less locales man-db nano ripgrep software-properties-common \
-        sudo time emacs-nox vim multitail lsof ssl-cert fish zsh
+    procps autoconf automake bzip2 dpkg-dev file g++ gcc imagemagick libbz2-dev libc6-dev libcurl4-openssl-dev libdb-dev \
+    libevent-dev libffi-dev libgdbm-dev libglib2.0-dev libgmp-dev libjpeg-dev libkrb5-dev liblzma-dev libmagickcore-dev \
+    libmagickwand-dev libmaxminddb-dev libncurses5-dev libncursesw5-dev libpng-dev libpq-dev libreadline-dev libsqlite3-dev \
+    libssl-dev libtool libwebp-dev libxml2-dev libxslt-dev libyaml-dev make patch zip unzip xz-utils zlib1g-dev \
+    git-lfs bash-completion build-essential ninja-build htop jq less locales man-db nano ripgrep software-properties-common \
+    sudo time emacs-nox vim multitail lsof ssl-cert fish zsh
 
 RUN locale-gen en_US.UTF-8
 ENV LANG=en_US.UTF-8
@@ -19,7 +20,7 @@ ARG USERNAME=gitpod
 ENV HOME=/home/$USERNAME
 
 # Add User
-RUN useradd -l -u 10101 -G sudo -md /home/$USERNAME -s /bin/bash -p $USERNAME $USERNAME \
+RUN useradd -l -u 10101 -G sudo -md $HOME -s /bin/bash -p $USERNAME $USERNAME \
     && sed -i.bkp -e 's/%sudo\s\+ALL=(ALL\(:ALL\)\?)\s\+ALL/%sudo ALL=NOPASSWD:ALL/g' /etc/sudoers
 
 WORKDIR $HOME
