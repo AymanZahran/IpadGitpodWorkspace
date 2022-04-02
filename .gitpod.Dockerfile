@@ -3,15 +3,12 @@ ARG USERNAME="IpadUser"
 ENV HOME=/home/$USERNAME
 
 # Install Utils
-RUN apt install ca-certificates curl netbase wget tzdata gnupg dirmngr bzr git mercurial openssh-client subversion \
+RUN yes | unminimize && apt install -y ca-certificates curl netbase wget tzdata gnupg dirmngr bzr git mercurial openssh-client subversion \
         procps autoconf automake bzip2 dpkg-dev file g++ gcc imagemagick libbz2-dev libc6-dev libcurl4-openssl-dev libdb-dev \
         libevent-dev libffi-dev libgdbm-dev libglib2.0-dev libgmp-dev libjpeg-dev libkrb5-dev liblzma-dev libmagickcore-dev \
         libmagickwand-dev libmaxminddb-dev libncurses5-dev libncursesw5-dev libpng-dev libpq-dev libreadline-dev libsqlite3-dev \
-        libssl-dev libtool libwebp-dev libxml2-dev libxslt-dev libyaml-dev make patch unzip xz-utils zlib1g-dev && \
-    rm -rf /var/lib/apt/lists/*
-
-RUN yes | unminimize && \
-    apt install -y curl wget git git-lfs zip unzip bash-completion build-essential ninja-build htop \
+        libssl-dev libtool libwebp-dev libxml2-dev libxslt-dev libyaml-dev make patch unzip xz-utils zlib1g-dev \
+        curl wget git git-lfs zip unzip bash-completion build-essential ninja-build htop \
         jq less locales man-db nano ripgrep software-properties-common sudo time emacs-nox vim \
         multitail lsof ssl-cert fish zsh && \
     rm -rf /var/lib/apt/lists/* && \
