@@ -1,8 +1,7 @@
 FROM ubuntu:focal
 
 ARG TIMEZONE=Africa/Cairo
-RUN ln -snf /usr/share/zoneinfo/$TIMEZONE /etc/localtime && echo $TIMEZONE > /etc/timezone && \
-    add-apt-repository -y ppa:git-core/ppa
+RUN ln -snf /usr/share/zoneinfo/$TIMEZONE /etc/localtime && echo $TIMEZONE > /etc/timezone
 
 # Install Utils
 RUN yes | unminimize && apt install -y ca-certificates curl netbase wget tzdata gnupg dirmngr bzr git mercurial openssh-client subversion \
