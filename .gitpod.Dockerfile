@@ -7,16 +7,14 @@ RUN yes | unminimize && apt install -y ca-certificates curl netbase wget tzdata 
         procps autoconf automake bzip2 dpkg-dev file g++ gcc imagemagick libbz2-dev libc6-dev libcurl4-openssl-dev libdb-dev \
         libevent-dev libffi-dev libgdbm-dev libglib2.0-dev libgmp-dev libjpeg-dev libkrb5-dev liblzma-dev libmagickcore-dev \
         libmagickwand-dev libmaxminddb-dev libncurses5-dev libncursesw5-dev libpng-dev libpq-dev libreadline-dev libsqlite3-dev \
-        libssl-dev libtool libwebp-dev libxml2-dev libxslt-dev libyaml-dev make patch unzip xz-utils zlib1g-dev \
-        curl wget git git-lfs zip unzip bash-completion build-essential ninja-build htop \
-        jq less locales man-db nano ripgrep software-properties-common sudo time emacs-nox vim \
-        multitail lsof ssl-cert fish zsh && \
-    rm -rf /var/lib/apt/lists/* && \
-    locale-gen en_US.UTF-8
+        libssl-dev libtool libwebp-dev libxml2-dev libxslt-dev libyaml-dev make patch zip unzip xz-utils zlib1g-dev \
+        git-lfs bash-completion build-essential ninja-build htop jq less locales man-db nano ripgrep software-properties-common \
+        sudo time emacs-nox vim multitail lsof ssl-cert fish zsh && \
+    rm -rf /var/lib/apt/lists/* && locale-gen en_US.UTF-8
 
 ENV LANG=en_US.UTF-8
 
-RUN useradd -l -u 33333 -G sudo -md /home/$USERNAME -s /bin/bash -p $USERNAME $USERNAME \
+RUN useradd -l -u 10101 -G sudo -md /home/$USERNAME -s /bin/bash -p $USERNAME $USERNAME \
     && sed -i.bkp -e 's/%sudo\s\+ALL=(ALL\(:ALL\)\?)\s\+ALL/%sudo ALL=NOPASSWD:ALL/g' /etc/sudoers
 
 WORKDIR $HOME
