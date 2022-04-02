@@ -2,10 +2,10 @@ FROM buildpack-deps:focal
 
 # Install Utils
 RUN yes | unminimize && \
-    sudo apt install -y curl wget git git-lfs zip unzip bash-completion build-essential ninja-build htop \
+    apt install -y curl wget git git-lfs zip unzip bash-completion build-essential ninja-build htop \
         jq less locales man-db nano ripgrep software-properties-common sudo time emacs-nox vim \
         multitail lsof ssl-cert fish zsh && \
-    sudo git lfs install --system && \
+    git lfs install --system && \
     locale-gen en_US.UTF-8
 
 ENV LANG=en_US.UTF-8
