@@ -19,19 +19,17 @@ RUN curl -fsSL https://deb.nodesource.com/setup_current.x | sudo -E bash - && \
     sudo apt install -y apt-transport-https && \
     sudo apt update -y && sudo apt install -y dotnet-sdk-6.0 nuget
 
-# Install AWS CLI
+# Install AWS CLI, SAM
 RUN curl https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -o awscliv2.zip && unzip awscliv2.zip && sudo ./aws/install && \
     wget https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli-linux-x86_64.zip && unzip aws-sam-cli-linux-x86_64.zip -d sam-installation && sudo ./sam-installation/install
     
 ## Install Terraform, Packer, Vagrant
 RUN curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add - && \
     sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main" && \
-    sudo apt-get install terraform packer vagrant && \
-    terraform -install-autocomplete
+    sudo apt-get install terraform packer vagrant && terraform -install-autocomplete
 
 # Install AWS CDK, CDKtf, CDK8s, Projen, Serverless Framework
-RUN sudo npm install -g aws-cdk cdktf-cli cdk8s-cli projen serverless && \
-    echo 'alias pj="npx projen"' >> ~/.bashrc
+RUN sudo npm install -g aws-cdk cdktf-cli cdk8s-cli projen serverless
 
 # Install ECS CLI, Terragrunt, Runway, AWSTOE, cloud-nuke, kubectl
 RUN sudo curl -Lo /usr/local/bin/terragrunt https://github.com/gruntwork-io/terragrunt/releases/download/v0.36.6/terragrunt_linux_amd64 && \
@@ -40,15 +38,14 @@ RUN sudo curl -Lo /usr/local/bin/terragrunt https://github.com/gruntwork-io/terr
     sudo curl -Lo /usr/local/bin/awstoe https://awstoe-us-east-1.s3.us-east-1.amazonaws.com/latest/linux/amd64/awstoe && \
     sudo curl -Lo /usr/local/bin/cloud-nuke https://github.com/gruntwork-io/cloud-nuke/releases/download/v0.11.3/cloud-nuke_linux_amd64 && \
     sudo curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256" && mv kubectl /usr/local/bin/kubectl && \
-    mkdir ~/.kube && echo 'alias k="kubectl"' >> ~/.bashrc && \
     sudo chmod +x /usr/local/bin/*
 
-# Install troposphere
-RUN pip3 install troposphere
+# Install troposphere, cfn-lint
+RUN pip3 install troposphere cfn-lint
 
 # Install Pulumi, Amplify, Helm, Kustomize, Azure CLI
 RUN curl -fsSL https://get.pulumi.com | sudo bash && \
-    curl -sL https://aws-amplify.github.io/amplify-cli/install | sudo bash && \
+    curl -sL https://aws-amplify.github.io/amplify-cli/install | sudo bash && $SHELL && \
     curl -fsSL https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | sudo bash && \
     curl -s https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh | sudo bash && \
     curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
@@ -64,6 +61,11 @@ RUN set -x; cd "$(mktemp -d)" && \
     export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH" && \
     echo 'export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"' >> ~/.bashrc && \
     kubectl krew install neat access-matrix advise-psp cert-manager ca-cert get-all ingress-nginx ctx ns
+
+# Configs
+RUN mkdir ~/.aws && \
+    echo 'alias pj="npx projen"' >> ~/.bashrc && \
+    mkdir ~/.kube && echo 'alias k="kubectl"' >> ~/.bashrc
 
 # Update
 RUN sudo apt update -y && sudo apt upgrade -y && \

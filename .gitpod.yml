@@ -1,11 +1,10 @@
-image: aymanzahran/ipad-gitpod-image:latest
-  #file: .gitpod.Dockerfile
+image: #aymanzahran/ipad-gitpod-image:latest
+  file: .gitpod.Dockerfile
 tasks:
   - name: persist env
     command: eval $(gp env -e)
   - name: Configure AWS Profile
     command: |
-      mkdir ~/.aws
       echo "[gitpod]" >> ~/.aws/config
       echo "region = $AWS_DEFAULT_REGION" >> ~/.aws/config
       echo "cli_auto_prompt = on-partial" >> ~/.aws/config
