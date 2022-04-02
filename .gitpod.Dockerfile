@@ -1,8 +1,7 @@
 FROM ubuntu:focal
 
-ARG USERNAME="gitpod"
-ENV HOME=/home/$USERNAME
-ARG DEBIAN_FRONTEND=noninteractive
+ARG TIMEZONE=Africa/Cairo
+RUN ln -snf /usr/share/zoneinfo/$TIMEZONE /etc/localtime && echo $TIMEZONE > /etc/timezone
 
 # Install Utils
 RUN yes | unminimize && apt install -y ca-certificates curl netbase wget tzdata gnupg dirmngr bzr git mercurial openssh-client subversion \
@@ -15,6 +14,9 @@ RUN yes | unminimize && apt install -y ca-certificates curl netbase wget tzdata 
 
 RUN locale-gen en_US.UTF-8
 ENV LANG=en_US.UTF-8
+
+ARG USERNAME=gitpod
+ENV HOME=/home/$USERNAME
 
 # Add User
 RUN useradd -l -u 10101 -G sudo -md /home/$USERNAME -s /bin/bash -p $USERNAME $USERNAME \
