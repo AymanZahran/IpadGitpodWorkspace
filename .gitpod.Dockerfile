@@ -1,6 +1,6 @@
 FROM ubuntu:focal
 
-ARG USERNAME="clouduser"
+ARG USERNAME="gitpod"
 ENV HOME=/home/$USERNAME
 ARG DEBIAN_FRONTEND=noninteractive
 
