@@ -5,10 +5,10 @@ tasks:
     command: eval $(gp env -e)
   - name: Configure AWS Profile
     command: |
-      echo "[gitpod]" >> ~/.aws/config
+      echo "[gitpod]" > ~/.aws/config
       echo "region = $AWS_DEFAULT_REGION" >> ~/.aws/config
       echo "cli_auto_prompt = on-partial" >> ~/.aws/config
-      echo "[gitpod]" >> ~/.aws/credentials
+      echo "[gitpod]" > ~/.aws/credentials
       echo "aws_access_key_id = $AWS_ACCESS_KEY_ID" >> ~/.aws/credentials
       echo "aws_secret_access_key = $AWS_SECRET_ACCESS_KEY" >> ~/.aws/credentials
 vscode:
