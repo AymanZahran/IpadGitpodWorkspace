@@ -52,7 +52,7 @@ RUN sudo curl -Lo /usr/local/bin/terragrunt https://github.com/gruntwork-io/terr
     sudo apt-get install terraform packer vagrant && terraform -install-autocomplete && \
     sudo chmod +x /usr/local/bin/*
 
-## Install Krew & Krew Plugins
+## Install Krew & Krew Plugins (neat, access-matrix, advise-psp, cert-manager, ca-cert, get-all, ingress-nginx, ctx, ns)
 RUN set -x; cd "$(mktemp -d)" && \
     OS="$(uname | tr '[:upper:]' '[:lower:]')" && \
     ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/\(arm\)\(64\)\?.*/\1\2/' -e 's/aarch64$/arm64/')" && \
@@ -67,7 +67,8 @@ RUN set -x; cd "$(mktemp -d)" && \
 # Configs
 RUN mkdir $HOME/.aws && \
     echo 'alias pj="npx projen"' >> $HOME/.bashrc && \
-    mkdir $HOME/.kube && echo 'alias k="kubectl"' >> $HOME/.bashrc
+    mkdir $HOME/.kube && \
+    echo 'alias k="kubectl"' >> $HOME/.bashrc
 
 # Update
 RUN sudo apt update -y && sudo apt upgrade -y && \
