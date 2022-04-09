@@ -39,7 +39,7 @@ RUN sudo curl -Lo /usr/local/bin/terragrunt https://github.com/gruntwork-io/terr
     sudo curl -Lo /usr/local/bin/runway https://oni.ca/runway/latest/linux && \
     sudo curl -Lo /usr/local/bin/awstoe https://awstoe-us-east-1.s3.us-east-1.amazonaws.com/latest/linux/amd64/awstoe && \
     sudo curl -Lo /usr/local/bin/cloud-nuke https://github.com/gruntwork-io/cloud-nuke/releases/download/v0.11.3/cloud-nuke_linux_amd64 && \
-    wget -c https://github.com/rebuy-de/aws-nuke/releases/download/v2.16.0/aws-nuke-v2.16.0-linux-amd64.tar.gz -O - | sudo tar -xz -C /usr/local/bin/
+    wget -c https://github.com/rebuy-de/aws-nuke/releases/download/v2.16.0/aws-nuke-v2.16.0-linux-amd64.tar.gz -O - | sudo tar -xz -C /usr/local/bin/ && \
     curl -fsSL https://get.docker.com | sudo bash && \
     curl -fsSL https://get.pulumi.com | sudo bash && \
     curl -sL https://aws-amplify.github.io/amplify-cli/install | sudo bash && $SHELL && \
@@ -52,14 +52,15 @@ RUN sudo curl -Lo /usr/local/bin/terragrunt https://github.com/gruntwork-io/terr
     sudo chmod +x /usr/local/bin/*
 
 # Instal GCP CLI, Kubectl
-echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
-curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
-sudo apt update -y && sudo apt install -y google-cloud-cli google-cloud-cli-anthos-auth google-cloud-cli-app-engine-go google-cloud-cli-app-engine-grpc google-cloud-cli-app-engine-java \
-google-cloud-cli-app-engine-python google-cloud-cli-app-engine-python-extras google-cloud-cli-bigtable-emulator google-cloud-cli-cbt \
-google-cloud-cli-cloud-build-local google-cloud-cli-cloud-run-proxy google-cloud-cli-config-connector google-cloud-cli-datalab google-cloud-cli-datastore-emulator \
-google-cloud-cli-firestore-emulator google-cloud-cli-gke-gcloud-auth-plugin google-cloud-cli-kpt google-cloud-cli-kubectl-oidc google-cloud-cli-local-extract \
-google-cloud-cli-minikube google-cloud-cli-nomos google-cloud-cli-pubsub-emulator google-cloud-cli-skaffold google-cloud-cli-spanner-emulator \
-google-cloud-cli-terraform-validator google-cloud-cli-tests kubectl
+RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list && \
+    curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add - && \
+    sudo apt update -y && \
+    sudo apt install -y google-cloud-cli google-cloud-cli-anthos-auth google-cloud-cli-app-engine-go google-cloud-cli-app-engine-grpc google-cloud-cli-app-engine-java \
+        google-cloud-cli-app-engine-python google-cloud-cli-app-engine-python-extras google-cloud-cli-bigtable-emulator google-cloud-cli-cbt \
+        google-cloud-cli-cloud-build-local google-cloud-cli-cloud-run-proxy google-cloud-cli-config-connector google-cloud-cli-datalab google-cloud-cli-datastore-emulator \
+        google-cloud-cli-firestore-emulator google-cloud-cli-gke-gcloud-auth-plugin google-cloud-cli-kpt google-cloud-cli-kubectl-oidc google-cloud-cli-local-extract \
+        google-cloud-cli-minikube google-cloud-cli-nomos google-cloud-cli-pubsub-emulator google-cloud-cli-skaffold google-cloud-cli-spanner-emulator \
+        google-cloud-cli-terraform-validator google-cloud-cli-tests kubectl
 
 ## Install Krew & Krew Plugins (neat, access-matrix, advise-psp, cert-manager, ca-cert, get-all, ingress-nginx, ctx, ns)
 RUN set -x; cd "$(mktemp -d)" && \
