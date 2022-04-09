@@ -35,12 +35,13 @@ RUN curl https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -o awscliv2.zi
 RUN sudo npm install -g aws-cdk cdktf-cli cdk8s-cli projen serverless && \
     sudo pip3 install troposphere cfn-lint
 
-# Install Terragrunt, ECS CLI, Runway, AWSTOE, cloud-nuke, docker, kubectl, Pulumi, Amplify, Helm, Kustomize, Azure CLI, Terraform, Packer, Vagrant
+# Install Terragrunt, ECS CLI, Runway, AWSTOE, cloud-nuke, aws-nuke, docker, kubectl, Pulumi, Amplify, Helm, Kustomize, Azure CLI, Terraform, Packer, Vagrant
 RUN sudo curl -Lo /usr/local/bin/terragrunt https://github.com/gruntwork-io/terragrunt/releases/download/v0.36.6/terragrunt_linux_amd64 && \
     sudo curl -Lo /usr/local/bin/ecs-cli https://amazon-ecs-cli.s3.amazonaws.com/ecs-cli-linux-amd64-latest && \
     sudo curl -Lo /usr/local/bin/runway https://oni.ca/runway/latest/linux && \
     sudo curl -Lo /usr/local/bin/awstoe https://awstoe-us-east-1.s3.us-east-1.amazonaws.com/latest/linux/amd64/awstoe && \
     sudo curl -Lo /usr/local/bin/cloud-nuke https://github.com/gruntwork-io/cloud-nuke/releases/download/v0.11.3/cloud-nuke_linux_amd64 && \
+    wget -c https://github.com/rebuy-de/aws-nuke/releases/download/v2.16.0/aws-nuke-v2.16.0-linux-amd64.tar.gz -O - | sudo tar -xz -C /usr/local/bin/
     curl -fsSL https://get.docker.com | sudo bash && \
     sudo curl -Lo /usr/local/bin/kubectl https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl && \
     curl -fsSL https://get.pulumi.com | sudo bash && \
@@ -69,7 +70,8 @@ RUN set -x; cd "$(mktemp -d)" && \
 RUN mkdir $HOME/.aws && \
     echo 'alias pj="npx projen"' >> $HOME/.bashrc && \
     mkdir $HOME/.kube && \
-    echo 'alias k="kubectl"' >> $HOME/.bashrc
+    echo 'alias k="kubectl"' >> $HOME/.bashrc && \
+    echo 'alias aws-nuke=aws-nuke-v2.16.0-linux-amd64' >> $HOME/.bashrc 
 
 # Update
 RUN sudo apt update -y && sudo apt upgrade -y && \
