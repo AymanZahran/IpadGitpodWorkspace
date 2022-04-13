@@ -11,6 +11,7 @@ tasks:
       echo "[gitpod]" > ~/.aws/credentials
       echo "aws_access_key_id = $AWS_ACCESS_KEY_ID" >> ~/.aws/credentials
       echo "aws_secret_access_key = $AWS_SECRET_ACCESS_KEY" >> ~/.aws/credentials
+      ssh-keygen -q -t rsa -N '' -f ./id_rsa <<<y >/dev/null 2>&1
 vscode:
   extensions:
     - ms-azuretools.vscode-docker
