@@ -1,14 +1,13 @@
-FROM ubuntu:18.04
+FROM centos:8
 
-RUN apt-get update
-RUN apt-get install -y software-properties-common
-RUN apt-add-repository --yes --update ppa:ansible/ansible
-RUN apt-get install -y ansible iputils-ping python-apt vim tree curl
+RUN dnf -y --disablerepo '*' --enablerepo=extras swap centos-linux-repos centos-stream-repos && dnf -y distro-sync
+RUN yum update -y
+RUN yum install -y epel-release
+RUN yum install -y ansible
 
-ADD id_rsa /root
-RUN cd /root && mkdir /root/.ssh/
+COPY id_rsa /root/
+RUN mkdir /root/.ssh/
 RUN cp /root/id_rsa /root/.ssh/
-RUN chmod 400 /root/.ssh/id_rsa
-RUN chmod 400 /root/id_rsa
+RUN chmod 400 /root/.ssh/id_rsa /root/id_rsa
 
 ENTRYPOINT [ "/bin/bash" ]
