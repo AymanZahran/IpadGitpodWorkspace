@@ -9,17 +9,13 @@
         name: httpd
         state: present
 
-    - name: Start the httpd server
-      shell: /usr/sbin/httpd
+    # - name: Start the httpd server
+    #   shell: /usr/sbin/httpd
 
     - name: Add the index.html
       template:
         src: index.html
-        dest: /usr/share/httpd/noindex/index.html
-
-  handlers:
-    - name: Restart the httpd server
-      shell: pkill httpd && /usr/sbin/httpd
+        dest: /var/www/html/index.html
 
 - hosts: dbservers
   tasks:

@@ -2,10 +2,9 @@ FROM centos:8
 
 RUN dnf -y --disablerepo '*' --enablerepo=extras swap centos-linux-repos centos-stream-repos && dnf -y distro-sync
 RUN yum update -y
-RUN yum -y install openssh openssh-server openssh-clients sudo initscripts
-RUN yum install -y epel-release
-RUN yum install -y ansible
+RUN yum -y install openssh openssh-server openssh-clients sudo initscripts epel-release net-tools
 
+RUN yum install -y ansible
 COPY id_rsa /root/
 RUN mkdir /root/.ssh/
 RUN cp /root/id_rsa /root/.ssh/
