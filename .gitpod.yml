@@ -16,7 +16,7 @@ tasks:
       ssh-keygen -q -t rsa -N '' -f ./id_rsa <<<y >/dev/null 2>&1
       docker-compose build
       docker-compose up
-      # docker exec -it ansible-docker-playground_ansible_1 /bin/bash
+      docker exec -it ipadgitpodworkspace-AnsibleController-1 /bin/bash
 vscode:
   extensions:
     - ms-azuretools.vscode-docker

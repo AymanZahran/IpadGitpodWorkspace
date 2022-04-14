@@ -12,16 +12,9 @@
     - name: Start the httpd server
       shell: /usr/sbin/httpd
 
-    - name: Template a file to /etc/file.conf
-      template:
-        src: templates/httpd.conf.j2
-        dest: /etc/httpd/conf/httpd.conf
-      notify:
-        - Restart the httpd server
-
     - name: Add the index.html
       template:
-        src: templates/index.html.j2
+        src: index.html
         dest: /usr/share/httpd/noindex/index.html
 
   handlers:

@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   AnsibleController:
-    image: shellwhale/ansible
+    image: ansible-controller
     hostname: AnsibleController
     tty: true
     volumes:
@@ -10,14 +10,16 @@ services:
       context: .
       dockerfile: Dockerfile.AnsibleController
   AnsibleTarget1:
+    image: ansible-target
     hostname: AnsibleTarget1
-    image: shellwhale/centos
+    ports:
+      - "999:999"
     build:
       context: .
       dockerfile: Dockerfile.AnsibleTarget
   AnsibleTarget2:
+    image: ansible-target
     hostname: AnsibleTarget2
-    image: shellwhale/centos
     build:
       context: .
       dockerfile: Dockerfile.AnsibleTarget
