@@ -1,16 +1,9 @@
 - hosts: webservers
-  vars:
-      http_port: 999
-      server_name: "web"
-      message: "Hello world"
   tasks:
     - name: Install httpd
       package:
         name: httpd
         state: present
-
-    # - name: Start the httpd server
-    #   shell: /usr/sbin/httpd
 
     - name: Add the index.html
       template:
