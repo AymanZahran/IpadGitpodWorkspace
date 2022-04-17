@@ -17,9 +17,9 @@ tasks:
       docker-compose build
       docker-compose up
       # docker exec -it ipadgitpodworkspace-AnsibleController-1 /bin/bash
-  # - name: Configure Jenkins
-  #   command: |
-  #     docker run -p 8080:8080 -p 50000:50000 --restart always -v jenkins_home:/var/jenkins_home jenkins/jenkins:lts-jdk11
+  - name: Configure Jenkins
+    command: |
+      docker run -p 8080:8080 -p 50000:50000 --restart always -v jenkins_home:/var/jenkins_home jenkins/jenkins:lts-jdk11
 vscode:
   extensions:
     - ms-azuretools.vscode-docker
