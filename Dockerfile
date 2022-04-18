@@ -10,7 +10,7 @@ RUN sudo apt install -y ca-certificates curl netbase wget tzdata gnupg dirmngr b
         libmagickwand-dev libmaxminddb-dev libncurses5-dev libncursesw5-dev libpng-dev libpq-dev libreadline-dev libsqlite3-dev \
         libssl-dev libtool libwebp-dev libxml2-dev libxslt-dev libyaml-dev make patch zip unzip xz-utils zlib1g-dev \
         git-lfs bash-completion build-essential ninja-build htop jq less locales man-db nano ripgrep software-properties-common \
-        sudo time emacs-nox vim multitail lsof ssl-cert fish zsh apt-transport-https ca-certificates gnupg
+        sudo time emacs-nox vim multitail lsof ssl-cert fish zsh apt-transport-https ca-certificates gnupg telnet
 
 # Install npm, node, yarn, typecsript, python3, pip3, venv, pipenv, Java, Maven, .NET, NuGet
 RUN curl -fsSL https://deb.nodesource.com/setup_current.x | sudo -E bash - && \
@@ -53,14 +53,17 @@ RUN sudo curl -Lo /usr/local/bin/terragrunt https://github.com/gruntwork-io/terr
 
 # Instal GCP CLI, Kubectl
 RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list && \
-    curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add - && \
+    echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list && \
+    sudo curl -fsSLo /usr/share/keyrings/cloud.google.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg && \
     sudo apt update -y && \
     sudo apt install -y google-cloud-cli google-cloud-cli-anthos-auth google-cloud-cli-app-engine-go google-cloud-cli-app-engine-grpc google-cloud-cli-app-engine-java \
         google-cloud-cli-app-engine-python google-cloud-cli-app-engine-python-extras google-cloud-cli-bigtable-emulator google-cloud-cli-cbt \
         google-cloud-cli-cloud-build-local google-cloud-cli-cloud-run-proxy google-cloud-cli-config-connector google-cloud-cli-datalab google-cloud-cli-datastore-emulator \
         google-cloud-cli-firestore-emulator google-cloud-cli-gke-gcloud-auth-plugin google-cloud-cli-kpt google-cloud-cli-kubectl-oidc google-cloud-cli-local-extract \
         google-cloud-cli-minikube google-cloud-cli-nomos google-cloud-cli-pubsub-emulator google-cloud-cli-skaffold google-cloud-cli-spanner-emulator \
-        google-cloud-cli-terraform-validator google-cloud-cli-tests kubectl
+        google-cloud-cli-terraform-validator google-cloud-cli-tests && \
+    sudo apt install -y kubelet kubeadm kubectl && \
+    sudo apt-mark hold kubelet kubeadm kubectl
 
 ## Install Krew & Krew Plugins (neat, access-matrix, advise-psp, cert-manager, ca-cert, get-all, ingress-nginx, ctx, ns)
 RUN set -x; cd "$(mktemp -d)" && \
