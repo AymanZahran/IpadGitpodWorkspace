@@ -10,7 +10,7 @@ RUN sudo apt install -y ca-certificates curl netbase wget tzdata gnupg dirmngr b
         libmagickwand-dev libmaxminddb-dev libncurses5-dev libncursesw5-dev libpng-dev libpq-dev libreadline-dev libsqlite3-dev \
         libssl-dev libtool libwebp-dev libxml2-dev libxslt-dev libyaml-dev make patch zip unzip xz-utils zlib1g-dev \
         git-lfs bash-completion build-essential ninja-build htop jq less locales man-db nano ripgrep software-properties-common \
-        sudo time emacs-nox vim multitail lsof ssl-cert fish zsh apt-transport-https ca-certificates gnupg lsb-release telnet
+        sudo time emacs-nox vim multitail lsof ssl-cert fish zsh iputils-ping apt-transport-https ca-certificates gnupg lsb-release telnet
 
 # Install npm, node, yarn, typecsript, python3, pip3, venv, pipenv, Java, Maven, .NET, NuGet
 RUN curl -fsSL https://deb.nodesource.com/setup_current.x | sudo -E bash - && \
