@@ -15,11 +15,12 @@ tasks:
     command: |
       ssh-keygen -q -t rsa -N '' -f ./id_rsa <<<y >/dev/null 2>&1
       docker-compose build
-      docker-compose up
+      docker compose up AnsibleController AnsibleTarget1 AnsibleTarget2
       # docker exec -it ipadgitpodworkspace-AnsibleController-1 /bin/bash
   - name: Configure Jenkins
     command: |
-      docker run -p 8080:8080 -p 50000:50000 --restart always -v jenkins_home:/var/jenkins_home jenkins/jenkins:lts-jdk11
+      docker compose up Jenkins
+      # docker exec -it ipadgitpodworkspace-Jenkins-1 /bin/bash
 vscode:
   extensions:
     - ms-azuretools.vscode-docker

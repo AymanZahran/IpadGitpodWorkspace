@@ -23,3 +23,14 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.AnsibleTarget
+  Jenkins:
+    image: jenkins
+    hostname: Jenkins
+    ports:
+      - "8080:8080"
+    build:
+      context: .
+      dockerfile: Dockerfile.Jenkins
+    environment:
+      JENKINS_ADMIN_ID: "admin"
+      JENKINS_ADMIN_PASSWORD: "password"
