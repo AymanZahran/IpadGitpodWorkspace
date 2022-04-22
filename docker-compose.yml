@@ -1,36 +1,36 @@
 version: "3.8"
 services:
   AnsibleController:
-    image: ansible-controller
+    image: aymanzahran/ipad-ansiblecontroller-image
     hostname: AnsibleController
     tty: true
     volumes:
       - ./Ansible:/Ansible
-    build:
-      context: .
-      dockerfile: Dockerfile.AnsibleController
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile.AnsibleController
   AnsibleTarget1:
-    image: ansible-target
+    image: aymanzahran/ipad-ansibletarget-image
     hostname: AnsibleTarget1
     ports:
       - "999:80"
-    build:
-      context: .
-      dockerfile: Dockerfile.AnsibleTarget
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile.AnsibleTarget
   AnsibleTarget2:
-    image: ansible-target
+    image: aymanzahran/ipad-ansibletarget-image
     hostname: AnsibleTarget2
-    build:
-      context: .
-      dockerfile: Dockerfile.AnsibleTarget
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile.AnsibleTarget
   Jenkins:
-    image: jenkins
+    image: aymanzahran/ipad-jenkins-image
     hostname: Jenkins
     ports:
       - "8080:8080"
-    build:
-      context: .
-      dockerfile: Dockerfile.Jenkins
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile.Jenkins
     environment:
       JENKINS_ADMIN_ID: "admin"
       JENKINS_ADMIN_PASSWORD: "password"
