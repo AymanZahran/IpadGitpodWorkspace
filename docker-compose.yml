@@ -13,7 +13,7 @@ services:
     image: ansible-target
     hostname: AnsibleTarget1
     ports:
-      - "999:999"
+      - "999:80"
     build:
       context: .
       dockerfile: Dockerfile.AnsibleTarget
