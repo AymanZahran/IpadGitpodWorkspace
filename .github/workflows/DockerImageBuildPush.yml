@@ -13,6 +13,10 @@ env:
   JENKINS_IMAGE_NAME: ipad-jenkins-image
   ANSIBLE_CONTROLLER_IMAGE_NAME: ipad-ansiblecontroller-image
   ANSIBLE_TARGET_IMAGE_NAME: ipad-ansibletarget-image
+  GHCR_USERNAME: ${{ secrets.GHCR_USERNAME }}
+  GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
+  DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+  DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
 
 jobs:
   BuildPushGitpodImage:
@@ -27,21 +31,21 @@ jobs:
         run: docker build . --file Dockerfile --tag ${{ env.GITPOD_IMAGE_NAME}}
       
       - name: Log in to GHCR registry
-        run: docker login ghcr.io --username ${{ secrets.GHCR_USERNAME }} --password ${{ secrets.GHCR_TOKEN }}
+        run: docker login ghcr.io --username ${{ env.GHCR_USERNAME }} --password ${{ env.GHCR_TOKEN }}
 
       - name: Push To GHCP
         run: |
-          IMAGE_ID=ghcr.io/${{ secrets.GHCR_USERNAME }}/${{ env.GITPOD_IMAGE_NAME}}
+          IMAGE_ID=ghcr.io/${{ env.GHCR_USERNAME }}/${{ env.GITPOD_IMAGE_NAME}}
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
           docker tag ${{ env.GITPOD_IMAGE_NAME}} $IMAGE_ID
           docker push $IMAGE_ID
       
       - name: Log in to Docker Hub
-        run: docker login --username ${{ secrets.DOCKERHUB_USERNAME }} --password ${{ secrets.DOCKERHUB_TOKEN }}
+        run: docker login --username ${{ env.DOCKERHUB_USERNAME }} --password ${{ env.DOCKERHUB_TOKEN }}
 
       - name: Push To Dockerhub
         run: |
-          IMAGE_ID=${{ secrets.GHCR_USERNAME }}/${{ env.GITPOD_IMAGE_NAME}}
+          IMAGE_ID=${{ env.GHCR_USERNAME }}/${{ env.GITPOD_IMAGE_NAME}}
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
           docker tag ${{ env.GITPOD_IMAGE_NAME}} $IMAGE_ID
           docker push $IMAGE_ID
@@ -58,21 +62,21 @@ jobs:
         run: docker build . --file Dockerfile.Jenkins --tag ${{ env.JENKINS_IMAGE_NAME}}
       
       - name: Log in to GHCR registry
-        run: docker login ghcr.io --username ${{ secrets.GHCR_USERNAME }} --password ${{ secrets.GHCR_TOKEN }}
+        run: docker login ghcr.io --username ${{ env.GHCR_USERNAME }} --password ${{ env.GHCR_TOKEN }}
 
       - name: Push To GHCP
         run: |
-          IMAGE_ID=ghcr.io/${{ secrets.GHCR_USERNAME }}/${{ env.JENKINS_IMAGE_NAME}}
+          IMAGE_ID=ghcr.io/${{ env.GHCR_USERNAME }}/${{ env.JENKINS_IMAGE_NAME}}
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
           docker tag ${{ env.JENKINS_IMAGE_NAME}} $IMAGE_ID
           docker push $IMAGE_ID
       
       - name: Log in to Docker Hub
-        run: docker login --username ${{ secrets.DOCKERHUB_USERNAME }} --password ${{ secrets.DOCKERHUB_TOKEN }}
+        run: docker login --username ${{ env.DOCKERHUB_USERNAME }} --password ${{ env.DOCKERHUB_TOKEN }}
 
       - name: Push To Dockerhub
         run: |
-          IMAGE_ID=${{ secrets.GHCR_USERNAME }}/${{ env.JENKINS_IMAGE_NAME}}
+          IMAGE_ID=${{ env.GHCR_USERNAME }}/${{ env.JENKINS_IMAGE_NAME}}
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
           docker tag ${{ env.JENKINS_IMAGE_NAME}} $IMAGE_ID
           docker push $IMAGE_ID
@@ -89,21 +93,21 @@ jobs:
         run: docker build . --file Dockerfile.AnsibleController --tag ${{ env.ANSIBLE_CONTROLLER_IMAGE_NAME}}
 
       - name: Log in to GHCR registry
-        run: docker login ghcr.io --username ${{ secrets.GHCR_USERNAME }} --password ${{ secrets.GHCR_TOKEN }}
+        run: docker login ghcr.io --username ${{ env.GHCR_USERNAME }} --password ${{ env.GHCR_TOKEN }}
       
       - name: Push To GHCP
         run: |
-          IMAGE_ID=ghcr.io/${{ secrets.GHCR_USERNAME }}/${{ env.ANSIBLE_CONTROLLER_IMAGE_NAME}}
+          IMAGE_ID=ghcr.io/${{ env.GHCR_USERNAME }}/${{ env.ANSIBLE_CONTROLLER_IMAGE_NAME}}
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
           docker tag ${{ env.ANSIBLE_CONTROLLER_IMAGE_NAME}} $IMAGE_ID
           docker push $IMAGE_ID
       
       - name: Log in to Docker Hub
-        run: docker login --username ${{ secrets.DOCKERHUB_USERNAME }} --password ${{ secrets.DOCKERHUB_TOKEN }}
+        run: docker login --username ${{ env.DOCKERHUB_USERNAME }} --password ${{ env.DOCKERHUB_TOKEN }}
 
       - name: Push To Dockerhub
         run: |
-          IMAGE_ID=${{ secrets.GHCR_USERNAME }}/${{ env.ANSIBLE_CONTROLLER_IMAGE_NAME}}
+          IMAGE_ID=${{ env.GHCR_USERNAME }}/${{ env.ANSIBLE_CONTROLLER_IMAGE_NAME}}
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
           docker tag ${{ env.ANSIBLE_CONTROLLER_IMAGE_NAME}} $IMAGE_ID
           docker push $IMAGE_ID
@@ -120,21 +124,21 @@ jobs:
         run: docker build . --file Dockerfile.AnsibleTarget --tag ${{ env.ANSIBLE_TARGET_IMAGE_NAME}}
 
       - name: Log in to GHCR registry
-        run: docker login ghcr.io --username ${{ secrets.GHCR_USERNAME }} --password ${{ secrets.GHCR_TOKEN }}
+        run: docker login ghcr.io --username ${{ env.GHCR_USERNAME }} --password ${{ env.GHCR_TOKEN }}
       
       - name: Push To GHCP
         run: |
-          IMAGE_ID=ghcr.io/${{ secrets.GHCR_USERNAME }}/${{ env.ANSIBLE_TARGET_IMAGE_NAME}}
+          IMAGE_ID=ghcr.io/${{ env.GHCR_USERNAME }}/${{ env.ANSIBLE_TARGET_IMAGE_NAME}}
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
           docker tag ${{ env.ANSIBLE_TARGET_IMAGE_NAME}} $IMAGE_ID
           docker push $IMAGE_ID
       
       - name: Log in to Docker Hub
-        run: docker login --username ${{ secrets.DOCKERHUB_USERNAME }} --password ${{ secrets.DOCKERHUB_TOKEN }}
+        run: docker login --username ${{ env.DOCKERHUB_USERNAME }} --password ${{ env.DOCKERHUB_TOKEN }}
 
       - name: Push To Dockerhub
         run: |
-          IMAGE_ID=${{ secrets.GHCR_USERNAME }}/${{ env.ANSIBLE_TARGET_IMAGE_NAME}}
+          IMAGE_ID=${{ env.GHCR_USERNAME }}/${{ env.ANSIBLE_TARGET_IMAGE_NAME}}
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
           docker tag ${{ env.ANSIBLE_TARGET_IMAGE_NAME}} $IMAGE_ID
           docker push $IMAGE_ID
