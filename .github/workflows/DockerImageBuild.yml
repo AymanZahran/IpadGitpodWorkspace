@@ -85,6 +85,9 @@ jobs:
 
       - name: Build Docker Image
         run: docker build . --file Dockerfile.tmp --tag ${{ env.ANSIBLE_CONTROLLER_IMAGE_NAME}}
+
+      - name: Log in to GHCR registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
       
       - name: Push To GHCP
         run: |
@@ -113,6 +116,9 @@ jobs:
 
       - name: Build Docker Image
         run: docker build . --file Dockerfile.tmp --tag ${{ env.ANSIBLE_TARGET_IMAGE_NAME}}
+
+      - name: Log in to GHCR registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
       
       - name: Push To GHCP
         run: |
