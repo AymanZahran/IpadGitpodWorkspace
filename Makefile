@@ -5,7 +5,7 @@ PushToGithub:
 	git push
 
 GHCRLogin:
-	docker login --username $$GHCR_USERNAME --password $$GHCR_TOKEN
+	docker login ghcr.io --username $$GHCR_USERNAME --password $$GHCR_TOKEN
 DockerLogin:
 	docker login --username $$DOCKERHUB_USERNAME --password $$DOCKERHUB_TOKEN
 
