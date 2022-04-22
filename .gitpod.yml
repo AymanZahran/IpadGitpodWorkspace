@@ -19,6 +19,7 @@ tasks:
   - name: Configure Jenkins
     command: |
       docker compose up Jenkins
+      
 vscode:
   extensions:
     - ms-azuretools.vscode-docker
