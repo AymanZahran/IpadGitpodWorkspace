@@ -3,40 +3,38 @@ PushToGithub:
 	git add .
 	git commit -m "Commit"
 	git push
-PushGitpodImageToGHCR:
-	docker login --username aymanzahran --password $$DOCKERHUB_PERSONAL_ACCESS_TOKEN
-	docker build -t aymanzahran/ipad-gitpod-image .
-	docker push aymanzahran/ipad-gitpod-image
-PushGitpodImageToDockerHub:
-	docker login --username aymanzahran --password $$DOCKERHUB_PERSONAL_ACCESS_TOKEN
-	docker build -t aymanzahran/ipad-gitpod-image .
-	docker push aymanzahran/ipad-gitpod-image
-PushJenkinsImageToDockerHub:
-	docker login --username aymanzahran --password $$DOCKERHUB_PERSONAL_ACCESS_TOKEN
-	docker build -t aymanzahran/ipad-gitpod-image .
-	docker push aymanzahran/ipad-gitpod-image
-PushJenkinsImageToGHCR:
-	docker login --username aymanzahran --password $$DOCKERHUB_PERSONAL_ACCESS_TOKEN
-	docker build -t aymanzahran/ipad-gitpod-image .
-	docker push aymanzahran/ipad-gitpod-image
-PushAnsibleControllerImageToDockerHub:
-	docker login --username aymanzahran --password $$DOCKERHUB_PERSONAL_ACCESS_TOKEN
-	docker build -t aymanzahran/ipad-gitpod-image .
-	docker push aymanzahran/ipad-gitpod-image
-PushAnsibleControllerImageToGHCR:
-	docker login --username aymanzahran --password $$DOCKERHUB_PERSONAL_ACCESS_TOKEN
-	docker build -t aymanzahran/ipad-gitpod-image .
-	docker push aymanzahran/ipad-gitpod-image
-PushAnsibleTargetImageToDockerHub:
-	docker login --username aymanzahran --password $$DOCKERHUB_PERSONAL_ACCESS_TOKEN
-	docker build -t aymanzahran/ipad-gitpod-image .
-	docker push aymanzahran/ipad-gitpod-image
-PushAnsibleTargetImageToGHCR:
-	docker login --username aymanzahran --password $$DOCKERHUB_PERSONAL_ACCESS_TOKEN
-	docker build -t aymanzahran/ipad-gitpod-image .
-	docker push aymanzahran/ipad-gitpod-image
-DockerLogin:
-	docker login --username aymanzahran --password $$DOCKERHUB_PERSONAL_ACCESS_TOKEN
+# GHCRLogin:
+# 	docker login --username $$GHCR_USERNAME --password $$GHCR_TOKEN
+# DockerLogin:
+# 	docker login --username $$DOCKERHUB_USERNAME --password $$DOCKERHUB_TOKEN
+# PushGitpodImage:
+# 	GITPOD_IMAGE_NAME=ipad-gitpod-image
+# 	docker build . --file Dockerfile --tag $GITPOD_IMAGE_NAME
+# 	IMAGE_ID=ghcr.io/$$GHCR_USERNAME/$GITPOD_IMAGE_NAME
+# 	IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
+# 	docker tag $GITPOD_IMAGE_NAME $IMAGE_ID
+#  	docker login ghcr.io --username $$GHCR_USERNAME --password $$GHCR_TOKEN
+# 	docker push ghcr.io/$$GHCR_USERNAME/$GITPOD_IMAGE_NAME
+# 	docker login --username $$DOCKERHUB_USERNAME --password $$DOCKERHUB_TOKEN
+# 	docker build -t $$DOCKERHUB_USERNAME/$GITPOD_IMAGE_NAME .
+# 	docker push $$DOCKERHUB_USERNAME/$GITPOD_IMAGE_NAME
+# PushGitpodImage:
+# 	GITPOD_IMAGE_NAME=ipad-gitpod-image
+#  	docker login ghcr.io --username $$GHCR_USERNAME --password $$GHCR_PASSWORD
+# 	docker build -t $$GHCR_USERNAME/$GITPOD_IMAGE_NAME .
+# 	docker push ghcr.io/$$GHCR_USERNAME/$GITPOD_IMAGE_NAME
+# 	docker login --username $$DOCKERHUB_USERNAME --password $$DOCKERHUB_TOKEN
+# 	docker build -t $$DOCKERHUB_USERNAME/$GITPOD_IMAGE_NAME .
+# 	docker push $$DOCKERHUB_USERNAME/$GITPOD_IMAGE_NAME
+# PushGitpodImage:
+# 	GITPOD_IMAGE_NAME=ipad-gitpod-image
+#  	docker login ghcr.io --username $$GHCR_USERNAME --password $$GHCR_PASSWORD
+# 	docker build -t $$GHCR_USERNAME/$GITPOD_IMAGE_NAME .
+# 	docker push ghcr.io/$$GHCR_USERNAME/$GITPOD_IMAGE_NAME
+# 	docker login --username $$DOCKERHUB_USERNAME --password $$DOCKERHUB_TOKEN
+# 	docker build -t $$DOCKERHUB_USERNAME/$GITPOD_IMAGE_NAME .
+# 	docker push $$DOCKERHUB_USERNAME/$GITPOD_IMAGE_NAME
+
 DockerExecAnsible:
 	docker exec -it ipadgitpodworkspace-AnsibleController-1 /bin/bash
 DockerExecJenkins:
