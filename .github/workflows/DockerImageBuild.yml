@@ -22,26 +22,26 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Build Docker Image
-        run: docker build . --file Dockerfile.tmp --tag $GITPOD_IMAGE_NAME
+        run: docker build . --file Dockerfile.tmp --tag ${{ env.GITPOD_IMAGE_NAME}}
       
       - name: Log in to GHCR registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
 
       - name: Push To GHCP
         run: |
-          IMAGE_ID=ghcr.io/${{ github.repository_owner }}/$GITPOD_IMAGE_NAME
+          IMAGE_ID=ghcr.io/${{ github.repository_owner }}/${{ env.GITPOD_IMAGE_NAME}}
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
-          docker tag $GITPOD_IMAGE_NAME $IMAGE_ID
+          docker tag ${{ env.GITPOD_IMAGE_NAME}} $IMAGE_ID
           docker push $IMAGE_ID
       
       - name: Log in to Docker Hub
-        run: docker login --username aymanzahran --password $$DOCKERHUB_PERSONAL_ACCESS_TOKEN
+        run: docker login --username aymanzahran --password ${{ secrets.DOCKERHUB_PERSONAL_ACCESS_TOKEN }}
 
       - name: Push To Dockerhub
         run: |
-          IMAGE_ID=${{ github.repository_owner }}/$GITPOD_IMAGE_NAME
+          IMAGE_ID=${{ github.repository_owner }}/${{ env.GITPOD_IMAGE_NAME}}
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
-          docker tag $GITPOD_IMAGE_NAME $IMAGE_ID
+          docker tag ${{ env.GITPOD_IMAGE_NAME}} $IMAGE_ID
           docker push $IMAGE_ID
   
   BuildJenkinsImage:
@@ -53,26 +53,26 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Build Docker Image
-        run: docker build . --file Dockerfile.tmp --tag $JENKINS_IMAGE_NAME
+        run: docker build . --file Dockerfile.tmp --tag ${{ env.JENKINS_IMAGE_NAME}}
       
       - name: Log in to GHCR registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
 
       - name: Push To GHCP
         run: |
-          IMAGE_ID=ghcr.io/${{ github.repository_owner }}/$JENKINS_IMAGE_NAME
+          IMAGE_ID=ghcr.io/${{ github.repository_owner }}/${{ env.JENKINS_IMAGE_NAME}}
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
-          docker tag $JENKINS_IMAGE_NAME $IMAGE_ID
+          docker tag ${{ env.JENKINS_IMAGE_NAME}} $IMAGE_ID
           docker push $IMAGE_ID
       
       - name: Log in to Docker Hub
-        run: docker login --username aymanzahran --password $$DOCKERHUB_PERSONAL_ACCESS_TOKEN
+        run: docker login --username aymanzahran --password ${{ secrets.DOCKERHUB_PERSONAL_ACCESS_TOKEN }}
 
       - name: Push To Dockerhub
         run: |
-          IMAGE_ID=${{ github.repository_owner }}/$JENKINS_IMAGE_NAME
+          IMAGE_ID=${{ github.repository_owner }}/${{ env.JENKINS_IMAGE_NAME}}
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
-          docker tag $JENKINS_IMAGE_NAME $IMAGE_ID
+          docker tag ${{ env.JENKINS_IMAGE_NAME}} $IMAGE_ID
           docker push $IMAGE_ID
 
   BuildAnsibleControllerImage:
@@ -84,23 +84,23 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Build Docker Image
-        run: docker build . --file Dockerfile.tmp --tag $ANSIBLE_CONTROLLER_IMAGE_NAME
+        run: docker build . --file Dockerfile.tmp --tag ${{ env.ANSIBLE_CONTROLLER_IMAGE_NAME}}
       
       - name: Push To GHCP
         run: |
-          IMAGE_ID=ghcr.io/${{ github.repository_owner }}/$ANSIBLE_CONTROLLER_IMAGE_NAME
+          IMAGE_ID=ghcr.io/${{ github.repository_owner }}/${{ env.ANSIBLE_CONTROLLER_IMAGE_NAME}}
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
-          docker tag $ANSIBLE_CONTROLLER_IMAGE_NAME $IMAGE_ID
+          docker tag ${{ env.ANSIBLE_CONTROLLER_IMAGE_NAME}} $IMAGE_ID
           docker push $IMAGE_ID
       
       - name: Log in to Docker Hub
-        run: docker login --username aymanzahran --password $$DOCKERHUB_PERSONAL_ACCESS_TOKEN
+        run: docker login --username aymanzahran --password ${{ secrets.DOCKERHUB_PERSONAL_ACCESS_TOKEN }}
 
       - name: Push To Dockerhub
         run: |
-          IMAGE_ID=${{ github.repository_owner }}/$ANSIBLE_CONTROLLER_IMAGE_NAME
+          IMAGE_ID=${{ github.repository_owner }}/${{ env.ANSIBLE_CONTROLLER_IMAGE_NAME}}
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
-          docker tag $ANSIBLE_CONTROLLER_IMAGE_NAME $IMAGE_ID
+          docker tag ${{ env.ANSIBLE_CONTROLLER_IMAGE_NAME}} $IMAGE_ID
           docker push $IMAGE_ID
 
   BuildAnsibleTargetImage:
@@ -112,21 +112,21 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Build Docker Image
-        run: docker build . --file Dockerfile.tmp --tag $ANSIBLE_TARGET_IMAGE_NAME
+        run: docker build . --file Dockerfile.tmp --tag ${{ env.ANSIBLE_TARGET_IMAGE_NAME}}
       
       - name: Push To GHCP
         run: |
-          IMAGE_ID=ghcr.io/${{ github.repository_owner }}/$ANSIBLE_TARGET_IMAGE_NAME
+          IMAGE_ID=ghcr.io/${{ github.repository_owner }}/${{ env.ANSIBLE_TARGET_IMAGE_NAME}}
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
-          docker tag $ANSIBLE_TARGET_IMAGE_NAME $IMAGE_ID
+          docker tag ${{ env.ANSIBLE_TARGET_IMAGE_NAME}} $IMAGE_ID
           docker push $IMAGE_ID
       
       - name: Log in to Docker Hub
-        run: docker login --username aymanzahran --password $$DOCKERHUB_PERSONAL_ACCESS_TOKEN
+        run: docker login --username aymanzahran --password ${{ secrets.DOCKERHUB_PERSONAL_ACCESS_TOKEN }}
 
       - name: Push To Dockerhub
         run: |
-          IMAGE_ID=${{ github.repository_owner }}/$ANSIBLE_TARGET_IMAGE_NAME
+          IMAGE_ID=${{ github.repository_owner }}/${{ env.ANSIBLE_TARGET_IMAGE_NAME}}
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
-          docker tag $ANSIBLE_TARGET_IMAGE_NAME $IMAGE_ID
+          docker tag ${{ env.ANSIBLE_TARGET_IMAGE_NAME}} $IMAGE_ID
           docker push $IMAGE_ID
