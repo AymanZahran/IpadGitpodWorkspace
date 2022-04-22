@@ -35,7 +35,7 @@ jobs:
 
       - name: Push To GHCP
         run: |
-          IMAGE_ID=ghcr.io/${{ env.GHCR_USERNAME }}/${{ env.GITPOD_IMAGE_NAME}}
+          IMAGE_ID=ghcr.io/${{ secrets.GHCR_USERNAME }}/${{ env.GITPOD_IMAGE_NAME}}
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
           docker tag ${{ env.GITPOD_IMAGE_NAME}} $IMAGE_ID
           docker push $IMAGE_ID
@@ -48,7 +48,7 @@ jobs:
 
       - name: Push To Dockerhub
         run: |
-          IMAGE_ID=${{ env.GHCR_USERNAME }}/${{ env.GITPOD_IMAGE_NAME}}
+          IMAGE_ID=${{ secrets.DOCKERHUB_USERNAME }}/${{ env.GITPOD_IMAGE_NAME}}
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
           docker tag ${{ env.GITPOD_IMAGE_NAME}} $IMAGE_ID
           docker push $IMAGE_ID
@@ -73,7 +73,7 @@ jobs:
 
       - name: Push To GHCP
         run: |
-          IMAGE_ID=ghcr.io/${{ env.GHCR_USERNAME }}/${{ env.JENKINS_IMAGE_NAME}}
+          IMAGE_ID=ghcr.io/${{ secrets.GHCR_USERNAME }}/${{ env.JENKINS_IMAGE_NAME}}
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
           docker tag ${{ env.JENKINS_IMAGE_NAME}} $IMAGE_ID
           docker push $IMAGE_ID
@@ -86,7 +86,7 @@ jobs:
 
       - name: Push To Dockerhub
         run: |
-          IMAGE_ID=${{ env.GHCR_USERNAME }}/${{ env.JENKINS_IMAGE_NAME}}
+          IMAGE_ID=${{ secrets.DOCKERHUB_USERNAME }}/${{ env.JENKINS_IMAGE_NAME}}
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
           docker tag ${{ env.JENKINS_IMAGE_NAME}} $IMAGE_ID
           docker push $IMAGE_ID
@@ -111,7 +111,7 @@ jobs:
       
       - name: Push To GHCP
         run: |
-          IMAGE_ID=ghcr.io/${{ env.GHCR_USERNAME }}/${{ env.ANSIBLE_CONTROLLER_IMAGE_NAME}}
+          IMAGE_ID=ghcr.io/${{ secrets.GHCR_USERNAME }}/${{ env.ANSIBLE_CONTROLLER_IMAGE_NAME}}
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
           docker tag ${{ env.ANSIBLE_CONTROLLER_IMAGE_NAME}} $IMAGE_ID
           docker push $IMAGE_ID
@@ -124,7 +124,7 @@ jobs:
 
       - name: Push To Dockerhub
         run: |
-          IMAGE_ID=${{ env.GHCR_USERNAME }}/${{ env.ANSIBLE_CONTROLLER_IMAGE_NAME}}
+          IMAGE_ID=${{ secrets.DOCKERHUB_USERNAME }}/${{ env.ANSIBLE_CONTROLLER_IMAGE_NAME}}
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
           docker tag ${{ env.ANSIBLE_CONTROLLER_IMAGE_NAME}} $IMAGE_ID
           docker push $IMAGE_ID
@@ -149,7 +149,7 @@ jobs:
       
       - name: Push To GHCP
         run: |
-          IMAGE_ID=ghcr.io/${{ env.GHCR_USERNAME }}/${{ env.ANSIBLE_TARGET_IMAGE_NAME}}
+          IMAGE_ID=ghcr.io/${{ secrets.GHCR_USERNAME }}/${{ env.ANSIBLE_TARGET_IMAGE_NAME}}
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
           docker tag ${{ env.ANSIBLE_TARGET_IMAGE_NAME}} $IMAGE_ID
           docker push $IMAGE_ID
@@ -162,7 +162,7 @@ jobs:
 
       - name: Push To Dockerhub
         run: |
-          IMAGE_ID=${{ env.GHCR_USERNAME }}/${{ env.ANSIBLE_TARGET_IMAGE_NAME}}
+          IMAGE_ID=${{ secrets.DOCKERHUB_USERNAME }}/${{ env.ANSIBLE_TARGET_IMAGE_NAME}}
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
           docker tag ${{ env.ANSIBLE_TARGET_IMAGE_NAME}} $IMAGE_ID
           docker push $IMAGE_ID
