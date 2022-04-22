@@ -30,7 +30,7 @@ jobs:
       - name: Push To GHCP
         run: |
           IMAGE_ID=ghcr.io/${{ github.repository_owner }}/$GITPOD_IMAGE_NAME
-          echo IMAGE_ID=$IMAGE_ID
+          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
           docker tag $GITPOD_IMAGE_NAME $IMAGE_ID
           docker push $IMAGE_ID
       
@@ -40,7 +40,7 @@ jobs:
       - name: Push To Dockerhub
         run: |
           IMAGE_ID=${{ github.repository_owner }}/$GITPOD_IMAGE_NAME
-          echo IMAGE_ID=$IMAGE_ID
+          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
           docker tag $GITPOD_IMAGE_NAME $IMAGE_ID
           docker push $IMAGE_ID
   
@@ -53,7 +53,7 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Build Docker Image
-        run: docker build . --file Dockerfile.tmp
+        run: docker build . --file Dockerfile.tmp --tag $JENKINS_IMAGE_NAME
       
       - name: Log in to GHCR registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
@@ -61,7 +61,7 @@ jobs:
       - name: Push To GHCP
         run: |
           IMAGE_ID=ghcr.io/${{ github.repository_owner }}/$JENKINS_IMAGE_NAME
-          echo IMAGE_ID=$IMAGE_ID
+          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
           docker tag $JENKINS_IMAGE_NAME $IMAGE_ID
           docker push $IMAGE_ID
       
@@ -71,7 +71,7 @@ jobs:
       - name: Push To Dockerhub
         run: |
           IMAGE_ID=${{ github.repository_owner }}/$JENKINS_IMAGE_NAME
-          echo IMAGE_ID=$IMAGE_ID
+          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
           docker tag $JENKINS_IMAGE_NAME $IMAGE_ID
           docker push $IMAGE_ID
 
@@ -84,12 +84,12 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Build Docker Image
-        run: docker build . --file Dockerfile.tmp
+        run: docker build . --file Dockerfile.tmp --tag $ANSIBLE_CONTROLLER_IMAGE_NAME
       
       - name: Push To GHCP
         run: |
           IMAGE_ID=ghcr.io/${{ github.repository_owner }}/$ANSIBLE_CONTROLLER_IMAGE_NAME
-          echo IMAGE_ID=$IMAGE_ID
+          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
           docker tag $ANSIBLE_CONTROLLER_IMAGE_NAME $IMAGE_ID
           docker push $IMAGE_ID
       
@@ -99,7 +99,7 @@ jobs:
       - name: Push To Dockerhub
         run: |
           IMAGE_ID=${{ github.repository_owner }}/$ANSIBLE_CONTROLLER_IMAGE_NAME
-          echo IMAGE_ID=$IMAGE_ID
+          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
           docker tag $ANSIBLE_CONTROLLER_IMAGE_NAME $IMAGE_ID
           docker push $IMAGE_ID
 
@@ -112,12 +112,12 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Build Docker Image
-        run: docker build . --file Dockerfile.tmp
+        run: docker build . --file Dockerfile.tmp --tag $ANSIBLE_TARGET_IMAGE_NAME
       
       - name: Push To GHCP
         run: |
           IMAGE_ID=ghcr.io/${{ github.repository_owner }}/$ANSIBLE_TARGET_IMAGE_NAME
-          echo IMAGE_ID=$IMAGE_ID
+          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
           docker tag $ANSIBLE_TARGET_IMAGE_NAME $IMAGE_ID
           docker push $IMAGE_ID
       
@@ -127,6 +127,6 @@ jobs:
       - name: Push To Dockerhub
         run: |
           IMAGE_ID=${{ github.repository_owner }}/$ANSIBLE_TARGET_IMAGE_NAME
-          echo IMAGE_ID=$IMAGE_ID
+          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
           docker tag $ANSIBLE_TARGET_IMAGE_NAME $IMAGE_ID
           docker push $IMAGE_ID
