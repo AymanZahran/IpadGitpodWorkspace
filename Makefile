@@ -6,7 +6,9 @@ PushToDockerHub:
 	docker login --username aymanzahran --password $$DOCKERHUB_PERSONAL_ACCESS_TOKEN
 	docker build -t aymanzahran/ipad-gitpod-image .
 	docker push aymanzahran/ipad-gitpod-image
-DockerLoginAnsible:
+DockerLogin:
+	docker login --username aymanzahran --password $$DOCKERHUB_PERSONAL_ACCESS_TOKEN
+DockerExecAnsible:
 	docker exec -it ipadgitpodworkspace-AnsibleController-1 /bin/bash
-DockerLoginJenkins:
+DockerExecJenkins:
 	docker exec -it ipadgitpodworkspace-Jenkins-1 /bin/bash

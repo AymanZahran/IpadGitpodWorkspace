@@ -28,7 +28,6 @@ RUN curl -fsSL https://deb.nodesource.com/setup_current.x | sudo -E bash - && \
 RUN curl https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -o awscliv2.zip && unzip awscliv2.zip && sudo ./aws/install && \
     wget https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli-linux-x86_64.zip && unzip aws-sam-cli-linux-x86_64.zip -d sam-installation && sudo ./sam-installation/install
 
-
 # Install AWS CDK, CDKtf, CDK8s, Projen, Serverless Framework, troposphere, cfn-lint
 RUN sudo npm install -g aws-cdk cdktf-cli cdk8s-cli projen serverless && \
     sudo pip3 install troposphere cfn-lint
@@ -61,7 +60,7 @@ RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.
         google-cloud-cli-minikube google-cloud-cli-nomos google-cloud-cli-pubsub-emulator google-cloud-cli-skaffold google-cloud-cli-spanner-emulator \
         google-cloud-cli-terraform-validator google-cloud-cli-tests
 
-# Install docker, kubeadm, kubelet and kubectl
+# Install docker, kubeadm, kubelet, kubectl, kind
 RUN curl -fsSL https://get.docker.com | sudo bash && \
     echo "br_netfilter" | sudo tee /etc/modules-load.d/k8s.conf && \
     echo "net.bridge.bridge-nf-call-ip6tables = 1" | sudo tee /etc/sysctl.d/k8s.conf && \
@@ -71,7 +70,9 @@ RUN curl -fsSL https://get.docker.com | sudo bash && \
     sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg && \
     sudo apt update -y && \
     sudo apt install -y kubelet kubeadm kubectl && \
-    sudo apt-mark hold kubelet kubeadm kubectl
+    sudo apt-mark hold kubelet kubeadm kubectl && \
+    sudo curl -Lo /usr/local/bin/kind https://kind.sigs.k8s.io/dl/v0.12.0/kind-linux-amd64 && \
+    sudo chmod +x /usr/local/bin/kind
 
 ## Install Krew & Krew Plugins (neat, access-matrix, advise-psp, cert-manager, ca-cert, get-all, ingress-nginx, ctx, ns)
 RUN set -x; cd "$(mktemp -d)" && \
