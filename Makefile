@@ -22,7 +22,7 @@ BuildPushGitpodImageToGHCR:
 BuildPushGitpodImageToDockerHub:
 	docker login ghcr.io --username $$GHCR_USERNAME --password $$GHCR_TOKEN
 	docker build . --file Dockerfile --tag $$GHCR_USERNAME/${GITPOD_IMAGE_NAME}
-	docker push $$GHCR_USERNAME/${GITPOD_IMAGE_NAME}
+	docker push $$DOCKERHUB_USERNAME/${GITPOD_IMAGE_NAME}
 	docker logout
 BuildPushGitpodImage: BuildPushGitpodImageToGHCR BuildPushGitpodImageToDockerHub
 
@@ -34,7 +34,7 @@ BuildPushJenkinsImageToGHCR:
 BuildPushJenkinsImageToDockerHub:
 	docker login ghcr.io --username $$GHCR_USERNAME --password $$GHCR_TOKEN
 	docker build . --file Dockerfile.Jenkins --tag $$GHCR_USERNAME/${JENKINS_IMAGE_NAME}
-	docker push $$GHCR_USERNAME/${JENKINS_IMAGE_NAME}
+	docker push $$DOCKERHUB_USERNAME/${JENKINS_IMAGE_NAME}
 	docker logout
 BuildPushJenkinsImage: BuildPushJenkinsImageToGHCR BuildPushJenkinsImageToDockerHub
 
@@ -46,7 +46,7 @@ BuildPushAnsibleControllerImageToGHCR:
 BuildPushAnsibleControllerImageToDockerHub:
 	docker login ghcr.io --username $$GHCR_USERNAME --password $$GHCR_TOKEN
 	docker build . --file Dockerfile.AnsibleController --tag $$GHCR_USERNAME/${ANSIBLE_CONTROLLER_IMAGE_NAME}
-	docker push $$GHCR_USERNAME/${ANSIBLE_CONTROLLER_IMAGE_NAME}
+	docker push $$DOCKERHUB_USERNAME/${ANSIBLE_CONTROLLER_IMAGE_NAME}
 	docker logout
 BuildPushAnsibleControllerImage: BuildPushAnsibleControllerImageToGHCR BuildPushAnsibleControllerImageToDockerHub
 
@@ -58,7 +58,7 @@ BuildPushAnsibleTargetImageToGHCR:
 BuildPushAnsibleTargetImageToDockerHub:
 	docker login ghcr.io --username $$GHCR_USERNAME --password $$GHCR_TOKEN
 	docker build . --file Dockerfile.AnsibleTarget --tag $$GHCR_USERNAME/${ANSIBLE_TARGET_IMAGE_NAME}
-	docker push $$GHCR_USERNAME/${ANSIBLE_TARGET_IMAGE_NAME}
+	docker push $$DOCKERHUB_USERNAME/${ANSIBLE_TARGET_IMAGE_NAME}
 	docker logout
 BuildPushAnsibleControllerImage: BuildPushAnsibleTargetImageToGHCR BuildPushAnsibleTargetImageToDockerHub
 
