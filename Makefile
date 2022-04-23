@@ -24,7 +24,7 @@ BuildPushGitpodImageToDockerHub:
 	docker build . --file Dockerfile --tag $$GHCR_USERNAME/${GITPOD_IMAGE_NAME}
 	docker push $$GHCR_USERNAME/${GITPOD_IMAGE_NAME}
 	docker logout
-BuildPushGitpodImage: PushGitpodImageToGHCR PushGitpodImageToDockerHub
+BuildPushGitpodImage: BuildPushGitpodImageToGHCR BuildPushGitpodImageToDockerHub
 
 BuildPushJenkinsImageToGHCR:
 	docker login ghcr.io --username $$GHCR_USERNAME --password $$GHCR_TOKEN
@@ -36,7 +36,7 @@ BuildPushJenkinsImageToDockerHub:
 	docker build . --file Dockerfile.Jenkins --tag $$GHCR_USERNAME/${JENKINS_IMAGE_NAME}
 	docker push $$GHCR_USERNAME/${JENKINS_IMAGE_NAME}
 	docker logout
-BuildPushJenkinsImage: PushJenkinsImageToGHCR PushJenkinsImageToDockerHub
+BuildPushJenkinsImage: BuildPushJenkinsImageToGHCR BuildPushJenkinsImageToDockerHub
 
 BuildPushAnsibleControllerImageToGHCR:
 	docker login ghcr.io --username $$GHCR_USERNAME --password $$GHCR_TOKEN
@@ -48,7 +48,7 @@ BuildPushAnsibleControllerImageToDockerHub:
 	docker build . --file Dockerfile.AnsibleController --tag $$GHCR_USERNAME/${ANSIBLE_CONTROLLER_IMAGE_NAME}
 	docker push $$GHCR_USERNAME/${ANSIBLE_CONTROLLER_IMAGE_NAME}
 	docker logout
-BuildPushAnsibleControllerImage: PushAnsibleControllerImageToGHCR PushAnsibleControllerImageToDockerHub
+BuildPushAnsibleControllerImage: BuildPushAnsibleControllerImageToGHCR BuildPushAnsibleControllerImageToDockerHub
 
 BuildPushAnsibleTargetImageToGHCR:
 	docker login ghcr.io --username $$GHCR_USERNAME --password $$GHCR_TOKEN
@@ -60,6 +60,6 @@ BuildPushAnsibleTargetImageToDockerHub:
 	docker build . --file Dockerfile.AnsibleTarget --tag $$GHCR_USERNAME/${ANSIBLE_TARGET_IMAGE_NAME}
 	docker push $$GHCR_USERNAME/${ANSIBLE_TARGET_IMAGE_NAME}
 	docker logout
-BuildPushAnsibleControllerImage: PushAnsibleTargetImageToGHCR PushAnsibleTargetImageToDockerHub
+BuildPushAnsibleControllerImage: BuildPushAnsibleTargetImageToGHCR BuildPushAnsibleTargetImageToDockerHub
 
-BuildPushAll: PushGitpodImage PushJenkinsImage PushAnsibleControllerImage PushAnsibleControllerImage
+BuildPushAll: BuildPushGitpodImage BuildPushJenkinsImage BuildPushAnsibleControllerImage BuildPushAnsibleControllerImage
