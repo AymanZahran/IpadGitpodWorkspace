@@ -15,21 +15,19 @@ env:
   ANSIBLE_TARGET_IMAGE_NAME: ipad-ansibletarget-image
 
 jobs:
-  BuildPushGitpodImage:
+  BuildPushGitpodImageToGHCR:
     runs-on: ubuntu-latest
     permissions:
       packages: write
       contents: read
     steps:
       - uses: actions/checkout@v3
-
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v1
         with:
           registry: ghcr.io
           username: ${{ secrets.GHCR_USERNAME }}
           password: ${{ secrets.GHCR_TOKEN }}
-      
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
@@ -37,14 +35,19 @@ jobs:
           file: Dockerfile
           push: true
           tags: ghcr.io/${{ secrets.GHCR_USERNAME }}/${{ env.JENKINS_IMAGE_NAME}}
-
-      - name: Push To GHCP
-        run: |
-          IMAGE_ID=ghcr.io/${{ secrets.GHCR_USERNAME }}/${{ env.GITPOD_IMAGE_NAME}}
-          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
-          docker tag ${{ env.GITPOD_IMAGE_NAME}} $IMAGE_ID
-          docker push $IMAGE_ID
-      
+  
+  BuildPushGitpodImageToDockerHub:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v3
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}  
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
@@ -53,21 +56,19 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.JENKINS_IMAGE_NAME}}
   
-  BuildPushJenkinsImage:
+  BuildPushJenkinsImageToGHCR:
     runs-on: ubuntu-latest
     permissions:
       packages: write
       contents: read
     steps:
       - uses: actions/checkout@v3
-
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v1
         with:
           registry: ghcr.io
           username: ${{ secrets.GHCR_USERNAME }}
           password: ${{ secrets.GHCR_TOKEN }}
-
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
@@ -75,13 +76,19 @@ jobs:
           file: Dockerfile.Jenkins
           push: true
           tags: ghcr.io/${{ secrets.GHCR_USERNAME }}/${{ env.JENKINS_IMAGE_NAME}}
-      
+
+  BuildPushJenkinsImageToDockerHub:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v3
       - name: Login to Docker Hub
         uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
@@ -90,21 +97,19 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.JENKINS_IMAGE_NAME}}
 
-  BuildPushAnsibleControllerImage:
+  BuildPushAnsibleControllerImageToGHCR:
     runs-on: ubuntu-latest
     permissions:
       packages: write
       contents: read
     steps:
       - uses: actions/checkout@v3
-
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v1
         with:
           registry: ghcr.io
           username: ${{ secrets.GHCR_USERNAME }}
           password: ${{ secrets.GHCR_TOKEN }}
-      
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
@@ -112,13 +117,19 @@ jobs:
           file: Dockerfile.AnsibleController
           push: true
           tags: ghcr.io/${{ secrets.GHCR_USERNAME }}/${{ env.ANSIBLE_CONTROLLER_IMAGE_NAME}}
-      
+  
+  BuildPushAnsibleControllerImageToDockerHub:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v3
       - name: Login to Docker Hub
         uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
@@ -127,21 +138,19 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.ANSIBLE_CONTROLLER_IMAGE_NAME}}
 
-  BuildPushAnsibleTargetImage:
+  BuildPushAnsibleTargetImageToGHCR:
     runs-on: ubuntu-latest
     permissions:
       packages: write
       contents: read
     steps:
       - uses: actions/checkout@v3
-
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v1
         with:
           registry: ghcr.io
           username: ${{ secrets.GHCR_USERNAME }}
           password: ${{ secrets.GHCR_TOKEN }}
-      
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
@@ -149,13 +158,19 @@ jobs:
           file: Dockerfile.AnsibleTarget
           push: true
           tags: ghcr.io/${{ secrets.GHCR_USERNAME }}/${{ env.ANSIBLE_TARGET_IMAGE_NAME}}
-      
+  
+  BuildPushAnsibleTargetImageToDockerHub:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v3
       - name: Login to Docker Hub
         uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
