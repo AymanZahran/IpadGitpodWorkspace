@@ -32,5 +32,5 @@ services:
     #   context: .
     #   dockerfile: Dockerfile.Jenkins
     environment:
-      JENKINS_ADMIN_ID: "admin"
-      JENKINS_ADMIN_PASSWORD: "password"
+      JENKINS_USERNAME: "admin"
+      JENKINS_PASSWORD: "password"

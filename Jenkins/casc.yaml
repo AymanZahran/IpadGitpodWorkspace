@@ -28,17 +28,9 @@ jenkins:
   securityRealm:
     local:
       allowsSignup: false
-      enableCaptcha: false
       users:
-      - id: "admin"
-        name: "admin"
-        properties:
-        - "apiToken"
-        - "mailer"
-        - "myView"
-        - preferredProvider:
-            providerId: "default"
-        - "timezone"
+      - id: ${JENKINS_USERNAME}
+        password: ${JENKINS_PASSWORD}
   slaveAgentPort: 50000
   updateCenter:
     sites:
