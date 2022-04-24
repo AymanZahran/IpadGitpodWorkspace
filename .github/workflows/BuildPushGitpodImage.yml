@@ -31,7 +31,7 @@ jobs:
           context: .
           file: Dockerfile
           push: true
-          tags: ghcr.io/${{ secrets.GHCR_USERNAME }}/${{ env.JENKINS_IMAGE_NAME}}
+          tags: ghcr.io/${{ secrets.GHCR_USERNAME }}/${{ env.GITPOD_IMAGE_NAME}}
   
   BuildPushGitpodImageToDockerHub:
     runs-on: ubuntu-latest
@@ -51,4 +51,4 @@ jobs:
           context: .
           file: Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.JENKINS_IMAGE_NAME}}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.GITPOD_IMAGE_NAME}}
