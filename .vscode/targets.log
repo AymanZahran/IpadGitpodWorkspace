@@ -1,0 +1,383 @@
+make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+make: *** No rule to make target 'all'.  Stop.
+
+# GNU Make 4.2.1
+# Built for x86_64-pc-linux-gnu
+# Copyright (C) 1988-2016 Free Software Foundation, Inc.
+# License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+# This is free software: you are free to change and redistribute it.
+# There is NO WARRANTY, to the extent permitted by law.
+
+# Make data base, printed on Tue May 31 15:02:27 2022
+
+# Variables
+
+# automatic
+<D = $(patsubst %/,%,$(dir $<))
+# automatic
+?F = $(notdir $?)
+# environment
+AWS_SECRET_ACCESS_KEY = RkzC5mPh22/1WtLtU/YF5s0dt68m6PH96m7sg9Fk
+# environment
+GP_OPEN_EDITOR = /ide/bin/remote-cli/gitpod-code
+# default
+.SHELLFLAGS := -c
+# environment
+VSCODE_LOG_NATIVE = false
+# environment
+VSX_REGISTRY_URL = https://open-vsx.gitpod.io
+# environment
+SUPERVISOR_ADDR = localhost:22999
+# environment
+SUPERVISOR_ENVVAR_OTS = https://gitpod.io/api/ots/get/0853affa-5abe-4c58-a160-b01c0f5addc0
+# automatic
+@D = $(patsubst %/,%,$(dir $@))
+# automatic
+@F = $(notdir $@)
+# makefile
+CURDIR := /workspace/IpadGitpodWorkspace
+# makefile
+SHELL = /bin/sh
+# environment
+VSCODE_NLS_CONFIG = {"locale":"en-US","availableLanguages":{}}
+# environment
+_ = /ide/node
+# environment
+JENKINS_PASSWORD = password
+# environment
+GITPOD_THEIA_PORT = 23000
+# automatic
+?D = $(patsubst %/,%,$(dir $?))
+# environment
+GITPOD_ANALYTICS_WRITER = segment
+# makefile (from 'Makefile', line 1)
+MAKEFILE_LIST :=  Makefile
+# environment
+GITPOD_WORKSPACE_CONTEXT_URL = https://github.com/AymanZahran/IpadGitpodWorkspace
+# 'override' directive
+GNUMAKEFLAGS := 
+# environment
+VSCODE_VERBOSE_LOGGING = true
+# environment
+THEIA_WORKSPACE_ROOT = /workspace/IpadGitpodWorkspace
+# environment
+LESSOPEN = | /usr/bin/lesspipe %s
+# environment
+GIT_EDITOR = /ide/bin/remote-cli/gitpod-code --wait
+# environment
+VSCODE_CWD = /ide
+# default
+MAKE_HOST := x86_64-pc-linux-gnu
+# environment
+PATH = /ide/bin/remote-cli:/home/gitpod/.krew/bin:/home/gitpod/.krew/bin:/ide/bin/remote-cli:/usr/games:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/gitpod/.dotnet/tools:/home/gitpod/.dotnet/tools
+# environment
+GITPOD_OWNER_ID = 95a8d8db-a6fe-40cc-a875-6b8bcbb31910
+# environment
+GITPOD_WORKSPACE_ID = aymanzahran-ipadgitpodw-91oielaeveh
+# environment
+GITPOD_INTERVAL = 30000
+# environment
+GITPOD_WORKSPACE_CLUSTER_HOST = ws-eu46.gitpod.io
+# environment
+LC_ALL = C
+# environment
+GITPOD_ANALYTICS_SEGMENT_KEY = bUY8IRdJ42KjLOBS9LoIHMYFBD8rSzjU
+# environment
+GITPOD_REPO_ROOTS = /workspace/IpadGitpodWorkspace
+# environment
+VSCODE_LOG_STACK = false
+# environment
+VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-d507e583-84cb-46d9-bf63-cec84195745c.sock
+# default
+.FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
+# environment
+LS_COLORS = 
+# automatic
+%F = $(notdir $%)
+# environment
+GP_PREVIEW_BROWSER = /ide/bin/remote-cli/gitpod-code --preview
+# environment
+VISUAL = /ide/bin/remote-cli/gitpod-code
+# environment
+VSCODE_PIPE_LOGGING = true
+# environment
+WORKSPACEKIT_WRAP_NETNS = true
+# environment
+DOCKERHUB_USERNAME = aymanzahran
+# default
+.LOADED := 
+# environment
+AWS_DEFAULT_REGION = us-east-1
+# environment
+VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
+# environment
+HOME = /home/gitpod
+# environment
+GHCR_TOKEN = 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
+# environment
+THEIA_WEBVIEW_EXTERNAL_ENDPOINT = webview-{{hostname}}
+# environment
+LESSCLOSE = /usr/bin/lesspipe %s %s
+# environment
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
+# environment
+GITPOD_CLI_APITOKEN = wsvW0Elg3ywGY7lW_h7wqtqe.mcPJXvq
+# automatic
++F = $(notdir $+)
+# environment
+VSCODE_HANDLES_UNCAUGHT_ERRORS = true
+# automatic
+^D = $(patsubst %/,%,$(dir $^))
+# environment
+HOSTNAME = aymanzahran-ipadgitpodw-91oielaeveh
+# environment
+JENKINS_USERNAME = admin
+# environment
+MAKELEVEL := 0
+# default
+MAKE = $(MAKE_COMMAND)
+# default
+MAKECMDGOALS := all
+# environment
+SHLVL = 0
+# environment
+GITPOD_GIT_USER_NAME = Ayman Zahran
+# default
+MAKE_VERSION := 4.2.1
+# environment
+USER = gitpod
+# makefile
+.DEFAULT_GOAL := PushToGithub
+# environment
+GITPOD_IDE_ALIAS = code
+# automatic
+%D = $(patsubst %/,%,$(dir $%))
+# environment
+GITPOD_REPO_ROOT = /workspace/IpadGitpodWorkspace
+# environment
+THEIA_RATELIMIT_LOG = 50
+# environment
+THEIA_MINI_BROWSER_HOST_PATTERN = browser-{{hostname}}
+# environment
+GITPOD_GIT_USER_EMAIL = ah.zahran@outlook.com
+# default
+MAKE_COMMAND := make
+# default
+.VARIABLES := 
+# automatic
+*F = $(notdir $*)
+# environment
+GHCR_USERNAME = aymanzahran
+# environment
+GITPOD_PREVENT_METADATA_ACCESS = true
+# environment
+GITPOD_HOST = https://gitpod.io
+# makefile
+MAKEFLAGS = pqrR
+# environment
+DOCKERHUB_TOKEN = 4033d04e-5dbe-49b6-969b-26f3a714019a
+# environment
+MFLAGS = -pqrR
+# automatic
+*D = $(patsubst %/,%,$(dir $*))
+# automatic
++D = $(patsubst %/,%,$(dir $+))
+# environment
+BROWSER = /ide/bin/helpers/browser.sh
+# environment
+GITPOD_MEMORY = 3435
+# environment
+VSCODE_HANDLES_SIGPIPE = true
+# environment
+GITPOD_TASKS = [{"name":"persist env","command":"eval $(gp env -e)"},{"name":"Configure AWS Profile","command":"echo \"[gitpod]\" > ~/.aws/config\necho \"region = $AWS_DEFAULT_REGION\" >> ~/.aws/config\necho \"cli_auto_prompt = on-partial\" >> ~/.aws/config\necho \"[gitpod]\" > ~/.aws/credentials\necho \"aws_access_key_id = $AWS_ACCESS_KEY_ID\" >> ~/.aws/credentials\necho \"aws_secret_access_key = $AWS_SECRET_ACCESS_KEY\" >> ~/.aws/credentials\n"},{"name":"Configure Ansible","command":"ssh-keygen -q -t rsa -N '' -f ./id_rsa <<<y >/dev/null 2>&1\ndocker-compose build\ndocker compose up AnsibleController AnsibleTarget1 AnsibleTarget2\n"},{"name":"Configure Jenkins","command":"docker compose up Jenkins\n"}]
+# default
+MAKEFILES := 
+# environment
+GITPOD_CODE_HOST = https://gitpod.io
+# automatic
+<F = $(notdir $<)
+# environment
+TRIGGER_REBUILD = 1
+# environment
+GP_EXTERNAL_BROWSER = /ide/bin/remote-cli/gitpod-code --openExternal
+# environment
+EDITOR = /ide/bin/remote-cli/gitpod-code
+# environment
+PWD = /workspace/IpadGitpodWorkspace
+# environment
+AWS_ACCESS_KEY_ID = AKIA5EZUTDHMSZSM6NGQ
+# environment
+GITPOD_WORKSPACE_CONTEXT = {"isFile":false,"path":"","title":"AymanZahran/IpadGitpodWorkspace - master","ref":"master","refType":"branch","revision":"a85037191bd264bb754dcfa1a1b37f1909964319","repository":{"cloneUrl":"https://github.com/AymanZahran/IpadGitpodWorkspace.git","host":"github.com","name":"IpadGitpodWorkspace","owner":"AymanZahran","private":false},"normalizedContextURL":"https://github.com/AymanZahran/IpadGitpodWorkspace","checkoutLocation":"IpadGitpodWorkspace"}
+# environment
+AWS_ACCOUNT_NUMBER = 903664048601
+# environment
+JAVA_TOOL_OPTIONS =  -Xmx3435m
+# automatic
+^F = $(notdir $^)
+# default
+SUFFIXES := 
+# default
+.INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
+# environment
+GITPOD_INSTANCE_ID = fcba2fe5-7152-4f4e-8ffd-aacc90b65b01
+# environment
+GITPOD_WORKSPACE_URL = https://aymanzahran-ipadgitpodw-91oielaeveh.ws-eu46.gitpod.io
+# default
+.RECIPEPREFIX := 
+# environment
+LANG = C
+# environment
+VSCODE_EXTHOST_WILL_SEND_SOCKET = true
+# variable set hash-table stats:
+# Load=108/1024=11%, Rehash=0, Collisions=16/133=12%
+
+# Pattern-specific Variable Values
+
+# No pattern-specific variable values.
+
+# Directories
+
+# . (device 2346, inode 335565017): 27 files, no impossibilities.
+
+# 27 files, no impossibilities in 1 directories.
+
+# Implicit Rules
+
+# No implicit rules.
+
+# Files
+
+GHCRLogin:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 5):
+	cd scripts && ./GHCRLogin.sh && cd ..
+
+DockerLogin:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 7):
+	cd scripts && ./DockerLogin.sh && cd ..
+
+# Not a target:
+all:
+#  Command line target.
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has not been updated.
+
+BuildPushGitpodImage: BuildPushGitpodImageToGHCR BuildPushGitpodImageToDockerHub
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+BuildPushGitpodImageToGHCR:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 10):
+	cd scripts && ./BuildPushGitpodImageToGHCR.sh && cd ..
+
+BuildPushAnsibleControllerImage: BuildPushAnsibleControllerImageToGHCR BuildPushAnsibleControllerImageToDockerHub BuildPushAnsibleTargetImageToGHCR BuildPushAnsibleTargetImageToDockerHub
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+BuildPushAnsibleControllerImageToGHCR:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 22):
+	cd scripts && ./BuildPushAnsibleControllerImageToGHCR.sh && cd ..
+
+BuildPushGitpodImageToDockerHub:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 12):
+	cd scripts && ./BuildPushGitpodImageToDockerHub.sh && cd ..
+
+# Not a target:
+Makefile:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-31 15:00:40.753796871
+#  File has been updated.
+#  Successfully updated.
+
+BuildPushJenkinsImage: BuildPushJenkinsImageToGHCR BuildPushJenkinsImageToDockerHub
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+BuildPushJenkinsImageToGHCR:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 16):
+	cd scripts && ./BuildPushJenkinsImageToGHCR.sh && cd ..
+
+BuildPushAnsibleControllerImageToDockerHub:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 24):
+	cd scripts && ./BuildPushAnsibleControllerImageToDockerHub.sh && cd ..
+
+BuildPushJenkinsImageToDockerHub:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 18):
+	cd scripts && ./BuildPushJenkinsImageToDockerHub.sh && cd ..
+
+# Not a target:
+.DEFAULT:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+PushToGithub:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 2):
+	cd scripts && ./PushToGithub.sh && cd ..
+
+BuildPushAnsibleTargetImageToGHCR:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 28):
+	cd scripts && ./BuildPushAnsibleTargetImageToGHCR.sh && cd ..
+
+BuildPushAnsibleTargetImageToDockerHub:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 30):
+	cd scripts && ./BuildPushAnsibleTargetImageToDockerHub.sh && cd ..
+
+BuildPushAll: BuildPushGitpodImage BuildPushJenkinsImage BuildPushAnsibleControllerImage BuildPushAnsibleControllerImage
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# files hash-table stats:
+# Load=19/1024=2%, Rehash=0, Collisions=0/42=0%
+# VPATH Search Paths
+
+# No 'vpath' search paths.
+
+# No general ('VPATH' variable) search path.
+
+# strcache buffers: 1 (0) / strings = 47 / storage = 776 B / avg = 16 B
+# current buf: size = 8162 B / used = 776 B / count = 47 / avg = 16 B
+
+# strcache performance: lookups = 80 / hit rate = 41%
+# hash-table stats:
+# Load=47/8192=1%, Rehash=0, Collisions=1/80=1%
+# Finished Make data base on Tue May 31 15:02:27 2022
+
+ 

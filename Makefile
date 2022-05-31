@@ -31,3 +31,5 @@ BuildPushAnsibleTargetImageToDockerHub:
 BuildPushAnsibleControllerImage: BuildPushAnsibleTargetImageToGHCR BuildPushAnsibleTargetImageToDockerHub
 
 BuildPushAll: BuildPushGitpodImage BuildPushJenkinsImage BuildPushAnsibleControllerImage BuildPushAnsibleControllerImage
+
+PushAll: BuildPushAll PushToGithub
