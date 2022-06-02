@@ -1,7 +1,6 @@
 #!/bin/bash
 eval $(gp env -e)
-export $(cat .env | xargs)
 docker login ghcr.io --username $GHCR_USERNAME --password $GHCR_TOKEN
-docker build . --file Dockerfile.AnsibleTarget --tag $GHCR_USERNAME/$ANSIBLE_TARGET_IMAGE_NAME
+docker build . --file ../Dockerfile.AnsibleTarget --tag $GHCR_USERNAME/$ANSIBLE_TARGET_IMAGE_NAME
 docker push $$DOCKERHUB_USERNAME/$ANSIBLE_TARGET_IMAGE_NAME
 docker logout
