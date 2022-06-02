@@ -8,8 +8,6 @@ on:
       - master
     tags:
       - v*
-env:
-  JENKINS_IMAGE_NAME: ipad-jenkins-image
 
 jobs:
   BuildPushJenkinsImageToGHCR:
@@ -31,7 +29,7 @@ jobs:
           context: .
           file: Dockerfile.Jenkins
           push: true
-          tags: ghcr.io/${{ secrets.GHCR_USERNAME }}/${{ env.JENKINS_IMAGE_NAME}}
+          tags: ghcr.io/${{ secrets.GHCR_USERNAME }}/${{ secrets.JENKINS_IMAGE_NAME}}
 
   BuildPushJenkinsImageToDockerHub:
     runs-on: ubuntu-latest
@@ -51,4 +49,4 @@ jobs:
           context: .
           file: Dockerfile.Jenkins
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.JENKINS_IMAGE_NAME}}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.JENKINS_IMAGE_NAME}}

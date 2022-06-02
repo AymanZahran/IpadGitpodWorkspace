@@ -8,8 +8,6 @@ on:
       - master
     tags:
       - v*
-env:
-  ANSIBLE_CONTROLLER_IMAGE_NAME: ipad-ansiblecontroller-image
 
 jobs:
   BuildPushAnsibleControllerImageToGHCR:
@@ -31,7 +29,7 @@ jobs:
           context: .
           file: Dockerfile.AnsibleController
           push: true
-          tags: ghcr.io/${{ secrets.GHCR_USERNAME }}/${{ env.ANSIBLE_CONTROLLER_IMAGE_NAME}}
+          tags: ghcr.io/${{ secrets.GHCR_USERNAME }}/${{ secrets.ANSIBLE_CONTROLLER_IMAGE_NAME}}
   
   BuildPushAnsibleControllerImageToDockerHub:
     runs-on: ubuntu-latest
@@ -51,4 +49,4 @@ jobs:
           context: .
           file: Dockerfile.AnsibleController
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.ANSIBLE_CONTROLLER_IMAGE_NAME}}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.ANSIBLE_CONTROLLER_IMAGE_NAME}}
