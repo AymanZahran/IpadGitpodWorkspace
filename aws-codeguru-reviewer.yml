@@ -16,7 +16,6 @@ version: 1.0
 # Replace with your own list of files and directories that you want CodeGuru Reviewer to exclude.
 # We recommend that you use a schema validator to confirm that the YAML syntax is valid.
 
-
 excludeFiles:
   - 'src/some-package/**' 
   - 'tst/**'
