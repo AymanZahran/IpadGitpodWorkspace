@@ -1,18 +1,18 @@
 jenkins:
   agentProtocols:
-  - "JNLP4-connect"
-  - "Ping"
+    - "JNLP4-connect"
+    - "Ping"
   authorizationStrategy:
     globalMatrix:
       permissions:
-      - "Overall/Administer:admin"
-      - "Overall/Read:authenticated"
+        - "Overall/Administer:admin"
+        - "Overall/Read:authenticated"
   crumbIssuer:
     standard:
       excludeClientIPFromCrumb: false
   disableRememberMe: false
   labelAtoms:
-  - name: "built-in"
+    - name: "built-in"
   markupFormatter: "plainText"
   mode: NORMAL
   myViewsTabBar: "standard"
@@ -29,16 +29,16 @@ jenkins:
     local:
       allowsSignup: false
       users:
-      - id: ${JENKINS_USERNAME}
-        password: ${JENKINS_PASSWORD}
+        - id: ${JENKINS_USERNAME}
+          password: ${JENKINS_PASSWORD}
   slaveAgentPort: 50000
   updateCenter:
     sites:
-    - id: "default"
-      url: "https://updates.jenkins.io/update-center.json"
+      - id: "default"
+        url: "https://updates.jenkins.io/update-center.json"
   views:
-  - all:
-      name: "all"
+    - all:
+        name: "all"
   viewsTabBar: "standard"
 globalCredentialsConfiguration:
   configuration:
@@ -51,14 +51,14 @@ security:
     usageStatisticsEnabled: true
   queueItemAuthenticator:
     authenticators:
-    - global:
-        strategy: "triggeringUsersAuthorizationStrategy"
+      - global:
+          strategy: "triggeringUsersAuthorizationStrategy"
   sSHD:
     port: -1
 unclassified:
   buildDiscarders:
     configuredBuildDiscarders:
-    - "jobBuildDiscarder"
+      - "jobBuildDiscarder"
   buildStepOperation:
     enabled: false
   email-ext:
@@ -73,7 +73,7 @@ unclassified:
     defaultContentType: "text/plain"
     defaultSubject: "$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!"
     defaultTriggerIds:
-    - "hudson.plugins.emailext.plugins.trigger.FailureTrigger"
+      - "hudson.plugins.emailext.plugins.trigger.FailureTrigger"
     maxAttachmentSize: -1
     maxAttachmentSizeMb: -1
     precedenceBulk: false
@@ -108,8 +108,8 @@ unclassified:
 tool:
   git:
     installations:
-    - home: "git"
-      name: "Default"
+      - home: "git"
+        name: "Default"
   mavenGlobalConfig:
     globalSettingsProvider: "standard"
     settingsProvider: "standard"
