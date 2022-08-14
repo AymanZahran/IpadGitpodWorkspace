@@ -20,19 +20,19 @@
 
   // Add the IDs of extensions you want installed when the container is created.
   "extensions": [
-    ms-azuretools.vscode-docker,
-    ms-kubernetes-tools.vscode-kubernetes-tools,
-    amazonwebservices.aws-toolkit-vscode,
-    ms-toolsai.jupyter,
-    esbenp.prettier-vscode,
-    dbaeumer.vscode-eslint,
-    hashicorp.terraform,
-    eg2.vscode-npm-script,
-    christian-kohler.npm-intellisense,
-    christian-kohler.path-intellisense,
-    ms-python.python,
-    rangav.vscode-thunder-client,
-    PKief.material-icon-theme
+    "ms-azuretools.vscode-docker",
+    "ms-kubernetes-tools.vscode-kubernetes-tools",
+    "amazonwebservices.aws-toolkit-vscode",
+    "ms-toolsai.jupyter",
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "hashicorp.terraform",
+    "eg2.vscode-npm-script",
+    "christian-kohler.npm-intellisense",
+    "christian-kohler.path-intellisense",
+    "ms-python.python",
+    "rangav.vscode-thunder-client",
+    "PKief.material-icon-theme"
   ],
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
