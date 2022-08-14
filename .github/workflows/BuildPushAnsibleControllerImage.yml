@@ -3,11 +3,9 @@ name: BuildPushAnsibleControllerImage
 on:   
   schedule:
     - cron: 0 1 * * *
-  push:
-    branches:
-      - master
-    tags:
-      - v*
+  # push:
+  #   branches:
+  #     - master
 
 jobs:
   BuildPushAnsibleControllerImageToGHCR:
