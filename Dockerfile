@@ -39,6 +39,7 @@ RUN sudo curl -Lo /usr/local/bin/terragrunt https://github.com/gruntwork-io/terr
     sudo curl -Lo /usr/local/bin/awstoe https://awstoe-us-east-1.s3.us-east-1.amazonaws.com/latest/linux/amd64/awstoe && \
     sudo curl -Lo /usr/local/bin/cloud-nuke https://github.com/gruntwork-io/cloud-nuke/releases/download/v0.11.3/cloud-nuke_linux_amd64 && \
     wget -c https://github.com/rebuy-de/aws-nuke/releases/download/v2.16.0/aws-nuke-v2.16.0-linux-amd64.tar.gz -O - | sudo tar -xz -C /usr/local/bin/ && \
+    wget -c https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz -O - | sudo tar -xz -C /usr/local/bin/ && \
     curl -fsSL https://get.pulumi.com | sudo bash && \
     curl -sL https://aws-amplify.github.io/amplify-cli/install | sudo bash && $SHELL && \
     curl -fsSL https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | sudo bash && \
