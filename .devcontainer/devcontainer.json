@@ -30,25 +30,25 @@
   // ],
 
   // // Use 'forwardPorts' to make a list of ports inside the container available locally.
-  // "forwardPorts": [ 999, 8080 ],
+  "forwardPorts": [ 999, 8080 ],
 
-  // "postCreateCommand": [
-  //   "echo \"[gitpod]\" > ~/.aws/config",
-  //   "echo \"region = $AWS_DEFAULT_REGION\" >> ~/.aws/config",
-  //   "echo \"cli_auto_prompt = on-partial\" >> ~/.aws/config",
-  //   "echo \"[gitpod]\" > ~/.aws/credentials",
-  //   "echo \"aws_access_key_id = $AWS_ACCESS_KEY_ID\" >> ~/.aws/credentials",
-  //   "echo \"aws_secret_access_key = $AWS_SECRET_ACCESS_KEY\" >> ~/.aws/credentials",
+  "postCreateCommand": [
+    "echo \"[gitpod]\" > ~/.aws/config",
+    "echo \"region = $AWS_DEFAULT_REGION\" >> ~/.aws/config",
+    "echo \"cli_auto_prompt = on-partial\" >> ~/.aws/config",
+    "echo \"[gitpod]\" > ~/.aws/credentials",
+    "echo \"aws_access_key_id = $AWS_ACCESS_KEY_ID\" >> ~/.aws/credentials",
+    "echo \"aws_secret_access_key = $AWS_SECRET_ACCESS_KEY\" >> ~/.aws/credentials",
 
-  //   "echo $ID_RSA | base64 -d > ~/id_rsa",
-  //   "echo $ID_RSA_PUB | base64 -d > ~/id_rsa.pub",
-  //   "docker-compose build",
-  //   "docker compose up AnsibleController AnsibleTarget1 AnsibleTarget2",
+    "echo $ID_RSA | base64 -d > ~/id_rsa",
+    "echo $ID_RSA_PUB | base64 -d > ~/id_rsa.pub",
+    "docker-compose build",
+    "docker compose up AnsibleController AnsibleTarget1 AnsibleTarget2",
 
-  //   "docker compose up Jenkins",
+    "docker compose up Jenkins",
 
-  //   "echo $K8S_CONFIG | base64 -d > ~/.kube/config"
-  // ],
+    "echo $K8S_CONFIG | base64 -d > ~/.kube/config"
+  ]
 
   // // Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
   // "remoteUser": "gitpod"
