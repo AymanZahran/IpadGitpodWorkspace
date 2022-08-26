@@ -1,7 +1,9 @@
 pull_request_rules:
-  - name: Automatic merge on approval
+  - name: merge when checkboxes are checked
     conditions:
-      - "#approved-reviews-by>=1"
+      - body~=(?m)^\[X\] Security has been checked
+      - body~=(?m)^\[X\] Changes have been documented
+      - check-success=my favorite ci
     actions:
       merge:
         method: merge
