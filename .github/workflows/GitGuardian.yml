@@ -1,6 +1,8 @@
-name: GitGuardian scan
+name: GitGuardian Scan
 
 on: 
+  schedule:
+    - cron: 0 1 * * *
   pull_request:
     branches:
       - master
