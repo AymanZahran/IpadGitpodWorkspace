@@ -32,7 +32,7 @@ RUN curl https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -o awscliv2.zi
 RUN sudo npm install -g aws-cdk cdktf-cli cdk8s-cli projen serverless && \
     sudo pip3 install troposphere cfn-lint
 
-# Install Terragrunt, ECS CLI, Runway, AWSTOE, cloud-nuke, aws-nuke, EKSCTL, Minikube, Pulumi, Amplify, Helm, Kustomize CLI, Terraform, Packer, Vagrant, Azure CLI
+# Install Terragrunt, ECS CLI, Runway, AWSTOE, cloud-nuke, aws-nuke, EKSCTL, Minikube, Pulumi, Amplify, Helm, Kustomize CLI, Terraform, Packer, Vagrant, Azure CLI, Flux
 RUN sudo curl -Lo /usr/local/bin/terragrunt https://github.com/gruntwork-io/terragrunt/releases/download/v0.36.6/terragrunt_linux_amd64 && \
     sudo curl -Lo /usr/local/bin/ecs-cli https://amazon-ecs-cli.s3.amazonaws.com/ecs-cli-linux-amd64-latest && \
     sudo curl -Lo /usr/local/bin/runway https://oni.ca/runway/latest/linux && \
@@ -49,6 +49,7 @@ RUN sudo curl -Lo /usr/local/bin/terragrunt https://github.com/gruntwork-io/terr
     sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main" && \
     sudo apt-get install terraform packer vagrant && terraform -install-autocomplete && \
     curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash && \
+    curl -s https://fluxcd.io/install.sh | sudo bash && . <(flux completion bash) && \
     sudo chmod +x /usr/local/bin/*
 
 # Instal GCP CLI
