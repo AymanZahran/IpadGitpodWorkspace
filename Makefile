@@ -32,4 +32,4 @@ BuildPushAnsibleControllerImage: BuildPushAnsibleTargetImageToGHCR BuildPushAnsi
 
 BuildPushAll: BuildPushGitpodImage BuildPushJenkinsImage BuildPushAnsibleControllerImage BuildPushAnsibleControllerImage
 
-PushAll: BuildPushAll PushToGithub
+PushAll: PushToGithub BuildPushAll
