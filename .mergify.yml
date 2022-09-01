@@ -1,9 +1,9 @@
 pull_request_rules:
   - name: merge when checkboxes are checked
     conditions:
-      - body~=(?m)^\[X\] Security has been checked
-      - body~=(?m)^\[X\] Changes have been documented
-      - check-success=my favorite ci
+      - body~=(?m)^\[X\] Finish Changes
+      - body~=(?m)^\[X\] Push Commits to Github
+      - body~=(?m)^\[X\] Open a Pull Request
     actions:
       merge:
         method: merge
