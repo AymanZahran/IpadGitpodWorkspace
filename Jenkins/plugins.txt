@@ -21,3 +21,6 @@ workflow-aggregator:latest
 ws-cleanup:latest
 aws-sam
 pipeline-aws
+docker-plugin
+docker-commons
+docker-java-api
