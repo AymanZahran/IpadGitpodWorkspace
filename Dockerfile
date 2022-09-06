@@ -49,7 +49,7 @@ RUN sudo curl -Lo /usr/local/bin/terragrunt https://github.com/gruntwork-io/terr
     sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main" && \
     sudo apt-get install terraform packer vagrant && terraform -install-autocomplete && \
     curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash && \
-    curl -s https://fluxcd.io/install.sh | sudo bash && . <(flux completion bash) && \
+    curl -s https://fluxcd.io/install.sh | sudo bash  && \
     sudo chmod +x /usr/local/bin/*
 
 # Instal GCP CLI
