@@ -1,8 +1,16 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  creationTimestamp: null
+  name: nginx
+spec: {}
+status: {}
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   creationTimestamp: null
-  namespace: default
+  namespace: nginx
   labels:
     app: nginx-deployment
   name: nginx-deployment
@@ -15,7 +23,7 @@ spec:
   template:
     metadata:
       creationTimestamp: null
-      namespace: default
+      namespace: nginx
       labels:
         app: nginx-deployment
     spec:
