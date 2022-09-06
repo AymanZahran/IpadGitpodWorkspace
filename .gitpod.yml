@@ -22,6 +22,9 @@ tasks:
       docker compose up Jenkins
   - name: Configure KubeConfig
     command: echo $K8S_CONFIG | base64 -d > ~/.kube/config
+  - name: Configure KubeConfig
+    command: flux bootstrap github --owner=$GITHUB_USER --repository=IpadGitpodWorkspace --branch=master --path=../Flux/ --personal
+  
 vscode:
   extensions:
     - ms-azuretools.vscode-docker
