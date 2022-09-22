@@ -15,12 +15,8 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@v3
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@v1
-        with:
-          registry: ghcr.io
-          username: ${{ secrets.GITHUB_USER }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Log in to registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
       - name: Get RSA Public Key
         run: echo $ID_RSA_PUB | base64 -d > ~/id_rsa.pub
       - name: Build and push
@@ -43,6 +39,8 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Get RSA Private Key
+        run: echo $ID_RSA | base64 -d > ~/id_rsa
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
