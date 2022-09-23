@@ -63,25 +63,25 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          image: ghcr.io/${{ github.actor }}/${{ secrets.JENKINS_IMAGE_NAME}}
+          image: ghcr.io/${{ secrets.GHCR_USERNAME }}/${{ secrets.JENKINS_IMAGE_NAME}}
       - name: Snyk Scan ${{ secrets.ANSIBLE_CONTROLLER_IMAGE_NAME}}
         continue-on-error: true
         uses: snyk/actions/docker@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          image: ghcr.io/${{ github.actor }}/${{ secrets.ANSIBLE_CONTROLLER_IMAGE_NAME}}
+          image: ghcr.io/${{ secrets.GHCR_USERNAME }}/${{ secrets.ANSIBLE_CONTROLLER_IMAGE_NAME}}
       - name: Snyk Scan ${{ secrets.ANSIBLE_TARGET_IMAGE_NAME}}
         continue-on-error: true
         uses: snyk/actions/docker@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          image: ghcr.io/${{ github.actor }}/${{ secrets.ANSIBLE_TARGET_IMAGE_NAME}}
+          image: ghcr.io/${{ secrets.GHCR_USERNAME }}/${{ secrets.ANSIBLE_TARGET_IMAGE_NAME}}
       - name: Snyk Scan ${{ secrets.GITPOD_IMAGE_NAME}}
         continue-on-error: true
         uses: snyk/actions/docker@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          image: ghcr.io/${{ github.actor }}/${{ secrets.GITPOD_IMAGE_NAME}}
+          image: ghcr.io/${{ secrets.GHCR_USERNAME }}/${{ secrets.GITPOD_IMAGE_NAME}}
