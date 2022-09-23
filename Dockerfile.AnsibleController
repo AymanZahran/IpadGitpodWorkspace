@@ -7,4 +7,3 @@ COPY id_rsa /root/
 RUN mkdir /root/.ssh/
 RUN cp /root/id_rsa /root/.ssh/
 RUN chmod 400 /root/.ssh/id_rsa /root/id_rsa
-ENTRYPOINT [ "/bin/bash" ]
