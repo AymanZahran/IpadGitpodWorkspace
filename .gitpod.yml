@@ -11,15 +11,14 @@ tasks:
       echo "[gitpod]" > ~/.aws/credentials
       echo "aws_access_key_id = $AWS_ACCESS_KEY_ID" >> ~/.aws/credentials
       echo "aws_secret_access_key = $AWS_SECRET_ACCESS_KEY" >> ~/.aws/credentials
-  - name: Configure Ansible
-    command: |
-      echo $ID_RSA | base64 -d > ~/id_rsa
-      echo $ID_RSA_PUB | base64 -d > ~/id_rsa.pub
-      docker-compose build
-      docker compose up AnsibleController AnsibleTarget1 AnsibleTarget2 Jenkins
-  # - name: Configure Jenkins
+  # - name: Configure Ansible and Jenkins
   #   command: |
-  #     docker compose up Jenkins
+  #     echo $ID_RSA | base64 -d > ~/id_rsa
+  #     echo $ID_RSA_PUB | base64 -d > ~/id_rsa.pub
+  #     docker-compose build
+  #     docker compose up AnsibleController AnsibleTarget1 AnsibleTarget2 Jenkins
+  - name: Launch Okteto
+    command: okteto up
   - name: Configure KubeConfig
     command: echo $K8S_CONFIG | base64 -d > ~/.kube/config
   - name: Configure KubeConfig
