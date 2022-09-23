@@ -5,7 +5,9 @@ services:
     hostname: ansible-controller
     tty: true
     volumes:
-      - ./Ansible:/Ansible
+      - 
+      
+      
     # build:
     #   context: .
     #   dockerfile: Dockerfile.AnsibleController

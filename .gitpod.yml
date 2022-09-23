@@ -11,18 +11,8 @@ tasks:
       echo "[gitpod]" > ~/.aws/credentials
       echo "aws_access_key_id = $AWS_ACCESS_KEY_ID" >> ~/.aws/credentials
       echo "aws_secret_access_key = $AWS_SECRET_ACCESS_KEY" >> ~/.aws/credentials
-  # - name: Configure Ansible and Jenkins
-  #   command: |
-  #     echo $ID_RSA | base64 -d > ~/id_rsa
-  #     echo $ID_RSA_PUB | base64 -d > ~/id_rsa.pub
-  #     docker-compose build
-  #     docker compose up AnsibleController AnsibleTarget1 AnsibleTarget2 Jenkins
   - name: Launch Okteto
     command: okteto up
-  - name: Configure KubeConfig
-    command: echo $K8S_CONFIG | base64 -d > ~/.kube/config
-  - name: Configure KubeConfig
-    command: flux bootstrap github --owner=$GITPOD_GIT_USER_NAME --repository=IpadGitpodWorkspace --branch=master --path=../Flux/ --personal
   
 vscode:
   extensions:
