@@ -18,15 +18,19 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@v3
-      - name: Log in to registry
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
           context: .
           file: Dockerfile
           push: true
-          tags: ghcr.io/${{ secrets.GITHUB_USER }}/${{ secrets.GITPOD_IMAGE_NAME}}
+          tags: ghcr.io/${{ github.actor }}/${{ secrets.GITPOD_IMAGE_NAME}}
   
   BuildPushGitpodImageToDockerHub:
     runs-on: ubuntu-latest
