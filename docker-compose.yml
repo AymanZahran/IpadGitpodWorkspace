@@ -2,7 +2,7 @@ version: "3.8"
 services:
   AnsibleController:
     image: aymanzahran/ipad-ansiblecontroller-image
-    hostname: AnsibleController
+    hostname: ansible-controller
     tty: true
     volumes:
       - ./Ansible:/Ansible
@@ -11,7 +11,7 @@ services:
     #   dockerfile: Dockerfile.AnsibleController
   AnsibleTarget1:
     image: aymanzahran/ipad-ansibletarget-image
-    hostname: AnsibleTarget1
+    hostname: ansible-target-1
     ports:
       - "999:80"
     # build:
@@ -19,13 +19,13 @@ services:
     #   dockerfile: Dockerfile.AnsibleTarget
   AnsibleTarget2:
     image: aymanzahran/ipad-ansibletarget-image
-    hostname: AnsibleTarget2
+    hostname: ansible-target-2
     # build:
     #   context: .
     #   dockerfile: Dockerfile.AnsibleTarget
   Jenkins:
     image: aymanzahran/ipad-jenkins-image
-    hostname: Jenkins
+    hostname: jenkins
     ports:
       - "8080:8080"
     # build:
