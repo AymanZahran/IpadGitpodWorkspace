@@ -14,6 +14,11 @@ jobs:
     name: Dockerhub Scan
     runs-on: ubuntu-latest
     steps:
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Snyk Scan ${{ secrets.JENKINS_IMAGE_NAME}}
         uses: snyk/actions/docker@master
         env:
@@ -42,6 +47,12 @@ jobs:
     name: GHCR Scan
     runs-on: ubuntu-latest
     steps:
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ secrets.GHCR_USERNAME}}
+          password: ${{ secrets.GITHUB_TOKEN }}
       - name: Snyk Scan ${{ secrets.JENKINS_IMAGE_NAME}}
         uses: snyk/actions/docker@master
         env:
