@@ -1,0 +1,68 @@
+name: Snyk Scan
+
+on: 
+  schedule:
+    - cron: 0 1 * * *
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+jobs:
+  DockerhubScan:
+    name: Dockerhub Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Snyk Scan ${{ secrets.JENKINS_IMAGE_NAME}}
+        uses: snyk/actions/docker@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          image: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.JENKINS_IMAGE_NAME}}
+      - name: Snyk Scan ${{ secrets.ANSIBLE_CONTROLLER_IMAGE_NAME}}
+        uses: snyk/actions/docker@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          image: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.ANSIBLE_CONTROLLER_IMAGE_NAME}}
+      - name: Snyk Scan ${{ secrets.ANSIBLE_TARGET_IMAGE_NAME}}
+        uses: snyk/actions/docker@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          image: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.ANSIBLE_TARGET_IMAGE_NAME}}
+      - name: Snyk Scan ${{ secrets.GITPOD_IMAGE_NAME}}
+        uses: snyk/actions/docker@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          image: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.GITPOD_IMAGE_NAME}}
+  GHCRScan:
+    name: GHCR Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Snyk Scan ${{ secrets.JENKINS_IMAGE_NAME}}
+        uses: snyk/actions/docker@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          image: ghcr.io/${{ github.actor }}/${{ secrets.JENKINS_IMAGE_NAME}}
+      - name: Snyk Scan ${{ secrets.ANSIBLE_CONTROLLER_IMAGE_NAME}}
+        uses: snyk/actions/docker@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          image: ghcr.io/${{ github.actor }}/${{ secrets.ANSIBLE_CONTROLLER_IMAGE_NAME}}
+      - name: Snyk Scan ${{ secrets.ANSIBLE_TARGET_IMAGE_NAME}}
+        uses: snyk/actions/docker@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          image: ghcr.io/${{ github.actor }}/${{ secrets.ANSIBLE_TARGET_IMAGE_NAME}}
+      - name: Snyk Scan ${{ secrets.GITPOD_IMAGE_NAME}}
+        uses: snyk/actions/docker@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          image: ghcr.io/${{ github.actor }}/${{ secrets.GITPOD_IMAGE_NAME}}
