@@ -30,7 +30,7 @@ jobs:
           context: .
           file: Dockerfile
           push: true
-          tags: ghcr.io/${{ github.actor }}/${{ secrets.GITPOD_IMAGE_NAME}}
+          tags: ghcr.io/${{ secrets.GITPOD_IMAGE_NAME}}
   
   BuildPushGitpodImageToDockerHub:
     runs-on: ubuntu-latest

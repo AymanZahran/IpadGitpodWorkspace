@@ -32,7 +32,7 @@ jobs:
           context: .
           file: Dockerfile.AnsibleTarget
           push: true
-          tags: ghcr.io/${{ github.actor }}/${{ secrets.ANSIBLE_TARGET_IMAGE_NAME}}
+          tags: ghcr.io/${{ secrets.ANSIBLE_TARGET_IMAGE_NAME}}
   
   BuildPushAnsibleTargetImageToDockerHub:
     runs-on: ubuntu-latest

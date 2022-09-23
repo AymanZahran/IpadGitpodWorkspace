@@ -30,7 +30,7 @@ jobs:
           context: .
           file: Dockerfile.Jenkins
           push: true
-          tags: ghcr.io/${{ github.actor }}/${{ secrets.JENKINS_IMAGE_NAME}}
+          tags: ghcr.io/${{ secrets.JENKINS_IMAGE_NAME}}
 
   BuildPushJenkinsImageToDockerHub:
     runs-on: ubuntu-latest
