@@ -3,9 +3,9 @@ name: BuildPushGitpodImage
 on:   
   schedule:
     - cron: 0 1 * * *
-  # push:
-  #   branches:
-  #     - master
+  push:
+    branches:
+      - master
   pull_request:
     branches:
       - master
@@ -30,7 +30,7 @@ jobs:
           context: .
           file: Dockerfile
           push: true
-          tags: ghcr.io/${{ secrets.GITPOD_IMAGE_NAME}}
+          tags: ghcr.io/${{ secrets.GHCR_USERNAME}}/${{ secrets.GITPOD_IMAGE_NAME}}
   
   BuildPushGitpodImageToDockerHub:
     runs-on: ubuntu-latest
