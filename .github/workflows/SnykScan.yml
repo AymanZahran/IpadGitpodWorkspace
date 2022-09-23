@@ -20,24 +20,28 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Snyk Scan ${{ secrets.JENKINS_IMAGE_NAME}}
+        continue-on-error: true
         uses: snyk/actions/docker@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           image: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.JENKINS_IMAGE_NAME}}
       - name: Snyk Scan ${{ secrets.ANSIBLE_CONTROLLER_IMAGE_NAME}}
+        continue-on-error: true
         uses: snyk/actions/docker@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           image: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.ANSIBLE_CONTROLLER_IMAGE_NAME}}
       - name: Snyk Scan ${{ secrets.ANSIBLE_TARGET_IMAGE_NAME}}
+        continue-on-error: true
         uses: snyk/actions/docker@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           image: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.ANSIBLE_TARGET_IMAGE_NAME}}
       - name: Snyk Scan ${{ secrets.GITPOD_IMAGE_NAME}}
+        continue-on-error: true
         uses: snyk/actions/docker@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
@@ -54,24 +58,28 @@ jobs:
           username: ${{ secrets.GHCR_USERNAME}}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Snyk Scan ${{ secrets.JENKINS_IMAGE_NAME}}
+        continue-on-error: true
         uses: snyk/actions/docker@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           image: ghcr.io/${{ github.actor }}/${{ secrets.JENKINS_IMAGE_NAME}}
       - name: Snyk Scan ${{ secrets.ANSIBLE_CONTROLLER_IMAGE_NAME}}
+        continue-on-error: true
         uses: snyk/actions/docker@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           image: ghcr.io/${{ github.actor }}/${{ secrets.ANSIBLE_CONTROLLER_IMAGE_NAME}}
       - name: Snyk Scan ${{ secrets.ANSIBLE_TARGET_IMAGE_NAME}}
+        continue-on-error: true
         uses: snyk/actions/docker@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           image: ghcr.io/${{ github.actor }}/${{ secrets.ANSIBLE_TARGET_IMAGE_NAME}}
       - name: Snyk Scan ${{ secrets.GITPOD_IMAGE_NAME}}
+        continue-on-error: true
         uses: snyk/actions/docker@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
