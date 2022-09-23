@@ -20,7 +20,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Install Docker Scan
-        run: apt-get update && apt-get install docker-scan-plugin
+        run: sudo apt-get update && sudo apt-get install docker-scan-plugin
       - name: Docker Scan ${{ secrets.JENKINS_IMAGE_NAME}}
         run: docker scan ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.JENKINS_IMAGE_NAME}}
       - name: Docker Scan ${{ secrets.ANSIBLE_CONTROLLER_IMAGE_NAME}}
@@ -40,7 +40,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Install Docker Scan
-        run: apt-get update && apt-get install docker-scan-plugin
+        run: sudo apt-get update && sudo apt-get install docker-scan-plugin
       - name: Docker Scan ${{ secrets.JENKINS_IMAGE_NAME}}
         run: docker scan ghcr.io/${{ github.actor }}/${{ secrets.JENKINS_IMAGE_NAME}}
       - name: Docker Scan ${{ secrets.ANSIBLE_CONTROLLER_IMAGE_NAME}}
