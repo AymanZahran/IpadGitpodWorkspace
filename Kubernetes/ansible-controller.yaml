@@ -28,3 +28,16 @@ spec:
       # volumes:
       # - name: ansible-configuration-volume
       #   emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ansible-controller
+spec:
+  selector:
+    app: ansible
+    role: controller
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 999
