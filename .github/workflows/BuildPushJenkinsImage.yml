@@ -3,9 +3,9 @@ name: BuildPushJenkinsImage
 on:   
   schedule:
     - cron: 0 1 * * *
-  # push:
-  #   branches:
-  #     - master
+  push:
+    branches:
+      - master
   pull_request:
     branches:
       - master
