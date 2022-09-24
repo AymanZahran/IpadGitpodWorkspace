@@ -24,12 +24,12 @@ tasks:
       kubectl port-forward service/jenkins-master 8001:80
   - name: Launch Ansible Controller
     command: |
-    kubectl apply -f Kubernetes/ansible-controller.yaml
-    kubectl port-forward service/ansible-controller 8002:80
+      kubectl apply -f Kubernetes/ansible-controller.yaml
+      kubectl port-forward service/ansible-controller 8002:80
   - name: Launch Ansible Target
     command: |
-    kubectl apply -f Kubernetes/ansible-target.yaml
-    kubectl port-forward service/ansible-target 8003:80
+      kubectl apply -f Kubernetes/ansible-target.yaml
+      kubectl port-forward service/ansible-target 8003:80
 
 vscode:
   extensions:
