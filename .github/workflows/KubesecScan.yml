@@ -30,13 +30,13 @@ jobs:
       - name: Run kubesec scanner
         uses: controlplaneio/kubesec-action@43d0ddff5ffee89a6bb9f29b64cd865411137b14
         with:
-          input: Kubernetes/Deployments/ansible-controller.yaml
+          input: ./Kubernetes/Deployments/ansible-controller.yaml
           format: template
           template: template/sarif.tpl
-          output: kubesec-results.sarif
+          output: deployment-ansible-controller.sarif
           exit-code: "0"
 
       - name: Upload Kubesec scan results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v2
         with:
-          sarif_file: kubesec-results.sarif
+          sarif_file: deployment-ansible-controller.sarif

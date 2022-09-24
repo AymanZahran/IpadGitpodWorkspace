@@ -3,9 +3,9 @@ name: Snyk Scan
 on: 
   schedule:
     - cron: 0 1 * * *
-  # push:
-  #   branches:
-  #     - master
+  push:
+    branches:
+      - master
   pull_request:
     branches:
       - master
@@ -47,6 +47,11 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           image: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.GITPOD_IMAGE_NAME}}
+      - name: Upload result to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: snyk.sarif
+
   GHCRScan:
     name: GHCR Scan
     runs-on: ubuntu-latest
@@ -85,3 +90,7 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           image: ghcr.io/${{ secrets.GHCR_USERNAME }}/${{ secrets.GITPOD_IMAGE_NAME}}
+      - name: Upload result to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: snyk.sarif
