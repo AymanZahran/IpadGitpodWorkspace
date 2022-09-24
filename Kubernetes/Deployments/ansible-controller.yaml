@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: ansible
+    role: controller
+  name: ansible-controller
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ansible
+      role: controller
+  template:
+    metadata:
+      labels:
+        app: ansible
+        role: controller
+    spec:
+      containers:
+      - image: aymanzahran/ipad-ansiblecontroller-image:latest
+        name: ansible-controller
+        volumeMounts:
+          - name: ansible-configuration-volume
+            mountPath: /Ansible
+      volumes:
+      - name: ansible-configuration-volume
+        hostPath:
+          path: ~/Ansible
+          type: Directory

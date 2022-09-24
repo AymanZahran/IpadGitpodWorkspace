@@ -1,2 +1,8 @@
 deploy:
-  compose: docker-compose.yml
+  - command: kubectl apply -f Kubernetes/Deployments/jenkins-master.yaml
+  - command: kubectl apply -f Kubernetes/Deployments/ansible-controller.yaml
+  - command: kubectl apply -f Kubernetes/Deployments/ansible-target.yaml
+  - command: kubectl apply -f Kubernetes/Services/jenkins-master.yaml
+  - command: kubectl apply -f Kubernetes/Services/ansible-controller.yaml
+  - command: kubectl apply -f Kubernetes/Services/ansible-target.yaml
+
