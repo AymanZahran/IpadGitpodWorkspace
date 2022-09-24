@@ -20,14 +20,15 @@ spec:
       containers:
       - image: aymanzahran/ipad-ansiblecontroller-image:latest
         name: ansible-controller
+        command: ["sleep", "1d"]
         ports:
         - containerPort: 999
-      #   volumeMounts:
-      #     - name: ansible-configuration-volume
-      #       mountPath: /Ansible
-      # volumes:
-      # - name: ansible-configuration-volume
-      #   emptyDir: {}
+        volumeMounts:
+          - name: ansible-configuration-volume
+            mountPath: /Ansible
+      volumes:
+      - name: ansible-configuration-volume
+        emptyDir: {}
 ---
 apiVersion: v1
 kind: Service

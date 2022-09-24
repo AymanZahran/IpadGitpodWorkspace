@@ -87,7 +87,7 @@ RUN set -x; cd "$(mktemp -d)" && \
     ./"${KREW}" install krew && \
     export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH" && \
     echo 'export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"' >> $HOME/.bashrc && \
-    kubectl krew install neat access-matrix advise-psp cert-manager ca-cert get-all ingress-nginx ctx ns
+    kubectl krew install neat access-matrix advise-psp cert-manager ca-cert get-all ingress-nginx ctx ns kubesec-scan
 
 # Configs
 RUN mkdir $HOME/.aws && \

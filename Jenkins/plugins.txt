@@ -24,3 +24,4 @@ pipeline-aws
 docker-plugin
 docker-commons
 docker-java-api
+kubernetes
