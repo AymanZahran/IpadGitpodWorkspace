@@ -8,9 +8,9 @@ name: Kubesec
 on:
   schedule:
     - cron: 0 1 * * *
-  push:
-    branches:
-      - master
+  # push:
+  #   branches:
+  #     - master
   pull_request:
     branches:
       - master
@@ -26,7 +26,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
       - name: Run kubesec scanner
         uses: controlplaneio/kubesec-action@43d0ddff5ffee89a6bb9f29b64cd865411137b14
         with:
@@ -35,7 +34,6 @@ jobs:
           template: template/sarif.tpl
           output: jenkins-master.sarif
           exit-code: "0"
-
       - name: Upload Kubesec scan results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v2
         with:
@@ -50,7 +48,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
       - name: Run kubesec scanner
         uses: controlplaneio/kubesec-action@43d0ddff5ffee89a6bb9f29b64cd865411137b14
         with:
@@ -59,7 +56,6 @@ jobs:
           template: template/sarif.tpl
           output: ansible-controller.sarif
           exit-code: "0"
-
       - name: Upload Kubesec scan results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v2
         with:
@@ -74,7 +70,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
       - name: Run kubesec scanner
         uses: controlplaneio/kubesec-action@43d0ddff5ffee89a6bb9f29b64cd865411137b14
         with:
@@ -83,7 +78,6 @@ jobs:
           template: template/sarif.tpl
           output: ansible-target.sarif
           exit-code: "0"
-
       - name: Upload Kubesec scan results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v2
         with:
