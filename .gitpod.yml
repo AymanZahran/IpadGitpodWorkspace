@@ -14,6 +14,7 @@ tasks:
   - name: Launch Okteto
     command: |
       okteto deploy
+      okteto context use https://cloud.okteto.com
       kubectl port-forward service/jenkins-master 8001:80
   
 vscode:

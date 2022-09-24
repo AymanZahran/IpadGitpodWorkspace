@@ -73,8 +73,7 @@ RUN curl -fsSL https://get.docker.com | sudo bash && \
     echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list && \
     sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg && \
     sudo apt update -y && \
-    sudo apt install -y kubelet kubeadm kubectl && \
-    sudo apt-mark hold kubelet kubeadm kubectl && \
+    sudo apt install -y kubectl && \
     sudo curl -Lo /usr/local/bin/kind https://kind.sigs.k8s.io/dl/v0.12.0/kind-linux-amd64 && \
     sudo chmod +x /usr/local/bin/kind
 
