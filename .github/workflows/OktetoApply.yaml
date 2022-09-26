@@ -17,9 +17,9 @@ jobs:
     - name: checkout
       uses: actions/checkout@master
     - name: config
-      run: export KUBECONFIG=`echo ${{ secrets.K8S_CONFIG }} | base64 --decode`
+      run: echo ${{ secrets.K8S_CONFIG }} | base64 --decode > KUBECONFIG
     - name: deploy jenkins master
-      run: kubectl apply -f Kubernetes/jenkins-master.yaml --kubeconfig=$KUBECONFIG
+      run: kubectl apply -f Kubernetes/jenkins-master.yaml --kubeconfig=KUBECONFIG
 
   OktetoApplyAnsibleController:
     runs-on: ubuntu-latest
