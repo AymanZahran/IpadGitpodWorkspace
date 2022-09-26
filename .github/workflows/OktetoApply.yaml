@@ -23,41 +23,41 @@ jobs:
       uses: okteto/namespace@master
       with:
         name: jenkins
-    - name: deploy jenkins-master
-      uses: okteto/apply@master
-      with:
-        manifest: Kubernetes/jenkins-master.yaml
+  #   - name: deploy jenkins-master
+  #     uses: okteto/apply@master
+  #     with:
+  #       manifest: Kubernetes/jenkins-master.yaml
   
-  OktetoApplyAnsibleController:
-    runs-on: ubuntu-latest
-    steps:
-    - name: checkout
-      uses: actions/checkout@master
-    - uses: okteto/login@master
-      with:
-        token: ${{ secrets.OKTETO_TOKEN }}
-    - name: activate ansible namespace
-      uses: okteto/namespace@master
-      with:
-        name: ansible
-    - name: deploy ansible-controller
-      uses: okteto/apply@master
-      with:
-        manifest: Kubernetes/anisble-controller.yaml
+  # OktetoApplyAnsibleController:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - name: checkout
+  #     uses: actions/checkout@master
+  #   - uses: okteto/login@master
+  #     with:
+  #       token: ${{ secrets.OKTETO_TOKEN }}
+  #   - name: activate ansible namespace
+  #     uses: okteto/namespace@master
+  #     with:
+  #       name: ansible
+  #   - name: deploy ansible-controller
+  #     uses: okteto/apply@master
+  #     with:
+  #       manifest: Kubernetes/anisble-controller.yaml
   
-  OktetoApplyAnsibleTarget:
-    runs-on: ubuntu-latest
-    steps:
-    - name: checkout
-      uses: actions/checkout@master
-    - uses: okteto/login@master
-      with:
-        token: ${{ secrets.OKTETO_TOKEN }}
-    - name: activate ansible namespace
-      uses: okteto/namespace@master
-      with:
-        name: ansible
-    - name: deploy ansible-target
-      uses: okteto/apply@master
-      with:
-        manifest: Kubernetes/anisble-target.yaml
+  # OktetoApplyAnsibleTarget:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - name: checkout
+  #     uses: actions/checkout@master
+  #   - uses: okteto/login@master
+  #     with:
+  #       token: ${{ secrets.OKTETO_TOKEN }}
+  #   - name: activate ansible namespace
+  #     uses: okteto/namespace@master
+  #     with:
+  #       name: ansible
+  #   - name: deploy ansible-target
+  #     uses: okteto/apply@master
+  #     with:
+  #       manifest: Kubernetes/anisble-target.yaml
