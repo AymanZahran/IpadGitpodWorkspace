@@ -16,13 +16,9 @@ jobs:
     steps:
     - name: checkout
       uses: actions/checkout@master
-    - name: config view
-      uses: actions-hub/kubectl@master
-      env:
-        KUBE_CONFIG: ${{ secrets.K8S_CONFIG }}
-      with:
-        args: config view
-    - name: Deploy Jenkings Master
+    - name: config
+      run: export KUBECONFIG=`echo $K8S_CONFIG | base64 --decode`
+    - name: deploy jenkins master
       run: kubectl apply -f Kubernetes/jenkins-master.yaml
 
   OktetoApplyAnsibleController:
