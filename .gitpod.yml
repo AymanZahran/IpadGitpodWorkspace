@@ -11,11 +11,6 @@ tasks:
       echo "[gitpod]" > ~/.aws/credentials
       echo "aws_access_key_id = $AWS_ACCESS_KEY_ID" >> ~/.aws/credentials
       echo "aws_secret_access_key = $AWS_SECRET_ACCESS_KEY" >> ~/.aws/credentials
-  # - name: Launch Okteto
-  #   command: |
-  #     okteto context use https://cloud.okteto.com
-  #     okteto deploy
-  #     kubectl port-forward service/jenkins-master 8001:80
   - name: Configure K8s
     command: echo $K8S_CONFIG | base64 --decode > ~/.kube/config
   - name: Launch Jenkins
