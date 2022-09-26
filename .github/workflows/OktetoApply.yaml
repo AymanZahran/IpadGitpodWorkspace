@@ -16,10 +16,12 @@ jobs:
     steps:
     - name: checkout
       uses: actions/checkout@master
-    - name: config
-      run: echo ${{ secrets.K8S_CONFIG }} | base64 --decode > KUBECONFIG
-    - name: deploy jenkins master
-      run: kubectl apply -f Kubernetes/jenkins-master.yaml --kubeconfig=KUBECONFIG
+    - uses: actions-hub/kubectl@master
+      continue-on-error: true
+      env:
+        KUBE_CONFIG: ${{ secrets.K8S_CONFIG }}
+      with:
+        args: apply -f Kubernetes/jenkins-master.yaml
 
   OktetoApplyAnsibleController:
     runs-on: ubuntu-latest
