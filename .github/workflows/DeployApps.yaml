@@ -11,37 +11,34 @@ on:
       - master
 
 jobs:
-  OktetoApplyJenkins:
+  DeployJenkins:
     runs-on: ubuntu-latest
     steps:
     - name: checkout
       uses: actions/checkout@master
     - uses: actions-hub/kubectl@master
-      continue-on-error: true
       env:
         KUBE_CONFIG: ${{ secrets.K8S_CONFIG }}
       with:
         args: apply -f Kubernetes/jenkins-master.yaml
 
-  OktetoApplyAnsibleController:
+  DeployAnsibleController:
     runs-on: ubuntu-latest
     steps:
     - name: checkout
       uses: actions/checkout@master
     - uses: actions-hub/kubectl@master
-      continue-on-error: true
       env:
         KUBE_CONFIG: ${{ secrets.K8S_CONFIG }}
       with:
         args: apply -f Kubernetes/ansible-controller.yaml
   
-  OktetoApplyAnsibleTarget:
+  DeployAnsibleTarget:
     runs-on: ubuntu-latest
     steps:
     - name: checkout
       uses: actions/checkout@master
     - uses: actions-hub/kubectl@master
-      continue-on-error: true
       env:
         KUBE_CONFIG: ${{ secrets.K8S_CONFIG }}
       with:
