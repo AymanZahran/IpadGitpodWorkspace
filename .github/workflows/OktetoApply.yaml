@@ -17,6 +17,7 @@ jobs:
     - name: checkout
       uses: actions/checkout@master
     - uses: actions-hub/kubectl@master
+      continue-on-error: true
       env:
         KUBE_CONFIG: ${{ secrets.K8S_CONFIG }}
       with:
@@ -28,6 +29,7 @@ jobs:
     - name: checkout
       uses: actions/checkout@master
     - uses: actions-hub/kubectl@master
+      continue-on-error: true
       env:
         KUBE_CONFIG: ${{ secrets.K8S_CONFIG }}
       with:
@@ -39,6 +41,7 @@ jobs:
     - name: checkout
       uses: actions/checkout@master
     - uses: actions-hub/kubectl@master
+      continue-on-error: true
       env:
         KUBE_CONFIG: ${{ secrets.K8S_CONFIG }}
       with:
