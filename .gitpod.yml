@@ -3,7 +3,7 @@ image: aymanzahran/ipad-gitpod-image
 tasks:
   - name: persist env
     command: eval $(gp env -e)
-  - name: Configure AWS Profile
+  - name: Authenticate AWS
     command: |
       echo "[gitpod]" > ~/.aws/config
       echo "region = $AWS_DEFAULT_REGION" >> ~/.aws/config
@@ -11,12 +11,18 @@ tasks:
       echo "[gitpod]" > ~/.aws/credentials
       echo "aws_access_key_id = $AWS_ACCESS_KEY_ID" >> ~/.aws/credentials
       echo "aws_secret_access_key = $AWS_SECRET_ACCESS_KEY" >> ~/.aws/credentials
-  - name: Configure K8s
-    command: echo $K8S_CONFIG | base64 --decode > ~/.kube/config
+      echo "AWS Authenticated"
+  - name: Authenticate Azure
+    command: echo "Azure Authenticated"
+  - name: Authenticate GCP
+    command: echo "GCP Authenticated"
   - name: Authenticate Digital Ocean
     command: |
       mkdir -p ~/.config/doctl
       echo "access-token: $DIGITAL_OCEAN_TOKEN" > ~/.config/doctl/config.yaml
+      echo "Digital Ocean Authenticated"
+  - name: Configure K8s
+    command: echo $K8S_CONFIG | base64 --decode > ~/.kube/config
   - name: Launch kubernetes-dashboard
     command: |
       helm repo add kubernetes-dashboard https://kubernetes.github.io/dashboard/
@@ -63,6 +69,7 @@ tasks:
       kubectl create ns nginx
       helm install -n nginx nginx-ingress ingress-nginx/ingress-nginx
       helm upgrade -n nginx nginx-ingress ingress-nginx/ingress-nginx
+      kubectl autoscale deployment -n nginx nginx-ingress-ingress-nginx-controller --cpu-percent=50 --min=1 --max=3
   - name: Launch NGINX Ingress Rules
     command: kubectl apply -f Kubernetes/ingress.yml
 vscode:
