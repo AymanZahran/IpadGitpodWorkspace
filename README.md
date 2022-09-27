@@ -8,12 +8,12 @@
 
 [![BuildPushJenkinsImage](https://github.com/AymanZahran/IpadGitpodWorkspace/actions/workflows/BuildPushJenkinsImage.yml/badge.svg)](https://github.com/AymanZahran/IpadGitpodWorkspace/actions/workflows/BuildPushJenkinsImage.yml)
 
-[![BuildPushJenkinsImage](https://github.com/AymanZahran/IpadGitpodWorkspace/actions/workflows/BuildPushJenkinsImage.yml/badge.svg)](https://github.com/AymanZahran/IpadGitpodWorkspace/actions/workflows/DeployApps.yml)
+[![BuildPushJenkinsImage](https://github.com/AymanZahran/IpadGitpodWorkspace/actions/workflows/DeployApps.yml/badge.svg)](https://github.com/AymanZahran/IpadGitpodWorkspace/actions/workflows/DeployApps.yml)
 
-[![BuildPushJenkinsImage](https://github.com/AymanZahran/IpadGitpodWorkspace/actions/workflows/BuildPushJenkinsImage.yml/badge.svg)](https://github.com/AymanZahran/IpadGitpodWorkspace/actions/workflows/GitGuardianScan.yml)
+[![GitGuardianScan](https://github.com/AymanZahran/IpadGitpodWorkspace/actions/workflows/GitGuardianScan.yml/badge.svg)](https://github.com/AymanZahran/IpadGitpodWorkspace/actions/workflows/GitGuardianScan.yml)
 
-[![BuildPushJenkinsImage](https://github.com/AymanZahran/IpadGitpodWorkspace/actions/workflows/BuildPushJenkinsImage.yml/badge.svg)](https://github.com/AymanZahran/IpadGitpodWorkspace/actions/workflows/KubesecScan.yml)
+[![BuildPushJenkinsImage](https://github.com/AymanZahran/IpadGitpodWorkspace/actions/workflows/KubesecScan.yml/badge.svg)](https://github.com/AymanZahran/IpadGitpodWorkspace/actions/workflows/KubesecScan.yml)
 
-[![BuildPushJenkinsImage](https://github.com/AymanZahran/IpadGitpodWorkspace/actions/workflows/BuildPushJenkinsImage.yml/badge.svg)](https://github.com/AymanZahran/IpadGitpodWorkspace/actions/workflows/KubevalScan.yml)
+[![KubevalScan](https://github.com/AymanZahran/IpadGitpodWorkspace/actions/workflows/KubevalScan.yml/badge.svg)](https://github.com/AymanZahran/IpadGitpodWorkspace/actions/workflows/KubevalScan.yml)
 
-[![BuildPushJenkinsImage](https://github.com/AymanZahran/IpadGitpodWorkspace/actions/workflows/BuildPushJenkinsImage.yml/badge.svg)](https://github.com/AymanZahran/IpadGitpodWorkspace/actions/workflows/SnykScan.yml)
+[![SnykScan](https://github.com/AymanZahran/IpadGitpodWorkspace/actions/workflows/SnykScan.yml/badge.svg)](https://github.com/AymanZahran/IpadGitpodWorkspace/actions/workflows/SnykScan.yml)
