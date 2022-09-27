@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: test
+      - name: Kubeval
         uses: instrumenta/kubeval-action@master
         with:
           files: Kubernetes
