@@ -1,0 +1,22 @@
+name: Pull Request Check
+
+on:
+  schedule:
+    - cron: 0 1 * * *
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  validation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: validate manifests
+        uses: makocchi-git/actions-k8s-manifests-validate-kubeval@1.0.0
+        with:
+          files: Kubernetes
+          token: ${{ secrets.GITHUB_TOKEN }}
