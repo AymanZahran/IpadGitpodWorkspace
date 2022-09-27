@@ -14,7 +14,9 @@ tasks:
   - name: Configure K8s
     command: echo $K8S_CONFIG | base64 --decode > ~/.kube/config
   - name: Authenticate Digital Ocean
-    command: echo "access-token\":\" $DIGITAL_OCEAN_TOKEN" > ~/.config/doctl/config.yaml
+    command: |
+      mkdir -p ~/.config/doctl
+      echo "access-token: $DIGITAL_OCEAN_TOKEN" > ~/.config/doctl/config.yaml
   - name: Launch kubernetes-dashboard
     command: |
       helm repo add kubernetes-dashboard https://kubernetes.github.io/dashboard/
@@ -33,19 +35,23 @@ tasks:
       helm repo update
       helm install kube-prometheus-stack prometheus-community/kube-prometheus-stack
       helm upgrade prometheus-operator prometheus-community/kube-prometheus-stack 
-      kubectl port-forward svc/kube-prometheus-stack-prometheus 9090:9090 -n kube-prometheus-stack
-      kubectl port-forward svc/kube-prometheus-stack-grafana 3000:80 -n kube-prometheus-stack
+      sleep 10
+      kubectl port-forward svc/kube-prometheus-stack-prometheus 9090:9090
+      kubectl port-forward svc/kube-prometheus-stack-grafana 3000:80
   - name: Launch Jenkins
     command: |
       kubectl apply -f Kubernetes/jenkins-master.yaml
+      sleep 10
       kubectl port-forward service/jenkins-master 8081:80
   - name: Launch Ansible Controller
     command: |
       kubectl apply -f Kubernetes/ansible-controller.yaml
+      sleep 10
       kubectl port-forward service/ansible-controller 8082:80
   - name: Launch Ansible Target
     command: |
       kubectl apply -f Kubernetes/ansible-target.yaml
+      sleep 10
       kubectl port-forward service/ansible-target 8083:80
   - name: Launch NGINX Controller
     command: |
@@ -53,7 +59,6 @@ tasks:
       helm repo update
       helm install nginx-ingress ingress-nginx/ingress-nginx
       helm upgrade nginx-ingress ingress-nginx/ingress-nginx
-      kubectl port-forward service/nginx-ingress-controller 8080:80
 vscode:
   extensions:
     - ms-azuretools.vscode-docker
