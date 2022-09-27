@@ -20,11 +20,10 @@ tasks:
   - name: Launch kubernetes-dashboard
     command: |
       helm repo add kubernetes-dashboard https://kubernetes.github.io/dashboard/
-      helm install kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard
-      helm upgrade kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard
-      export POD_NAME=$(kubectl get pods -n default -l "app.kubernetes.io/name=kubernetes-dashboard,app.kubernetes.io/instance=kubernetes-dashboard" -o jsonpath="{.items[0].metadata.name}")
-      echo https://127.0.0.1:8443/
-      kubectl -n default port-forward $POD_NAME 8443:8443
+      helm install -n kubernetes-dashboard kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard
+      helm upgrade -n kubernetes-dashboard kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard
+      sleep 10
+      kubectl port-forward -n kubernetes-dashboard svc/kubernetes-dashboard 3000:80
   - name: Launch metrics-server
     command: |
       helm repo add bitnami https://charts.bitnami.com/bitnami
@@ -33,11 +32,11 @@ tasks:
     command: |
       helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
       helm repo update
-      helm install kube-prometheus-stack prometheus-community/kube-prometheus-stack
-      helm upgrade prometheus-operator prometheus-community/kube-prometheus-stack 
+      helm install -n kube-prometheus-stack kube-prometheus-stack prometheus-community/kube-prometheus-stack
+      helm upgrade -n kube-prometheus-stack prometheus-operator prometheus-community/kube-prometheus-stack
       sleep 10
-      kubectl port-forward svc/kube-prometheus-stack-prometheus 9090:9090
-      kubectl port-forward svc/kube-prometheus-stack-grafana 3000:80
+      kubectl port-forward -n kube-prometheus-stack svc/kube-prometheus-stack-prometheus 9090:9090
+      kubectl port-forward -n kube-prometheus-stack svc/kube-prometheus-stack-grafana 3000:80
   - name: Launch Jenkins
     command: |
       kubectl apply -f Kubernetes/jenkins-master.yaml
