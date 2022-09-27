@@ -13,6 +13,8 @@ tasks:
       echo "aws_secret_access_key = $AWS_SECRET_ACCESS_KEY" >> ~/.aws/credentials
   - name: Configure K8s
     command: echo $K8S_CONFIG | base64 --decode > ~/.kube/config
+  - name: Authenticate Digital Ocean
+    command: echo "access-token\":\" $DIGITAL_OCEAN_TOKEN" > ~/.config/doctl/config.yaml
   - name: Launch kubernetes-dashboard
     command: |
       helm repo add kubernetes-dashboard https://kubernetes.github.io/dashboard/

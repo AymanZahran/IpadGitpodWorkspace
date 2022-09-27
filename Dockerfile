@@ -32,12 +32,13 @@ RUN curl https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -o awscliv2.zi
 RUN sudo npm install -g aws-cdk cdktf-cli cdk8s-cli projen serverless && \
     sudo pip3 install troposphere cfn-lint
 
-# Install Terragrunt, ECS CLI, Runway, AWSTOE, cloud-nuke, aws-nuke, EKSCTL, Minikube, Pulumi, Amplify, Helm, Kustomize CLI, Terraform, Packer, Vagrant, Azure CLI, Flux, Okteto 
+# Install Terragrunt, ECS CLI, Runway, AWSTOE, cloud-nuke, doctl, aws-nuke, EKSCTL, Minikube, Pulumi, Amplify, Helm, Kustomize CLI, Terraform, Packer, Vagrant, Azure CLI, Flux, Okteto 
 RUN sudo curl -Lo /usr/local/bin/terragrunt https://github.com/gruntwork-io/terragrunt/releases/download/v0.36.6/terragrunt_linux_amd64 && \
     sudo curl -Lo /usr/local/bin/ecs-cli https://amazon-ecs-cli.s3.amazonaws.com/ecs-cli-linux-amd64-latest && \
     sudo curl -Lo /usr/local/bin/runway https://oni.ca/runway/latest/linux && \
     sudo curl -Lo /usr/local/bin/awstoe https://awstoe-us-east-1.s3.us-east-1.amazonaws.com/latest/linux/amd64/awstoe && \
     sudo curl -Lo /usr/local/bin/cloud-nuke https://github.com/gruntwork-io/cloud-nuke/releases/download/v0.11.3/cloud-nuke_linux_amd64 && \
+    wget -c https://github.com/digitalocean/doctl/releases/download/v1.81.0/doctl-1.81.0-linux-amd64.tar.gz -O - | sudo tar -xz -C /usr/local/bin/ && \
     wget -c https://github.com/rebuy-de/aws-nuke/releases/download/v2.16.0/aws-nuke-v2.16.0-linux-amd64.tar.gz -O - | sudo tar -xz -C /usr/local/bin/ && \
     wget -c https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz -O - | sudo tar -xz -C /usr/local/bin/ && \
     sudo curl -Lo /usr/local/bin/minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && \
