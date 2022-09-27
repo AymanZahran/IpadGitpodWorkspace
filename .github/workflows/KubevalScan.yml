@@ -17,3 +17,5 @@ jobs:
       - uses: actions/checkout@v2
       - name: test
         uses: instrumenta/kubeval-action@master
+        with:
+          files: Kubernetes
