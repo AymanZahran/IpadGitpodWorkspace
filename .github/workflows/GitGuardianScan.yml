@@ -1,11 +1,11 @@
 name: GitGuardian Scan
 
 on: 
-  schedule:
-    - cron: 0 1 * * *
-  push:
-    branches:
-      - master
+  # schedule:
+  #   - cron: 0 1 * * *
+  # push:
+  #   branches:
+  #     - master
   pull_request:
     branches:
       - master
