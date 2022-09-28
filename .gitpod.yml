@@ -30,6 +30,14 @@ tasks:
       echo "Digital Ocean Authenticated"
       gp sync-done do-authenticated
 
+  - name: Authenticate Linode
+    init: |
+      mkdir -p ~/.config/doctl
+      echo "access-token: $LINODE_TOKEN" > ~/.config/doctl/config.yaml
+    command: |
+      echo "Digital Ocean Authenticated"
+      gp sync-done do-authenticated
+
   - name: Authenticate Terraform Cloud
     init: |
       mkdir -p ~/.terraform.d/
@@ -58,6 +66,13 @@ tasks:
         terraform init
         terraform apply --auto-approve
         doctl kubernetes cluster kubeconfig save do-cluster
+      elif [ $K8S_PROVIDER == LINODE ]
+      then
+        cd Linode
+        export TF_VAR_LINODE_TOKEN=$LINODE_TOKEN
+        terraform init
+        terraform apply --auto-approve
+        linode-cli lke kubeconfig-view lke-cluster > ~/.kube/config
       else
         echo $K8S_CONFIG | base64 --decode > ~/.kube/config
       fi
@@ -65,13 +80,14 @@ tasks:
       gp sync-done deploy-kubernetes-cluster
 
   - name: Launch kubernetes-dashboard
-    init: gp sync-await deploy-kubernetes-cluster
-    command: |
+    init: |
+      gp sync-await deploy-kubernetes-cluster
       helm repo add kubernetes-dashboard https://kubernetes.github.io/dashboard/
       kubectl create ns kubernetes-dashboard
       helm install -n kubernetes-dashboard kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard
       helm upgrade -n kubernetes-dashboard kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard
-      sleep 15
+    command: |
+      sleep 20
       kubectl port-forward -n kubernetes-dashboard svc/kubernetes-dashboard 3000:443
 
   - name: Launch metrics-server
@@ -83,51 +99,58 @@ tasks:
        helm upgrade --namespace metrics-server metrics-server bitnami/metrics-server --set apiService.create=true
 
   - name: Launch kube-prometheus-stack
-    init: gp sync-await deploy-kubernetes-cluster
-    command: |
+    init: |
+      gp sync-await deploy-kubernetes-cluster
       helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
       helm repo update
       kubectl create ns kube-prometheus-stack
       helm install -n kube-prometheus-stack kube-prometheus-stack prometheus-community/kube-prometheus-stack
       helm upgrade -n kube-prometheus-stack  kube-prometheus-stack prometheus-community/kube-prometheus-stack
-      sleep 15
+    command: |
+      sleep 20
       kubectl port-forward -n kube-prometheus-stack svc/kube-prometheus-stack-prometheus 9090:9090
       kubectl port-forward -n kube-prometheus-stack svc/kube-prometheus-stack-grafana 9091:80
   
   - name: Launch Jenkins
-    init: gp sync-await deploy-kubernetes-cluster
-    command: |
+    init: |
+      gp sync-await deploy-kubernetes-cluster
       kubectl apply -f Kubernetes/jenkins-master.yaml
-      sleep 15
+    command: |
+      sleep 20
       kubectl port-forward service/jenkins-master 8081:80
   
   - name: Launch Ansible Controller
-    init: gp sync-await deploy-kubernetes-cluster
-    command: |
+    init: |
+      gp sync-await deploy-kubernetes-cluster
       kubectl apply -f Kubernetes/ansible-controller.yaml
-      sleep 15
+    command: |
+      sleep 20
       kubectl port-forward service/ansible-controller 8082:80
   
   - name: Launch Ansible Target
-    init: gp sync-await deploy-kubernetes-cluster
-    command: |
+    init: |
+      gp sync-await deploy-kubernetes-cluster
       kubectl apply -f Kubernetes/ansible-target.yaml
-      sleep 15
+    command: |
+      sleep 20
       kubectl port-forward service/ansible-target 8083:80
   
   - name: Launch NGINX Controller
-    init: gp sync-await deploy-kubernetes-cluster
-    command: |
+    init: |
+      gp sync-await deploy-kubernetes-cluster
       helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
       helm repo update
       kubectl create ns nginx
       helm install -n nginx nginx-ingress ingress-nginx/ingress-nginx
       helm upgrade -n nginx nginx-ingress ingress-nginx/ingress-nginx
+    command: |
       kubectl autoscale deployment -n nginx nginx-ingress-ingress-nginx-controller --cpu-percent=50 --min=1 --max=3
   
   - name: Launch NGINX Ingress Rules
     init: gp sync-await deploy-kubernetes-cluster
-    command: kubectl apply -f Kubernetes/ingress.yml
+    command: |
+      sleep 20
+      kubectl apply -f Kubernetes/ingress.yml
 
 vscode:
   extensions:

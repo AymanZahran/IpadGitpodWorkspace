@@ -32,7 +32,8 @@ RUN curl https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -o awscliv2.zi
 RUN sudo npm install -g aws-cdk cdktf-cli cdk8s-cli projen serverless && \
     sudo pip3 install troposphere cfn-lint
 
-# Install Terragrunt, ECS CLI, Runway, AWSTOE, cloud-nuke, doctl, aws-nuke, EKSCTL, Minikube, Pulumi, Amplify, Helm, Kustomize CLI, Terraform, Packer, Vagrant, Azure CLI, Flux, Okteto 
+# Install Terragrunt, ECS CLI, Runway, AWSTOE, cloud-nuke, doctl, aws-nuke, EKSCTL, Minikube, Pulumi, Amplify, Helm
+# Kustomize CLI, Terraform, Packer, Vagrant, Azure CLI, Flux, Okteto, Linode
 RUN sudo curl -Lo /usr/local/bin/terragrunt https://github.com/gruntwork-io/terragrunt/releases/download/v0.36.6/terragrunt_linux_amd64 && \
     sudo curl -Lo /usr/local/bin/ecs-cli https://amazon-ecs-cli.s3.amazonaws.com/ecs-cli-linux-amd64-latest && \
     sudo curl -Lo /usr/local/bin/runway https://oni.ca/runway/latest/linux && \
@@ -52,6 +53,7 @@ RUN sudo curl -Lo /usr/local/bin/terragrunt https://github.com/gruntwork-io/terr
     curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash && \
     curl -s https://fluxcd.io/install.sh | sudo bash  && \
     curl https://get.okteto.com -sSfL | bash && \
+    pip3 install linode-cli --upgrade && \
     sudo chmod +x /usr/local/bin/*
 
 # Instal GCP CLI
