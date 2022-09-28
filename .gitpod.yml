@@ -56,8 +56,8 @@ tasks:
         cd DigitalOcean
         export TF_VAR_DIGITAL_OCEAN_TOKEN=$DIGITAL_OCEAN_TOKEN
         terraform init
-        terraform plan
         terraform apply --auto-approve
+        doctl kubernetes cluster kubeconfig save do-cluster
       else
         echo $K8S_CONFIG | base64 --decode > ~/.kube/config
       fi
@@ -81,7 +81,7 @@ tasks:
       kubectl create ns metrics-server
       helm install -n metrics-server metrics-server bitnami/metrics-server
        helm upgrade --namespace metrics-server metrics-server bitnami/metrics-server --set apiService.create=true
-  
+
   - name: Launch kube-prometheus-stack
     init: gp sync-await deploy-kubernetes-cluster
     command: |
