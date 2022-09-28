@@ -1,0 +1,1 @@
+variable "LINODE_TOKEN" {}
