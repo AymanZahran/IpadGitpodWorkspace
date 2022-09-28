@@ -54,6 +54,7 @@ tasks:
       if [ $K8S_PROVIDER == DIGITAL_OCEAN ]
       then
         cd DigitalOcean
+        export TF_VAR_DIGITAL_OCEAN_TOKEN=$DIGITAL_OCEAN_TOKEN
         terraform init
         terraform plan
         terraform apply --auto-approve
