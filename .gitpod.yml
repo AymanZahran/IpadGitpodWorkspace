@@ -79,7 +79,7 @@ tasks:
     command: |
       if [ $K8S_PROVIDER == AWS ]
       then
-        echo "Pending.."
+        eksctl create cluster -f ./AWS/EKS-Cluster.yaml
       elif [ $K8S_PROVIDER == AZURE ]
       then
         echo "Pending..
