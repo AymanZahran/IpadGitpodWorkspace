@@ -6,21 +6,29 @@ tasks:
   
   - name: Authenticate AWS
     init: |
-      echo "[gitpod]" > ~/.aws/config
-      echo "region = $AWS_DEFAULT_REGION" >> ~/.aws/config
-      echo "cli_auto_prompt = on-partial" >> ~/.aws/config
-      echo "[gitpod]" > ~/.aws/credentials
-      echo "aws_access_key_id = $AWS_ACCESS_KEY_ID" >> ~/.aws/credentials
-      echo "aws_secret_access_key = $AWS_SECRET_ACCESS_KEY" >> ~/.aws/credentials
+      cat << EOF > ~/.aws/config
+      [gitpod]
+      region = $AWS_DEFAULT_REGION
+      cli_auto_prompt = on-partial
+      EOF
+      cat << EOF > ~/.aws/credentials
+      [gitpod]
+      aws_access_key_id = $AWS_ACCESS_KEY_ID
+      aws_secret_access_key = $AWS_SECRET_ACCESS_KEY
+      EOF
     command: |
       echo "AWS Authenticated"
       gp sync-done aws-authenticated
   
   - name: Authenticate Azure
-    command: echo "Azure Authenticated"
+    command: |
+      echo "Azure Authenticated"
+      gp sync-done azure-authenticated
   
   - name: Authenticate GCP
-    command: echo "GCP Authenticated"
+    command: |
+      echo "GCP Authenticated"
+      gp sync-done gcp-authenticated
   
   - name: Authenticate Digital Ocean
     init: |
@@ -33,10 +41,16 @@ tasks:
   - name: Authenticate Linode
     init: |
       mkdir -p ~/.config/doctl
-      echo "access-token: $LINODE_TOKEN" > ~/.config/doctl/config.yaml
+      cat << EOF > ~/.config/linode-cli
+      [DEFAULT]
+      default-user = AymanZahran
+
+      [AymanZahran]
+      token = $LINODE_TOKEN
+      EOF
     command: |
-      echo "Digital Ocean Authenticated"
-      gp sync-done do-authenticated
+      echo "Linode Authenticated"
+      gp sync-done linode-authenticated
 
   - name: Authenticate Terraform Cloud
     init: |
@@ -56,10 +70,23 @@ tasks:
   
   - name: Deploy Kubernetes Cluster
     init: |
+      gp sync-done aws-authenticated
+      gp sync-done azure-authenticated
+      gp sync-done gcp-authenticated
       gp sync-await do-authenticated
+      gp sync-await linode-authenticated
       gp sync-await terraform-authenticated
     command: |
-      if [ $K8S_PROVIDER == DIGITAL_OCEAN ]
+      if [ $K8S_PROVIDER == AWS ]
+      then
+        echo "Pending.."
+      elif [ $K8S_PROVIDER == AZURE ]
+      then
+        echo "Pending..
+      elif [ $K8S_PROVIDER == GCP ]
+      then
+        echo "Pending.."
+      elif [ $K8S_PROVIDER == DIGITAL_OCEAN ]
       then
         cd DigitalOcean
         export TF_VAR_DIGITAL_OCEAN_TOKEN=$DIGITAL_OCEAN_TOKEN
