@@ -1,14 +1,14 @@
 name: BuildPushGitpodImage
 
 on:   
-  schedule:
-    - cron: 0 1 * * *
+  # schedule:
+  #   - cron: 0 1 * * *
   # push:
   #   branches:
   #     - master
-  pull_request:
-    branches:
-      - master
+  # pull_request:
+  #   branches:
+  #     - master
 
 jobs:
   BuildPushGitpodImageToGHCR:

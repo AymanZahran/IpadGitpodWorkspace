@@ -1,5 +1,5 @@
 image: aymanzahran/ipad-gitpod-image
-  #file: .gitpod.Dockerfile
+  #file: Dockerfile.Dockerfile
 tasks:
   - name: persist env
     command: eval $(gp env -e)
