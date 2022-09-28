@@ -6,7 +6,7 @@ terraform {
   required_providers {
     digitalocean = {
       source = "linode/linode"
-      version = "~> 2.0"
+      version = "1.27.1"
     }
   }
   cloud {
