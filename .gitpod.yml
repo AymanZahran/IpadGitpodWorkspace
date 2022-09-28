@@ -77,23 +77,23 @@ tasks:
       gp sync-await linode-authenticated
       gp sync-await terraform-authenticated
     command: |
-      if $K8S_PROVIDER -eq "AWS"
+      if [[ $K8S_PROVIDER -eq "AWS" ]]
       then
-        eksctl create cluster -f ./AWS/EKS-Cluster.yaml
-      elif $K8S_PROVIDER -eq "AZURE"
-      then
-        echo "Pending..
-      elif $K8S_PROVIDER -eq "GCP"
+        eksctl create cluster -f ./AWS/EKS-Cluster.yml
+      elif [[ $K8S_PROVIDER -eq "AZURE" ]]
       then
         echo "Pending.."
-      elif $K8S_PROVIDER -eq "DIGITAL_OCEAN"
+      elif [[ $K8S_PROVIDER -eq "GCP" ]]
+      then
+        echo "Pending.."
+      elif [[ $K8S_PROVIDER -eq "DIGITAL_OCEAN" ]]
       then
         cd DigitalOcean
         export TF_VAR_DIGITAL_OCEAN_TOKEN=$DIGITAL_OCEAN_TOKEN
         terraform init
         terraform apply --auto-approve
         doctl kubernetes cluster kubeconfig save do-cluster
-      elif $K8S_PROVIDER -eq "LINODE"
+      elif [[ $K8S_PROVIDER -eq "LINODE" ]]
       then
         cd Linode
         export TF_VAR_LINODE_TOKEN=$LINODE_TOKEN
