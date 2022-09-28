@@ -3,75 +3,114 @@ image: aymanzahran/ipad-gitpod-image
 tasks:
   - name: persist env
     command: eval $(gp env -e)
+  
   - name: Authenticate AWS
-    command: |
+    init: |
       echo "[gitpod]" > ~/.aws/config
       echo "region = $AWS_DEFAULT_REGION" >> ~/.aws/config
       echo "cli_auto_prompt = on-partial" >> ~/.aws/config
       echo "[gitpod]" > ~/.aws/credentials
       echo "aws_access_key_id = $AWS_ACCESS_KEY_ID" >> ~/.aws/credentials
       echo "aws_secret_access_key = $AWS_SECRET_ACCESS_KEY" >> ~/.aws/credentials
-      echo "AWS Authenticated"
+      gp sync-done aws-authenticated
+    command: echo "AWS Authenticated"
+  
   - name: Authenticate Azure
     command: echo "Azure Authenticated"
+  
   - name: Authenticate GCP
     command: echo "GCP Authenticated"
+  
   - name: Authenticate Digital Ocean
-    command: |
+    init: |
       mkdir -p ~/.config/doctl
       echo "access-token: $DIGITAL_OCEAN_TOKEN" > ~/.config/doctl/config.yaml
-      echo "Digital Ocean Authenticated"
-  - name: Configure K8s
-    command: echo $K8S_CONFIG | base64 --decode > ~/.kube/config
-  - name: Launch kubernetes-dashboard
-    command: |
-      helm repo add kubernetes-dashboard https://kubernetes.github.io/dashboard/
-      kubectl create ns kubernetes-dashboard
-      helm install -n kubernetes-dashboard kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard
-      helm upgrade -n kubernetes-dashboard kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard
-      sleep 15
-      kubectl port-forward -n kubernetes-dashboard svc/kubernetes-dashboard 3000:443
-  - name: Launch metrics-server
-    command: |
-      helm repo add bitnami https://charts.bitnami.com/bitnami
-      kubectl create ns metrics-server
-      helm install -n metrics-server metrics-server bitnami/metrics-server
-       helm upgrade --namespace metrics-server metrics-server bitnami/metrics-server --set apiService.create=true
-  - name: Launch kube-prometheus-stack
-    command: |
-      helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-      helm repo update
-      kubectl create ns kube-prometheus-stack
-      helm install -n kube-prometheus-stack kube-prometheus-stack prometheus-community/kube-prometheus-stack
-      helm upgrade -n kube-prometheus-stack  kube-prometheus-stack prometheus-community/kube-prometheus-stack
-      sleep 15
-      kubectl port-forward -n kube-prometheus-stack svc/kube-prometheus-stack-prometheus 9090:9090
-      kubectl port-forward -n kube-prometheus-stack svc/kube-prometheus-stack-grafana 9091:80
-  - name: Launch Jenkins
-    command: |
-      kubectl apply -f Kubernetes/jenkins-master.yaml
-      sleep 15
-      kubectl port-forward service/jenkins-master 8081:80
-  - name: Launch Ansible Controller
-    command: |
-      kubectl apply -f Kubernetes/ansible-controller.yaml
-      sleep 15
-      kubectl port-forward service/ansible-controller 8082:80
-  - name: Launch Ansible Target
-    command: |
-      kubectl apply -f Kubernetes/ansible-target.yaml
-      sleep 15
-      kubectl port-forward service/ansible-target 8083:80
-  - name: Launch NGINX Controller
-    command: |
-      helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
-      helm repo update
-      kubectl create ns nginx
-      helm install -n nginx nginx-ingress ingress-nginx/ingress-nginx
-      helm upgrade -n nginx nginx-ingress ingress-nginx/ingress-nginx
-      kubectl autoscale deployment -n nginx nginx-ingress-ingress-nginx-controller --cpu-percent=50 --min=1 --max=3
-  - name: Launch NGINX Ingress Rules
-    command: kubectl apply -f Kubernetes/ingress.yml
+      gp sync-done do-authenticated
+    command: echo "Digital Ocean Authenticated"
+
+  - name: Authenticate Terraform Cloud
+    init: |
+      mkdir -p ~/.terraform.d/
+      cat << EOF > ~/.terraform.d/credentials.tfrc.json
+      {
+        "credentials": {
+          "app.terraform.io": {
+            "token": "$TERRAFORM_TOKEN"
+          }
+        }
+      }
+      EOF
+      gp sync-done terraform-authenticated
+    command: echo "Terraform Authenticated"
+  
+  # - name: Authenticate Terraform Cloud
+  #   command: |
+  #     cd DigitalOcean
+  #     terraform init
+  #     terraform plan
+  #     terraform apply --auto-approve
+
+  # - name: Configure K8s
+  #   command: echo $K8S_CONFIG | base64 --decode > ~/.kube/config
+
+  # - name: Launch kubernetes-dashboard
+  #   command: |
+  #     helm repo add kubernetes-dashboard https://kubernetes.github.io/dashboard/
+  #     kubectl create ns kubernetes-dashboard
+  #     helm install -n kubernetes-dashboard kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard
+  #     helm upgrade -n kubernetes-dashboard kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard
+  #     sleep 15
+  #     kubectl port-forward -n kubernetes-dashboard svc/kubernetes-dashboard 3000:443
+
+  # - name: Launch metrics-server
+  #   command: |
+  #     helm repo add bitnami https://charts.bitnami.com/bitnami
+  #     kubectl create ns metrics-server
+  #     helm install -n metrics-server metrics-server bitnami/metrics-server
+  #      helm upgrade --namespace metrics-server metrics-server bitnami/metrics-server --set apiService.create=true
+  
+  # - name: Launch kube-prometheus-stack
+  #   command: |
+  #     helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+  #     helm repo update
+  #     kubectl create ns kube-prometheus-stack
+  #     helm install -n kube-prometheus-stack kube-prometheus-stack prometheus-community/kube-prometheus-stack
+  #     helm upgrade -n kube-prometheus-stack  kube-prometheus-stack prometheus-community/kube-prometheus-stack
+  #     sleep 15
+  #     kubectl port-forward -n kube-prometheus-stack svc/kube-prometheus-stack-prometheus 9090:9090
+  #     kubectl port-forward -n kube-prometheus-stack svc/kube-prometheus-stack-grafana 9091:80
+  
+  # - name: Launch Jenkins
+  #   command: |
+  #     kubectl apply -f Kubernetes/jenkins-master.yaml
+  #     sleep 15
+  #     kubectl port-forward service/jenkins-master 8081:80
+  
+  # - name: Launch Ansible Controller
+  #   command: |
+  #     kubectl apply -f Kubernetes/ansible-controller.yaml
+  #     sleep 15
+  #     kubectl port-forward service/ansible-controller 8082:80
+  
+  # - name: Launch Ansible Target
+  #   command: |
+  #     kubectl apply -f Kubernetes/ansible-target.yaml
+  #     sleep 15
+  #     kubectl port-forward service/ansible-target 8083:80
+  
+  # - name: Launch NGINX Controller
+  #   command: |
+  #     helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+  #     helm repo update
+  #     kubectl create ns nginx
+  #     helm install -n nginx nginx-ingress ingress-nginx/ingress-nginx
+  #     helm upgrade -n nginx nginx-ingress ingress-nginx/ingress-nginx
+  #     kubectl autoscale deployment -n nginx nginx-ingress-ingress-nginx-controller --cpu-percent=50 --min=1 --max=3
+  
+  # - name: Launch NGINX Ingress Rules
+  #   command: kubectl apply -f Kubernetes/ingress.yml
+
+
 vscode:
   extensions:
     - ms-azuretools.vscode-docker
