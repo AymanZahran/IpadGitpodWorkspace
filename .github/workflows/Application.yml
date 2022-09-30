@@ -1,4 +1,4 @@
-name: BuildPushJenkinsImage
+name: Application
 
 on:   
   schedule:

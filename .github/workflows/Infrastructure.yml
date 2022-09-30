@@ -1,4 +1,4 @@
-name: BuildPushAnsibleControllerImage
+name: Infrastructure
 
 on:   
   push:
