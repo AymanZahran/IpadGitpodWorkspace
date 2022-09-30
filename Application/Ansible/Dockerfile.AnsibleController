@@ -3,7 +3,7 @@ RUN dnf -y --disablerepo '*' --enablerepo=extras swap centos-linux-repos centos-
 RUN yum update -y
 RUN yum -y install openssh openssh-server openssh-clients sudo initscripts epel-release net-tools
 RUN yum install -y ansible
-COPY ../id_rsa /root/
+COPY id_rsa /root/
 RUN mkdir /root/.ssh/
 RUN cp /root/id_rsa /root/.ssh/
 RUN chmod 400 /root/.ssh/id_rsa /root/id_rsa
