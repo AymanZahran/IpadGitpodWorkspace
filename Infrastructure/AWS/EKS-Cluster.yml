@@ -10,6 +10,8 @@ nodeGroups:
     instanceType: m5.xlarge
     desiredCapacity: 3
 
+
+0
 cloudWatch:
   clusterLogging:
     enableTypes: ["api", "audit", "authenticator", "controllerManager", "scheduler"]
