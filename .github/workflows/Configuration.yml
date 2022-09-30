@@ -1,16 +1,16 @@
 name: KubevalScan
 
 on:
-  push:
-    branches:
-      - feature
-    paths:
-      - Configuration/**
-  pull_request:
-    branches:
-      - feature
-    paths:
-      - Configuration/**
+  # push:
+  #   branches:
+  #     - master
+  #   paths:
+  #     - Configuration/**
+  # pull_request:
+  #   branches:
+  #     - master
+  #   paths:
+  #     - Configuration/**
 
 jobs:
   KubevalScan:
