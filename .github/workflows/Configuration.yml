@@ -32,15 +32,15 @@ jobs:
         uses: instrumenta/kubeval-action@master
         with:
           files: Configuration
-      - name: Kubesec scanner
-        uses: controlplaneio/kubesec-action@master
-        with:
-          input: Configurations/ansible-controller.yaml
-          exit-code: "0"
-          format: template
-          template: template/sarif.tpl
-          output: kubesec-results.sarif
-      - name: Upload Kubesec scan results to GitHub Security tab
-        uses: github/codeql-action/upload-sarif@v1
-        with:
-          sarif_file: kubesec-results.sarif
+      # - name: Kubesec scanner
+      #   uses: controlplaneio/kubesec-action@master
+      #   with:
+      #     input: Configurations/ansible-controller.yaml
+      #     exit-code: "0"
+      #     format: template
+      #     template: template/sarif.tpl
+      #     output: kubesec-results.sarif
+      # - name: Upload Kubesec scan results to GitHub Security tab
+      #   uses: github/codeql-action/upload-sarif@v1
+      #   with:
+      #     sarif_file: kubesec-results.sarif
