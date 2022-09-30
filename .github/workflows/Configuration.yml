@@ -15,6 +15,10 @@ on:
 jobs:
   ScanValidateConfigurations:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: Configuration
     steps:
       - name: Checkout
         uses: actions/checkout@v3

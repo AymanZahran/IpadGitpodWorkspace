@@ -17,11 +17,13 @@ on:
 jobs:
   BuildPushJenkinsImageToDockerHub:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: Application/Jenkins
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: App Dir
-        run: cd Application/Jenkins
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
@@ -31,18 +33,18 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      # - name: Run Snyk to check Docker image for vulnerabilities
-      #   continue-on-error: true
-      #   uses: snyk/actions/docker@master
-      #   env:
-      #     SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-      #   with:
-      #     image: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.JENKINS_IMAGE_NAME}}
-      #     args: --file=Dockerfile
-      # - name: Upload result to GitHub Code Scanning
-      #   uses: github/codeql-action/upload-sarif@v2
-      #   with:
-      #     sarif_file: snyk.sarif
+      - name: Run Snyk to check Docker image for vulnerabilities
+        continue-on-error: true
+        uses: snyk/actions/docker@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          image: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.JENKINS_IMAGE_NAME}}
+          args: --file=Dockerfile
+      - name: Upload result to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: snyk.sarif
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
@@ -53,11 +55,13 @@ jobs:
   
   BuildPushAnsibleControllerImageToDockerHub:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: Application/Ansible
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: App Dir
-        run: cd Application/Ansible
       - name: Login to Docker Hub
         uses: docker/login-action@v1
         with:

@@ -15,5 +15,3 @@ cloudWatch:
   clusterLogging:
     enableTypes: ["api", "audit", "authenticator", "controllerManager", "scheduler"]
 
-
-    0
