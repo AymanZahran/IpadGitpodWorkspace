@@ -24,16 +24,12 @@ tasks:
     init: |
       if [[ $K8S_PROVIDER == "AWS" ]]
       then
-        cat << EOF > ~/.aws/config
-        [gitpod]
-        region = $AWS_DEFAULT_REGION
-        cli_auto_prompt = on-partial
-        EOF
-        cat << EOF > ~/.aws/credentials
-        [gitpod]
-        aws_access_key_id = $AWS_ACCESS_KEY_ID
-        aws_secret_access_key = $AWS_SECRET_ACCESS_KEY
-        EOF
+        echo "[gitpod]" > ~/.aws/config
+        echo "region = $AWS_DEFAULT_REGION" >> ~/.aws/config
+        echo "cli_auto_prompt = on-partial" >> ~/.aws/config
+        echo "[gitpod]" > ~/.aws/credentials
+        echo "aws_access_key_id = $AWS_ACCESS_KEY_ID" >> ~/.aws/credentials
+        echo "aws_secret_access_key = $AWS_SECRET_ACCESS_KEY" >> ~/.aws/credentials
       elif [[ $K8S_PROVIDER == "AZURE" ]]
       then
         echo "Pending.."
@@ -46,13 +42,11 @@ tasks:
         echo "access-token: $DIGITAL_OCEAN_TOKEN" > ~/.config/doctl/config.yaml
       elif [[ $K8S_PROVIDER == "LINODE" ]]
       then
-        cat << EOF > ~/.config/linode-cli
-        [DEFAULT]
-        default-user = AymanZahran
-
-        [AymanZahran]
-        token = $LINODE_TOKEN
-        EOF
+        echo "[DEFAULT]" > ~/.config/linode-cli
+        echo "default-user = AymanZahran" >> ~/.config/linode-cli
+        echo "" >> ~/.config/linode-cli
+        echo "[AymanZahran]" >> ~/.config/linode-cli
+        echo "token = $LINODE_TOKEN" >> ~/.config/linode-cli
       else
         echo "No Provider to Authenticate"
       fi
