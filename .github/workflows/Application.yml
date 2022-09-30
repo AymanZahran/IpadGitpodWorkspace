@@ -1,18 +1,18 @@
 name: BuildPushJenkinsImage
 
 on:   
-  # schedule:
-  #   - cron: 0 1 * * *
-  # push:
-  #   branches:
-  #     - master
-  #   paths:
-  #     - Application/**
-  # pull_request:
-  #   branches:
-  #     - master
-  #   paths:
-  #     - Application/**
+  schedule:
+    - cron: 0 1 * * *
+  push:
+    branches:
+      - master
+    paths:
+      - Application/**
+  pull_request:
+    branches:
+      - master
+    paths:
+      - Application/**
 
 jobs:
   BuildPushJenkinsImageToDockerHub:
