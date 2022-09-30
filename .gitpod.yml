@@ -3,54 +3,6 @@ image: aymanzahran/ipad-gitpod-image
 tasks:
   - name: persist env
     command: eval $(gp env -e)
-  
-  - name: Authenticate AWS
-    init: |
-      cat << EOF > ~/.aws/config
-      [gitpod]
-      region = $AWS_DEFAULT_REGION
-      cli_auto_prompt = on-partial
-      EOF
-      cat << EOF > ~/.aws/credentials
-      [gitpod]
-      aws_access_key_id = $AWS_ACCESS_KEY_ID
-      aws_secret_access_key = $AWS_SECRET_ACCESS_KEY
-      EOF
-    command: |
-      echo "AWS Authenticated"
-      gp sync-done aws-authenticated
-  
-  - name: Authenticate Azure
-    command: |
-      echo "Azure Authenticated"
-      gp sync-done azure-authenticated
-  
-  - name: Authenticate GCP
-    command: |
-      echo "GCP Authenticated"
-      gp sync-done gcp-authenticated
-  
-  - name: Authenticate Digital Ocean
-    init: |
-      mkdir -p ~/.config/doctl
-      echo "access-token: $DIGITAL_OCEAN_TOKEN" > ~/.config/doctl/config.yaml
-    command: |
-      echo "Digital Ocean Authenticated"
-      gp sync-done do-authenticated
-
-  - name: Authenticate Linode
-    init: |
-      mkdir -p ~/.config/doctl
-      cat << EOF > ~/.config/linode-cli
-      [DEFAULT]
-      default-user = AymanZahran
-
-      [AymanZahran]
-      token = $LINODE_TOKEN
-      EOF
-    command: |
-      echo "Linode Authenticated"
-      gp sync-done linode-authenticated
 
   - name: Authenticate Terraform Cloud
     init: |
@@ -68,14 +20,50 @@ tasks:
       echo "Terraform Authenticated"
       gp sync-done terraform-authenticated
   
+  - name: Authenticate Provider
+    init: |
+      if [[ $K8S_PROVIDER -eq "AWS" ]]
+      then
+        cat << EOF > ~/.aws/config
+        [gitpod]
+        region = $AWS_DEFAULT_REGION
+        cli_auto_prompt = on-partial
+        EOF
+        cat << EOF > ~/.aws/credentials
+        [gitpod]
+        aws_access_key_id = $AWS_ACCESS_KEY_ID
+        aws_secret_access_key = $AWS_SECRET_ACCESS_KEY
+        EOF
+      elif [[ $K8S_PROVIDER -eq "AZURE" ]]
+      then
+        echo "Pending.."
+      elif [[ $K8S_PROVIDER -eq "GCP" ]]
+      then
+        echo "Pending.."
+      elif [[ $K8S_PROVIDER -eq "DIGITAL_OCEAN" ]]
+      then
+        mkdir -p ~/.config/doctl
+        echo "access-token: $DIGITAL_OCEAN_TOKEN" > ~/.config/doctl/config.yaml
+      elif [[ $K8S_PROVIDER -eq "LINODE" ]]
+      then
+        cat << EOF > ~/.config/linode-cli
+        [DEFAULT]
+        default-user = AymanZahran
+
+        [AymanZahran]
+        token = $LINODE_TOKEN
+        EOF
+      else
+        echo "No Provider to Authenticate"
+      fi
+    command: |
+      echo "$K8S_PROVIDER Authenticated"
+      gp sync-done provider-authenticated
+
   - name: Deploy Kubernetes Cluster
     init: |
-      gp sync-done aws-authenticated
-      gp sync-done azure-authenticated
-      gp sync-done gcp-authenticated
-      gp sync-await do-authenticated
-      gp sync-await linode-authenticated
       gp sync-await terraform-authenticated
+      gp sync-await provider-authenticated
     command: |
       if [[ $K8S_PROVIDER -eq "AWS" ]]
       then
@@ -106,7 +94,7 @@ tasks:
       echo "Kubernetes Cluster Deployed"
       gp sync-done deploy-kubernetes-cluster
 
-  - name: Launch kubernetes-dashboard
+  - name: Launch ArgoCD
     init: |
       gp sync-await deploy-kubernetes-cluster
       kubectl create namespace argocd
