@@ -11,7 +11,7 @@ tasks:
       {
         "credentials": {
           "app.terraform.io": {
-            "token": "$TERRAFORM_TOKEN"
+            "token": "$TF_API_TOKEN"
           }
         }
       }
@@ -98,6 +98,13 @@ tasks:
       sleep 20
       kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 --decode && echo
       kubectl port-forward svc/argocd-server 8080:443 -n argocd
+
+
+
+
+
+
+
 
   - name: Launch kubernetes-dashboard
     init: |
@@ -187,6 +194,3 @@ vscode:
     - ms-python.python
     - rangav.vscode-thunder-client
     - PKief.material-icon-theme
-
-
-
