@@ -1,4 +1,0 @@
-deploy:
-  - command: kubectl apply -f Kubernetes/jenkins-master.yaml
-  - command: kubectl apply -f Kubernetes/ansible-controller.yaml
-  - command: kubectl apply -f Kubernetes/ansible-target.yaml
