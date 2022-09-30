@@ -109,6 +109,17 @@ tasks:
   - name: Launch kubernetes-dashboard
     init: |
       gp sync-await deploy-kubernetes-cluster
+      kubectl create namespace argocd
+      kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+      kubectl apply -f Kubernetes/argocd-app.yaml
+    command: |
+      sleep 20
+      kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 --decode && echo
+      kubectl port-forward svc/argocd-server 8080:443 -n argocd
+
+  - name: Launch kubernetes-dashboard
+    init: |
+      gp sync-await deploy-kubernetes-cluster
       helm repo add kubernetes-dashboard https://kubernetes.github.io/dashboard/
       kubectl create ns kubernetes-dashboard
       helm install -n kubernetes-dashboard kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard
