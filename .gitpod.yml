@@ -22,7 +22,7 @@ tasks:
   
   - name: Authenticate Provider
     init: |
-      if [[ $K8S_PROVIDER -eq "AWS" ]]
+      if [[ $K8S_PROVIDER == "AWS" ]]
       then
         cat << EOF > ~/.aws/config
         [gitpod]
@@ -34,17 +34,17 @@ tasks:
         aws_access_key_id = $AWS_ACCESS_KEY_ID
         aws_secret_access_key = $AWS_SECRET_ACCESS_KEY
         EOF
-      elif [[ $K8S_PROVIDER -eq "AZURE" ]]
+      elif [[ $K8S_PROVIDER == "AZURE" ]]
       then
         echo "Pending.."
-      elif [[ $K8S_PROVIDER -eq "GCP" ]]
+      elif [[ $K8S_PROVIDER == "GCP" ]]
       then
         echo "Pending.."
-      elif [[ $K8S_PROVIDER -eq "DIGITAL_OCEAN" ]]
+      elif [[ $K8S_PROVIDER == "DIGITAL_OCEAN" ]]
       then
         mkdir -p ~/.config/doctl
         echo "access-token: $DIGITAL_OCEAN_TOKEN" > ~/.config/doctl/config.yaml
-      elif [[ $K8S_PROVIDER -eq "LINODE" ]]
+      elif [[ $K8S_PROVIDER == "LINODE" ]]
       then
         cat << EOF > ~/.config/linode-cli
         [DEFAULT]
@@ -65,23 +65,23 @@ tasks:
       gp sync-await terraform-authenticated
       gp sync-await provider-authenticated
     command: |
-      if [[ $K8S_PROVIDER -eq "AWS" ]]
+      if [[ "$K8S_PROVIDER" == "AWS" ]]
       then
         eksctl create cluster -f ./AWS/EKS-Cluster.yml
-      elif [[ $K8S_PROVIDER -eq "AZURE" ]]
+      elif [[ $K8S_PROVIDER == "AZURE" ]]
       then
         echo "Pending.."
-      elif [[ $K8S_PROVIDER -eq "GCP" ]]
+      elif [[ $K8S_PROVIDER == "GCP" ]]
       then
         echo "Pending.."
-      elif [[ $K8S_PROVIDER -eq "DIGITAL_OCEAN" ]]
+      elif [[ $K8S_PROVIDER == "DIGITAL_OCEAN" ]]
       then
         cd DigitalOcean
         export TF_VAR_DIGITAL_OCEAN_TOKEN=$DIGITAL_OCEAN_TOKEN
         terraform init
         terraform apply --auto-approve
         doctl kubernetes cluster kubeconfig save do-cluster
-      elif [[ $K8S_PROVIDER -eq "LINODE" ]]
+      elif [[ $K8S_PROVIDER == "LINODE" ]]
       then
         cd Linode
         export TF_VAR_LINODE_TOKEN=$LINODE_TOKEN
