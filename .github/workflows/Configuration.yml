@@ -19,7 +19,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: GitGuardian scan
-        run: cd Configuration
         uses: GitGuardian/ggshield-action@master
         env:
           GITHUB_PUSH_BEFORE_SHA: ${{ github.event.before }}
