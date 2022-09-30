@@ -11,7 +11,6 @@ nodeGroups:
     desiredCapacity: 3
 
 
-0
 cloudWatch:
   clusterLogging:
     enableTypes: ["api", "audit", "authenticator", "controllerManager", "scheduler"]
