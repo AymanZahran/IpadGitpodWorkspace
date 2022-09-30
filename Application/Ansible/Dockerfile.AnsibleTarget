@@ -2,3 +2,4 @@ FROM sickp/centos-sshd
 RUN yum install -y sudo initscripts epel-release net-tools
 COPY ../id_rsa.pub /root/.ssh/authorized_keys
 RUN chmod 400 /root/.ssh/authorized_keys
+
