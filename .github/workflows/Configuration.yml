@@ -13,7 +13,7 @@ on:
       - Configuration/**
 
 jobs:
-  KubevalScan:
+  ScanValidateConfigurations:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -35,7 +35,7 @@ jobs:
       - name: Kubesec scanner
         uses: controlplaneio/kubesec-action@master
         with:
-          input: Configurations/*
+          input: Configurations/ansible-controller.yaml
           exit-code: "0"
           format: template
           template: template/sarif.tpl
