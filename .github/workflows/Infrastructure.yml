@@ -1,16 +1,16 @@
 name: BuildPushAnsibleControllerImage
 
 on:   
-  # push:
-  #   branches:
-  #     - master
-  #   paths:
-  #     - Infrastructure/**
-  # pull_request:
-  #   branches:
-  #     - master
-  #   paths:
-  #     - Infrastructure/**
+  push:
+    branches:
+      - master
+    paths:
+      - Infrastructure/**
+  pull_request:
+    branches:
+      - master
+    paths:
+      - Infrastructure/**
 
 jobs:
   terraform:
