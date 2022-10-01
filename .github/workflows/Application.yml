@@ -20,7 +20,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: Application/Jenkins
+        working-directory: Application
     permissions:
       contents: read
       security-events: write

@@ -10,3 +10,7 @@ resource "digitalocean_kubernetes_cluster" "do-cluster" {
 }
 
 
+
+
+
+
