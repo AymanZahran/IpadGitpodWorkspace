@@ -1,6 +1,6 @@
 name: Application
 
-on:   
+on:
   schedule:
     - cron: 0 1 * * *
   push:
@@ -56,7 +56,7 @@ jobs:
           file: Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.JENKINS_IMAGE_NAME}}
-  
+
   BuildPushAnsibleControllerImageToDockerHub:
     runs-on: ubuntu-latest
     defaults:
