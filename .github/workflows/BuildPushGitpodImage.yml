@@ -32,7 +32,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: Dockerfile
+          file: Dockerfile.AnsibleController
           push: true
           tags: ghcr.io/${{ secrets.GHCR_USERNAME}}/${{ secrets.GITPOD_IMAGE_NAME}}
   
@@ -52,6 +52,6 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: Dockerfile
+          file: Dockerfile.AnsibleTarget
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.GITPOD_IMAGE_NAME}}
