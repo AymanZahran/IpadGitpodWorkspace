@@ -65,7 +65,7 @@ tasks:
       then
         cd DigitalOcean
         terraform init
-        terraform apply -var $DIGITAL_OCEAN_TOKEN --auto-approve
+        terraform apply -var="DIGITAL_OCEAN_TOKEN=$DIGITAL_OCEAN_TOKEN" --auto-approve
         doctl kubernetes cluster kubeconfig save do-cluster
       else
         echo $K8S_CONFIG | base64 --decode > ~/.kube/config
