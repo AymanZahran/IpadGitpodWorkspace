@@ -40,21 +40,19 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build Jenkins Image
-        run: ls && docker build -t docker.io/${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.JENKINS_IMAGE_NAME}}:${{ github.sha }} .
-      - name: Run Snyk to check Docker image for vulnerabilities
-        continue-on-error: true
-        uses: snyk/actions/docker@master
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        run: docker build -t docker.io/${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.JENKINS_IMAGE_NAME}}:${{ github.sha }} .
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@7b7aa264d83dc58691451798b4d117d53d21edfe
         with:
-          image: docker.io/${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.JENKINS_IMAGE_NAME}}
-          sarif: true
-      - name: Upload result to GitHub Code Scanning
+          image-ref: docker.io/${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.JENKINS_IMAGE_NAME}}
+          format: template
+          template: '@/contrib/sarif.tpl'
+          output: trivy-results.sarif
+          severity: 'CRITICAL,HIGH'
+      - name: Upload Trivy scan results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v2
         with:
-          sarif_file: snyk.sarif
-      - name: Push Jenkins Image
-        run: docker push docker.io/${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.JENKINS_IMAGE_NAME}}:${{ github.sha }}
+          sarif_file: trivy-results.sarif
   
   BuildPushAnsibleControllerImageToDockerHub:
     runs-on: ubuntu-latest
@@ -80,32 +78,34 @@ jobs:
         run: ssh-keygen -t rsa -N "my passphrase" -C "test key" -f id_rsa
       - name: Build Ansible Controller Image
         run: ls && docker build -t docker.io/${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.ANSIBLE_CONTROLLER_IMAGE_NAME}}:${{ github.sha }} .
-      - name: Run Snyk to check Docker image for vulnerabilities
-        continue-on-error: true
-        uses: snyk/actions/docker@master
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@7b7aa264d83dc58691451798b4d117d53d21edfe
         with:
-          image: docker.io/${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.ANSIBLE_CONTROLLER_IMAGE_NAME}}
-      - name: Upload result to GitHub Code Scanning
+          image-ref: docker.io/${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.ANSIBLE_CONTROLLER_IMAGE_NAME}}
+          format: template
+          template: '@/contrib/sarif.tpl'
+          output: trivy-results.sarif
+          severity: 'CRITICAL,HIGH'
+      - name: Upload Trivy scan results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v2
         with:
-          sarif_file: snyk.sarif
+          sarif_file: trivy-results.sarif
       - name: Push Ansible Controller Image
         run: docker push docker.io/${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.ANSIBLE_CONTROLLER_IMAGE_NAME}}:${{ github.sha }}
       - name: Build Ansible Target Image
         run: ls && docker build -t docker.io/${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.ANSIBLE_TARGET_IMAGE_NAME}}:${{ github.sha }} .
-      - name: Run Snyk to check Docker image for vulnerabilities
-        continue-on-error: true
-        uses: snyk/actions/docker@master
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@7b7aa264d83dc58691451798b4d117d53d21edfe
         with:
-          image: docker.io/${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.ANSIBLE_TARGET_IMAGE_NAME}}
-      - name: Upload result to GitHub Code Scanning
+          image-ref: docker.io/${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.ANSIBLE_TARGET_IMAGE_NAME}}
+          format: template
+          template: '@/contrib/sarif.tpl'
+          output: trivy-results.sarif
+          severity: 'CRITICAL,HIGH'
+      - name: Upload Trivy scan results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v2
         with:
-          sarif_file: snyk.sarif
+          sarif_file: trivy-results.sarif
       - name: Push Ansible Target Image
         run: docker push docker.io/${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.ANSIBLE_TARGET_IMAGE_NAME}}:${{ github.sha }}
       
