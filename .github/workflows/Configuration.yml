@@ -19,17 +19,22 @@ jobs:
       run:
         shell: bash
         working-directory: Configuration
+    permissions:
+      contents: read
+      security-events: write
+      actions: read
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: GitGuardian scan
-        uses: GitGuardian/ggshield-action@master
-        env:
-          GITHUB_PUSH_BEFORE_SHA: ${{ github.event.before }}
-          GITHUB_PUSH_BASE_SHA: ${{ github.event.base }}
-          GITHUB_PULL_BASE_SHA:  ${{ github.event.pull_request.base.sha }}
-          GITHUB_DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
-          GITGUARDIAN_API_KEY: ${{ secrets.GITGUARDIAN_API_KEY }}
+      -   name: Run Analysis
+          uses: codescan-io/codescan-scanner-action@master
+          with:
+            login: ${{ secrets.CODESCAN_AUTH_TOKEN }}
+            organization: ${{ secrets.CODESCAN_ORGANIZATION_KEY }}
+            projectKey: ${{ secrets.CODESCAN_PROJECT_KEY }}
+            args: |
+              sonar.verbose=true
+              sonar.java.binaries=target
       - name: Kubeval
         uses: instrumenta/kubeval-action@master
         with:
