@@ -27,17 +27,19 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Checkout
+        run: ls
       -   name: Run Analysis
           uses: codescan-io/codescan-scanner-action@master
           with:
               login: ${{ secrets.CODESCAN_AUTH_TOKEN }}
-              organization: ayman-zahran25523
-              projectKey: test-terraform
+              organization: ${{ secrets.CODESCAN_ORGANIZATION_KEY }}
+              projectKey: ${{ secrets.CODESCAN_PROJECT_KEY }}
               args: |
                   sonar.verbose=true
                   sonar.java.binaries=target
       - name: Upload SARIF file
-        uses: github/codeql-action/upload-sarif@v1
+        uses: github/codeql-action/upload-sarif@v2
         with:
             sarif_file: codescan.sarif
       - name: Setup Terraform
