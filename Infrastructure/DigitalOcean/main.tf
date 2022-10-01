@@ -8,3 +8,5 @@ resource "digitalocean_kubernetes_cluster" "do-cluster" {
     node_count = 3
   }
 }
+
+
