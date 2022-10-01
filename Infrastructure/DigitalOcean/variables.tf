@@ -1,1 +1,1 @@
-variable "DIGITAL_OCEAN_TOKEN" {}
+variable "DIGITAL_OCEAN_TOKEN" {} 

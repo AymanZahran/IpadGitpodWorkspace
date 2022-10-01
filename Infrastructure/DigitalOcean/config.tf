@@ -2,6 +2,7 @@ provider "digitalocean" {
   token = var.DIGITAL_OCEAN_TOKEN
 }
 
+
 terraform {
   required_providers {
     digitalocean = {
