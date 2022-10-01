@@ -1,6 +1,6 @@
 resource "digitalocean_kubernetes_cluster" "do-cluster" {
-  name   = "do-cluster"
-  region = "nyc1"
+  name    = "do-cluster"
+  region  = "nyc1"
   version = "1.24.4-do.0"
   node_pool {
     name       = "worker-pool"
