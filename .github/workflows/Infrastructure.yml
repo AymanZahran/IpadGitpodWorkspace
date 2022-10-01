@@ -63,10 +63,10 @@ jobs:
         run: terraform validate -no-color
       - name: Terraform Plan
         id: plan
-        run: terraform plan -var DIGITAL_OCEAN_TOKEN -no-color -input=false
+        run: terraform plan -var="DIGITAL_OCEAN_TOKEN=$DIGITAL_OCEAN_TOKEN" -no-color -input=false
         continue-on-error: true
       - name: Terraform Plan Status
         if: steps.plan.outcome == 'failure'
         run: exit 1
       - name: Terraform Apply
-        run: terraform apply -var DIGITAL_OCEAN_TOKEN -auto-approve -input=false
+        run: terraform apply -var="DIGITAL_OCEAN_TOKEN=$DIGITAL_OCEAN_TOKEN" -auto-approve -input=false

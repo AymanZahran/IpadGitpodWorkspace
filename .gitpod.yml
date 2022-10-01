@@ -40,13 +40,6 @@ tasks:
       then
         mkdir -p ~/.config/doctl
         echo "access-token: $DIGITAL_OCEAN_TOKEN" > ~/.config/doctl/config.yaml
-      elif [[ $K8S_PROVIDER == "LINODE" ]]
-      then
-        echo "[DEFAULT]" > ~/.config/linode-cli
-        echo "default-user = AymanZahran" >> ~/.config/linode-cli
-        echo "" >> ~/.config/linode-cli
-        echo "[AymanZahran]" >> ~/.config/linode-cli
-        echo "token = $LINODE_TOKEN" >> ~/.config/linode-cli
       else
         echo "No Provider to Authenticate"
       fi
@@ -71,17 +64,9 @@ tasks:
       elif [[ $K8S_PROVIDER == "DIGITAL_OCEAN" ]]
       then
         cd DigitalOcean
-        export TF_VAR_DIGITAL_OCEAN_TOKEN=$DIGITAL_OCEAN_TOKEN
         terraform init
-        terraform apply --auto-approve
+        terraform apply -var $DIGITAL_OCEAN_TOKEN --auto-approve
         doctl kubernetes cluster kubeconfig save do-cluster
-      elif [[ $K8S_PROVIDER == "LINODE" ]]
-      then
-        cd Linode
-        export TF_VAR_LINODE_TOKEN=$LINODE_TOKEN
-        terraform init
-        terraform apply --auto-approve
-        linode-cli lke kubeconfig-view lke-cluster > ~/.kube/config
       else
         echo $K8S_CONFIG | base64 --decode > ~/.kube/config
       fi
