@@ -54,6 +54,11 @@ RUN sudo curl -Lo /usr/local/bin/terragrunt https://github.com/gruntwork-io/terr
     curl -s https://fluxcd.io/install.sh | sudo bash  && \
     curl https://get.okteto.com -sSfL | bash && \
     pip3 install linode-cli --upgrade && \
+    VERSION=$(curl --silent "https://api.github.com/repos/argoproj-labs/argocd-autopilot/releases/latest" | grep '"tag_name"' | sed -E 's/.*"([^"]+)".*/\1/') && \
+    sudo curl -L --output - https://github.com/argoproj-labs/argocd-autopilot/releases/download/$VERSION/argocd-autopilot-linux-amd64.tar.gz | tar zx && \
+    sudo mv ./argocd-autopilot-* /usr/local/bin/argocd-autopilot && \
+    VERSION=$(curl --silent "https://api.github.com/repos/argoproj/argo-cd/releases/latest" | grep '"tag_name"' | sed -E 's/.*"([^"]+)".*/\1/') && \
+    sudo curl -sSL -o /usr/local/bin/argocd https://github.com/argoproj/argo-cd/releases/download/$VERSION/argocd-darwin-amd64 && \
     sudo chmod +x /usr/local/bin/*
 
 # Instal GCP CLI
@@ -67,7 +72,7 @@ RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.
         google-cloud-cli-minikube google-cloud-cli-nomos google-cloud-cli-pubsub-emulator google-cloud-cli-skaffold google-cloud-cli-spanner-emulator \
         google-cloud-cli-terraform-validator google-cloud-cli-tests
 
-# Install docker, kubeadm, kubelet, kubectl, kind
+# Install docker, kubeadm, kubelet, kubectl, kind, argocd, argocd-autopilot
 RUN curl -fsSL https://get.docker.com | sudo bash && \
     echo "br_netfilter" | sudo tee /etc/modules-load.d/k8s.conf && \
     echo "net.bridge.bridge-nf-call-ip6tables = 1" | sudo tee /etc/sysctl.d/k8s.conf && \
