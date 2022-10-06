@@ -33,7 +33,7 @@ RUN sudo npm install -g aws-cdk cdktf-cli cdk8s-cli projen serverless && \
     sudo pip3 install troposphere cfn-lint
 
 # Install Terragrunt, ECS CLI, Runway, AWSTOE, cloud-nuke, doctl, aws-nuke, EKSCTL, Minikube, Pulumi, Amplify, Helm
-# Kustomize CLI, Terraform, Packer, Vagrant, Azure CLI, Flux, Okteto, Linode
+# Kustomize CLI, Terraform, Packer, Vagrant, Azure CLI, Flux, Okteto, Linode, Tekton, argocd, argocd-autopilot
 RUN sudo curl -Lo /usr/local/bin/terragrunt https://github.com/gruntwork-io/terragrunt/releases/download/v0.36.6/terragrunt_linux_amd64 && \
     sudo curl -Lo /usr/local/bin/ecs-cli https://amazon-ecs-cli.s3.amazonaws.com/ecs-cli-linux-amd64-latest && \
     sudo curl -Lo /usr/local/bin/runway https://oni.ca/runway/latest/linux && \
@@ -54,6 +54,8 @@ RUN sudo curl -Lo /usr/local/bin/terragrunt https://github.com/gruntwork-io/terr
     curl -s https://fluxcd.io/install.sh | sudo bash  && \
     curl https://get.okteto.com -sSfL | bash && \
     pip3 install linode-cli --upgrade && \
+    curl -LO https://github.com/tektoncd/cli/releases/download/v0.26.0/tkn_0.26.0_Linux_x86_64.tar.gz && \
+    sudo tar xvzf tkn_0.26.0_Linux_x86_64.tar.gz -C /usr/local/bin/ tkn && \
     VERSION=$(curl --silent "https://api.github.com/repos/argoproj-labs/argocd-autopilot/releases/latest" | grep '"tag_name"' | sed -E 's/.*"([^"]+)".*/\1/') && \
     sudo curl -L --output - https://github.com/argoproj-labs/argocd-autopilot/releases/download/$VERSION/argocd-autopilot-linux-amd64.tar.gz | tar zx && \
     sudo mv ./argocd-autopilot-* /usr/local/bin/argocd-autopilot && \
@@ -72,7 +74,7 @@ RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.
         google-cloud-cli-minikube google-cloud-cli-nomos google-cloud-cli-pubsub-emulator google-cloud-cli-skaffold google-cloud-cli-spanner-emulator \
         google-cloud-cli-terraform-validator google-cloud-cli-tests
 
-# Install docker, kubeadm, kubelet, kubectl, kind, argocd, argocd-autopilot
+# Install docker, kubeadm, kubelet, kubectl, kind
 RUN curl -fsSL https://get.docker.com | sudo bash && \
     echo "br_netfilter" | sudo tee /etc/modules-load.d/k8s.conf && \
     echo "net.bridge.bridge-nf-call-ip6tables = 1" | sudo tee /etc/sysctl.d/k8s.conf && \

@@ -90,6 +90,14 @@ tasks:
 
 
 
+  - name: Launch tekton
+    init: |
+      gp sync-await deploy-kubernetes-cluster
+      kubectl apply -f https://storage.googleapis.com/tekton-releases/pipeline/latest/release.yaml
+      kubectl apply -f https://storage.googleapis.com/tekton-releases/dashboard/latest/tekton-dashboard-release.yaml
+    command: |
+      sleep 20
+      kubectl -n tekton-pipelines port-forward svc/tekton-dashboard 9097:9097
 
   - name: Launch kubernetes-dashboard
     init: |
