@@ -139,22 +139,6 @@ tasks:
       sleep 20
       kubectl port-forward service/jenkins-master 8081:80 &
   
-  - name: Launch Ansible Controller
-    init: |
-      gp sync-await deploy-kubernetes-cluster
-      kubectl apply -f Kubernetes/ansible-controller.yaml
-    command: |
-      sleep 20
-      kubectl port-forward service/ansible-controller 8082:80 &
-  
-  - name: Launch Ansible Target
-    init: |
-      gp sync-await deploy-kubernetes-cluster
-      kubectl apply -f Kubernetes/ansible-target.yaml
-    command: |
-      sleep 20
-      kubectl port-forward service/ansible-target 8083:80 &
-  
   - name: Launch NGINX Controller
     init: |
       gp sync-await deploy-kubernetes-cluster
