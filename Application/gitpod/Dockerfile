@@ -109,6 +109,3 @@ RUN mkdir $HOME/.aws && \
 # Update
 RUN sudo apt update -y && sudo apt upgrade -y && \
     sudo npm update -g && python3 -m pip install --upgrade pip
-
-
-
