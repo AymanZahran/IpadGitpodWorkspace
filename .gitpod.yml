@@ -54,16 +54,19 @@ tasks:
     command: |
       if [[ "$K8S_PROVIDER" == "AWS" ]]
       then
-        eksctl create cluster -f ./AWS/EKS-Cluster.yml
+        cd Infrastructure/AWS
+        eksctl create cluster -f EKS-Cluster.yml
       elif [[ $K8S_PROVIDER == "AZURE" ]]
       then
+        cd Infrastructure/Azure
         echo "Pending.."
       elif [[ $K8S_PROVIDER == "GCP" ]]
       then
+        cd Infrastructure/GCP
         echo "Pending.."
       elif [[ $K8S_PROVIDER == "DIGITAL_OCEAN" ]]
       then
-        cd DigitalOcean
+        cd Infrastructure/DigitalOcean
         terraform init
         terraform apply -var="DIGITAL_OCEAN_TOKEN=$DIGITAL_OCEAN_TOKEN" --auto-approve
         doctl kubernetes cluster kubeconfig save do-cluster
