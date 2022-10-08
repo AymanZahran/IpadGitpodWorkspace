@@ -7,7 +7,7 @@ class MyStack extends TerraformStack {
     super(scope, name);
 
     new AwsProvider(this, "AWS", {
-      region: "us-west-1",
+      region: "us-east-1",
     });
 
     const instance = new ec2.Instance(this, "compute", {
