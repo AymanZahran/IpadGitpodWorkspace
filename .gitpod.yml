@@ -55,15 +55,18 @@ tasks:
       if [[ "$K8S_PROVIDER" == "AWS" ]]
       then
         cd Infrastructure/AWS
-        eksctl create cluster -f EKS-Cluster.yml
+        cdktf synth
+        cdktf deploy --auto-approve
       elif [[ $K8S_PROVIDER == "AZURE" ]]
       then
         cd Infrastructure/Azure
-        echo "Pending.."
+        cdktf synth
+        cdktf deploy --auto-approve
       elif [[ $K8S_PROVIDER == "GCP" ]]
       then
         cd Infrastructure/GCP
-        echo "Pending.."
+        cdktf synth
+        cdktf deploy --auto-approve
       elif [[ $K8S_PROVIDER == "DIGITAL_OCEAN" ]]
       then
         cd Infrastructure/DigitalOcean
@@ -90,12 +93,12 @@ tasks:
   - name: Expose Services
     init: gp sync-await deploy-kubernetes-cluster
     command: |
-      kubectl port-forward -n tekton-pipelines svc/tekton-dashboard 9097:9097
-      kubectl port-forward -n kubernetes-dashboard svc/kubernetes-dashboard 3000:443
-      kubectl port-forward -n kube-prometheus-stack svc/kube-prometheus-stack-prometheus 9090:9090
-      kubectl port-forward -n kube-prometheus-stack svc/kube-prometheus-stack-grafana 9091:80
-      kubectl autoscale deployment -n nginx nginx-ingress-ingress-nginx-controller --cpu-percent=50 --min=1 --max=3
-
+      sleep 60
+      kubectl port-forward -n tekton-pipelines svc/tekton-dashboard 9097:9097 &
+      kubectl port-forward -n kubernetes-dashboard svc/kubernetes-dashboard 3000:443 &
+      kubectl port-forward -n kube-prometheus-stack svc/kube-prometheus-stack-prometheus 9090:9090 &
+      kubectl port-forward -n kube-prometheus-stack svc/kube-prometheus-stack-grafana 9091:80 &
+      kubectl autoscale deployment -n nginx nginx-ingress-ingress-nginx-controller --cpu-percent=50 --min=1 --max=3 &
 
 vscode:
   extensions:
