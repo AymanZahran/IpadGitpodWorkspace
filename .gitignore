@@ -15,3 +15,15 @@ override.tf.json
 *_override.tf.json
 .terraformrc
 terraform.rc
+*.d.ts
+*.js
+node_modules
+cdktf.out
+cdktf.log
+*terraform.*.tfstate*
+.gen
+.terraform
+tsconfig.tsbuildinfo
+!jest.config.js
+!setup.js
+dist/
