@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: jenkins
+    role: master
+  name: jenkins-master
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jenkins
+      role: master
+  template:
+    metadata:
+      labels:
+        app: jenkins
+        role: master
+    spec:
+      containers:
+      - image: aymanzahran/ipad-jenkins-image:latest
+        name: jenkins-master
+        env:
+        - name: JENKINS_USERNAME
+          value: "admin"
+        - name: JENKINS_PASSWORD
+          value: "password"
+        - name: JENKINS_OPTS
+          value: --prefix=/jenkins
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jenkins-master
+spec:
+  selector:
+    app: jenkins
+    role: master
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
