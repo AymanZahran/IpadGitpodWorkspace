@@ -84,7 +84,7 @@ tasks:
       gp sync-await deploy-kubernetes-cluster
       kubectl create namespace argocd
       kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
-      kubectl apply -f Configuration/manifests/argocd-app.yaml
+      kubectl apply -f Configuration/dist/argocd-app.yaml
     command: |
       sleep 20
       kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 --decode && echo
