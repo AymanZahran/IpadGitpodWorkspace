@@ -6,12 +6,12 @@ resources:
 - https://storage.googleapis.com/tekton-releases/dashboard/latest/tekton-dashboard-release.yaml             # Tekton Dashboard
 - https://raw.githubusercontent.com/kubernetes/dashboard/v2.6.1/aio/deploy/recommended.yaml                 # Kubernetes Dashboard
 - https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml                # Metric Server
-helmCharts:
-- name: kube-prometheus-stack
-  repo: https://prometheus-community.github.io/helm-charts
-  releaseName: kube-prometheus-stack
-  namespace: kube-prometheus-stack
-- name: nginx-ingress
-  repo: https://helm.nginx.com/stable
-  releaseName: nginx-stable
-  namespace: nginx-ingress
+# helmCharts:
+# - name: kube-prometheus-stack
+#   repo: https://prometheus-community.github.io/helm-charts
+#   releaseName: kube-prometheus-stack
+#   namespace: kube-prometheus-stack
+# - name: nginx-ingress
+#   repo: https://helm.nginx.com/stable
+#   releaseName: nginx-stable
+#   namespace: nginx-ingress
