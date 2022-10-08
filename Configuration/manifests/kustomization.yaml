@@ -15,5 +15,3 @@ helmCharts:
   repo: https://helm.nginx.com/stable
   releaseName: nginx-stable
   namespace: nginx-ingress
-
-  
