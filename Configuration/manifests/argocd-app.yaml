@@ -9,7 +9,7 @@ spec:
   source:
     repoURL: https://github.com/AymanZahran/IpadGitpodWorkspace
     targetRevision: HEAD
-    path: Configuration/dist
+    path: Configuration/manifests
   destination: 
     server: https://kubernetes.default.svc
     namespace: argocd
