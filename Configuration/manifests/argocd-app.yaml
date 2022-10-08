@@ -8,7 +8,7 @@ spec:
 
   source:
     repoURL: https://github.com/AymanZahran/IpadGitpodWorkspace
-    targetRevision: HEAD
+    targetRevision: master
     path: Configuration/manifests
   destination: 
     server: https://kubernetes.default.svc
