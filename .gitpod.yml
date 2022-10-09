@@ -37,7 +37,7 @@ tasks:
       gp sync-await terraform-authenticated
       gp sync-await provider-authenticated
     command: |
-      cd Infrastructure/AWS
+      cd Infrastructure
       yarn install && yarn build
       cdk bootstrap
       # cdk deploy
