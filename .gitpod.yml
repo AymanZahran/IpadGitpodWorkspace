@@ -55,6 +55,7 @@ tasks:
       if [[ "$K8S_PROVIDER" == "AWS" ]]
       then
         cd Infrastructure/AWS
+        yarn install && yarn build
         cdktf synth
         cdktf deploy --auto-approve
       elif [[ $K8S_PROVIDER == "AZURE" ]]
