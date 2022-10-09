@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Task
 metadata:
   name: hi
+  namespace: tekton-pipelines
 spec:
   steps:
     - image: ubuntu
