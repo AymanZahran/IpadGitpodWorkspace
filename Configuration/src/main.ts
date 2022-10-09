@@ -25,9 +25,65 @@ new Deployment(mysql_chart, 'mysql', {
   replicas: 3,
 });
 
-new ApiObject(tekton_chart, 'tekton', {
+new ApiObject(tekton_chart, 'hi', {
   apiVersion: 'v1',
   kind: 'Task',
+  metadata: { name: 'hi' },
+  spec: {
+    steps: [
+      {
+        name: 'hi',
+        image: 'ubuntu',
+        script: 'echo "Hello World!"',
+      },
+    ],
+  },
 });
+
+new ApiObject(tekton_chart, 'bye', {
+  apiVersion: 'v1',
+  kind: 'Task',
+  metadata: { name: 'bye' },
+  spec: {
+    params: [
+      {
+        name: 'username',
+        type: 'string',
+      },
+    ],
+    steps: [
+      {
+        name: 'bye',
+        image: 'ubuntu',
+        script: 'echo "Bye World!"',
+      },
+    ],
+  },
+});
+
+new ApiObject(tekton_chart, 'hi-bye', {
+  apiVersion: 'v1',
+  kind: 'Pipeline',
+  metadata: { name: 'hi-bye' },
+  spec: {
+    params: [
+      {
+        name: 'username',
+        type: 'string',
+      },
+    ],
+    tasks: [
+      {
+        name: 'hi',
+        taskRef: { name: 'hi' },
+      },
+      {
+        name: 'bye',
+        taskRef: { name: 'bye' },
+      },
+    ],
+  },
+});
+
 
 app.synth();

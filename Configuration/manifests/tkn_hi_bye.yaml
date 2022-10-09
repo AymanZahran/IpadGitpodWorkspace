@@ -7,12 +7,12 @@ spec:
   - name: username
     type: string
   tasks:
-    - name: hello
+    - name: hi
       taskRef:
-        name: hello
+        name: hi
     - name: goodbye
       runAfter:
-        - hello
+        - hi
       taskRef:
         name: goodbye
       params:

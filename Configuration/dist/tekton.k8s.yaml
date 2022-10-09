@@ -1,4 +1,38 @@
 apiVersion: v1
 kind: Task
 metadata:
-  name: tekton-c84028bf
+  name: hi
+spec:
+  steps:
+    - image: ubuntu
+      name: hi
+      script: echo "Hello World!"
+---
+apiVersion: v1
+kind: Task
+metadata:
+  name: bye
+spec:
+  params:
+    - name: username
+      type: string
+  steps:
+    - image: ubuntu
+      name: bye
+      script: echo "Bye World!"
+---
+apiVersion: v1
+kind: Pipeline
+metadata:
+  name: hi-bye
+spec:
+  params:
+    - name: username
+      type: string
+  tasks:
+    - name: hi
+      taskRef:
+        name: hi
+    - name: bye
+      taskRef:
+        name: bye
