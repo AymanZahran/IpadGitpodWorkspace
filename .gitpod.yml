@@ -52,31 +52,10 @@ tasks:
       gp sync-await terraform-authenticated
       gp sync-await provider-authenticated
     command: |
-      if [[ "$K8S_PROVIDER" == "AWS" ]]
-      then
-        cd Infrastructure/AWS
-        yarn install && yarn build
-        cdktf synth
-        cdktf deploy --auto-approve
-      elif [[ $K8S_PROVIDER == "AZURE" ]]
-      then
-        cd Infrastructure/Azure
-        cdktf synth
-        cdktf deploy --auto-approve
-      elif [[ $K8S_PROVIDER == "GCP" ]]
-      then
-        cd Infrastructure/GCP
-        cdktf synth
-        cdktf deploy --auto-approve
-      elif [[ $K8S_PROVIDER == "DIGITAL_OCEAN" ]]
-      then
-        cd Infrastructure/DigitalOcean
-        terraform init
-        terraform apply -var="DIGITAL_OCEAN_TOKEN=$DIGITAL_OCEAN_TOKEN" --auto-approve
-        doctl kubernetes cluster kubeconfig save do-cluster
-      else
-        echo $K8S_CONFIG | base64 --decode > ~/.kube/config
-      fi
+      cd Infrastructure/AWS
+      yarn install && yarn build
+      cdk bootstrap
+      cdk deploy
       echo "Kubernetes Cluster Deployed"
       gp sync-done deploy-kubernetes-cluster
 
