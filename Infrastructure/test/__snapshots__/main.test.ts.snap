@@ -179,7 +179,7 @@ exports[`Snapshot 1`] = `
               "\\",\\"username\\":\\"system:node:{{EC2PrivateDNSName}}\\",\\"groups\\":[\\"system:bootstrappers\\",\\"system:nodes\\"]},{\\"rolearn\\":\\"",
               {
                 "Fn::GetAtt": [
-                  "HelloEKSNodegroupcustomnodegroupNodeGroupRole9F7A0BF2",
+                  "HelloEKSNodegroupnodegroupNodeGroupRole2D4F37A7",
                   "Arn",
                 ],
               },
@@ -960,7 +960,7 @@ exports[`Snapshot 1`] = `
       },
       "Type": "AWS::IAM::Role",
     },
-    "HelloEKSNodegroupcustomnodegroupB91FB73E": {
+    "HelloEKSNodegroupnodegroup4D5CAA8B": {
       "Properties": {
         "AmiType": "AL2_x86_64",
         "ClusterName": {
@@ -972,11 +972,11 @@ exports[`Snapshot 1`] = `
         ],
         "NodeRole": {
           "Fn::GetAtt": [
-            "HelloEKSNodegroupcustomnodegroupNodeGroupRole9F7A0BF2",
+            "HelloEKSNodegroupnodegroupNodeGroupRole2D4F37A7",
             "Arn",
           ],
         },
-        "NodegroupName": "MyNodeGroup",
+        "NodegroupName": "node-group",
         "ScalingConfig": {
           "DesiredSize": 3,
           "MaxSize": 3,
@@ -993,7 +993,7 @@ exports[`Snapshot 1`] = `
       },
       "Type": "AWS::EKS::Nodegroup",
     },
-    "HelloEKSNodegroupcustomnodegroupNodeGroupRole9F7A0BF2": {
+    "HelloEKSNodegroupnodegroupNodeGroupRole2D4F37A7": {
       "Properties": {
         "AssumeRolePolicyDocument": {
           "Statement": [
