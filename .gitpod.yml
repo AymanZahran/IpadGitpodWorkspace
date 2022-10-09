@@ -82,13 +82,11 @@ tasks:
   - name: Generate Kubernetes Manifests
     init: |
       gp sync-await deploy-kubernetes-cluster
-      cd Configurations
-      npm install
-      npm run compile && cdk8s synth
+      cd Configuration
     command: |
       sleep 20
       gp sync-done generate-kubernetes-manifests
-
+      yarn install && yarn build
   
   - name: Launch ArgoCD
     init: |
