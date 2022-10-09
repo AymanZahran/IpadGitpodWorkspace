@@ -9,9 +9,9 @@ export class MyStack extends Stack {
       version: aws_eks.KubernetesVersion.V1_21,
     });
 
-    cluster.addNodegroupCapacity('custom-node-group', {
+    cluster.addNodegroupCapacity('node-group', {
       instanceTypes: [new aws_ec2.InstanceType('m5.xlarge')],
-      nodegroupName: 'MyNodeGroup',
+      nodegroupName: 'node-group',
       maxSize: 3,
       minSize: 3,
       desiredSize: 3,
