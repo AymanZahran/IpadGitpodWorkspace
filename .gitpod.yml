@@ -79,19 +79,31 @@ tasks:
       echo "Kubernetes Cluster Deployed"
       gp sync-done deploy-kubernetes-cluster
 
-  - name: Launch ArgoCD
+  - name: Generate Kubernetes Manifests
     init: |
       gp sync-await deploy-kubernetes-cluster
+      cd Configurations
+      npm install
+      npm run compile && cdk8s synth
+    command: |
+      sleep 20
+      gp sync-done generate-kubernetes-manifests
+
+  
+  - name: Launch ArgoCD
+    init: |
+      gp sync-await generate-kubernetes-manifests
       kubectl create namespace argocd
       kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
-      kubectl apply -f Configuration/manifests/argocd-app.yaml
+      kubectl apply -f Configuration/dist/argocd-app.yaml
     command: |
       sleep 20
       kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 --decode && echo
       kubectl port-forward svc/argocd-server 8080:443 -n argocd  
       
   - name: Expose Services
-    init: gp sync-await deploy-kubernetes-cluster
+    init: |
+      gp sync-await generate-kubernetes-manifests
     command: |
       sleep 60
       kubectl port-forward -n tekton-pipelines svc/tekton-dashboard 9097:9097 &

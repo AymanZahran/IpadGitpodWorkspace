@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wordpress-c8eac611
+spec:
+  minReadySeconds: 0
+  progressDeadlineSeconds: 600
+  replicas: 3
+  selector:
+    matchLabels:
+      cdk8s.io/metadata.addr: wordpress-c84f747e
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        cdk8s.io/metadata.addr: wordpress-c84f747e
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - image: aymanzahran/wordpress:4.8-apache
+          imagePullPolicy: Always
+          name: main
+          resources:
+            limits:
+              cpu: 1500m
+              memory: 2048Mi
+            requests:
+              cpu: 1000m
+              memory: 512Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: true
+            runAsGroup: 26000
+            runAsNonRoot: true
+            runAsUser: 25000
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      securityContext:
+        fsGroupChangePolicy: Always
+        runAsNonRoot: true
+      setHostnameAsFQDN: false
