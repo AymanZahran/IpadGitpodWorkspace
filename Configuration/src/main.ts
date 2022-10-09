@@ -10,19 +10,38 @@ export class MyChart extends Chart {
 }
 
 const app = new App();
+const argo_chart = new MyChart(app, 'argo');
 const tekton_chart = new MyChart(app, 'tekton');
 const wordpress_chart = new MyChart(app, 'wordpress');
 const mysql_chart = new MyChart(app, 'mysql');
 
-new Deployment(wordpress_chart, 'wordpress', {
-  containers: [{ image: 'aymanzahran/wordpress:4.8-apache' }],
-  replicas: 3,
-});
-
-
-new Deployment(mysql_chart, 'mysql', {
-  containers: [{ image: 'aymanzahran/wordpress:4.8-apache' }],
-  replicas: 3,
+new ApiObject(argo_chart, 'hi', {
+  apiVersion: 'v1',
+  kind: 'Application',
+  metadata: {
+    name: 'argocd-application',
+  },
+  spec: {
+    project: 'default',
+    source: {
+      repoURL: 'https://github.com/AymanZahran/IpadGitpodWorkspace',
+      targetRevision: 'HEAD',
+      path: 'Configuration/dist',
+    },
+    destination: {
+      server: 'https://kubernetes.default.svc',
+      namespace: 'argocd',
+    },
+    syncPolicy: {
+      syncOptions: [
+        { CreateNamespace: true },
+      ],
+      automated: {
+        prune: true,
+        selfHeal: true,
+      },
+    },
+  },
 });
 
 new ApiObject(tekton_chart, 'hi', {
@@ -85,5 +104,15 @@ new ApiObject(tekton_chart, 'hi-bye', {
   },
 });
 
+new Deployment(wordpress_chart, 'wordpress', {
+  containers: [{ image: 'aymanzahran/wordpress:4.8-apache' }],
+  replicas: 3,
+});
+
+
+new Deployment(mysql_chart, 'mysql', {
+  containers: [{ image: 'aymanzahran/wordpress:4.8-apache' }],
+  replicas: 3,
+});
 
 app.synth();
