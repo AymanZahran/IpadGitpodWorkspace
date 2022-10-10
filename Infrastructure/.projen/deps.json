@@ -1,10 +1,6 @@
 {
   "dependencies": [
     {
-      "name": "@aws-quickstart/eks-blueprints",
-      "type": "build"
-    },
-    {
       "name": "@types/jest",
       "type": "build"
     },
@@ -92,10 +88,6 @@
       "name": "got",
       "version": "12.3.1",
       "type": "override"
-    },
-    {
-      "name": "@aws-quickstart/eks-blueprints",
-      "type": "runtime"
     },
     {
       "name": "aws-cdk-lib",

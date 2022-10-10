@@ -2,11 +2,1213 @@
 
 exports[`Snapshot 1`] = `
 {
+  "Outputs": {
+    "HelloEKSConfigCommand861347FC": {
+      "Value": {
+        "Fn::Join": [
+          "",
+          [
+            "aws eks update-kubeconfig --name ",
+            {
+              "Ref": "HelloEKS39C624A1",
+            },
+            " --region ",
+            {
+              "Ref": "AWS::Region",
+            },
+            " --role-arn ",
+            {
+              "Fn::GetAtt": [
+                "HelloEKSMastersRole53742E60",
+                "Arn",
+              ],
+            },
+          ],
+        ],
+      },
+    },
+    "HelloEKSGetTokenCommandF486E67D": {
+      "Value": {
+        "Fn::Join": [
+          "",
+          [
+            "aws eks get-token --cluster-name ",
+            {
+              "Ref": "HelloEKS39C624A1",
+            },
+            " --region ",
+            {
+              "Ref": "AWS::Region",
+            },
+            " --role-arn ",
+            {
+              "Fn::GetAtt": [
+                "HelloEKSMastersRole53742E60",
+                "Arn",
+              ],
+            },
+          ],
+        ],
+      },
+    },
+  },
   "Parameters": {
     "BootstrapVersion": {
       "Default": "/cdk-bootstrap/hnb659fds/version",
       "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
       "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+  },
+  "Resources": {
+    "HelloEKS39C624A1": {
+      "DeletionPolicy": "Delete",
+      "DependsOn": [
+        "HelloEKSDefaultVpcIGW6A1DD40F",
+        "HelloEKSDefaultVpcPrivateSubnet1DefaultRoute7B783EED",
+        "HelloEKSDefaultVpcPrivateSubnet1RouteTable77A003B6",
+        "HelloEKSDefaultVpcPrivateSubnet1RouteTableAssociation6D01D1D5",
+        "HelloEKSDefaultVpcPrivateSubnet1Subnet230DD8F4",
+        "HelloEKSDefaultVpcPrivateSubnet2DefaultRoute1048BD98",
+        "HelloEKSDefaultVpcPrivateSubnet2RouteTable5363645A",
+        "HelloEKSDefaultVpcPrivateSubnet2RouteTableAssociationCD201A17",
+        "HelloEKSDefaultVpcPrivateSubnet2Subnet86C19273",
+        "HelloEKSDefaultVpcPublicSubnet1DefaultRoute7AEB8D74",
+        "HelloEKSDefaultVpcPublicSubnet1EIP349BFCCD",
+        "HelloEKSDefaultVpcPublicSubnet1NATGateway30841D88",
+        "HelloEKSDefaultVpcPublicSubnet1RouteTable7A83115C",
+        "HelloEKSDefaultVpcPublicSubnet1RouteTableAssociation7E9E4F0F",
+        "HelloEKSDefaultVpcPublicSubnet1Subnet998499B5",
+        "HelloEKSDefaultVpcPublicSubnet2DefaultRoute72E77E99",
+        "HelloEKSDefaultVpcPublicSubnet2EIP00143475",
+        "HelloEKSDefaultVpcPublicSubnet2NATGatewayAB1CC25C",
+        "HelloEKSDefaultVpcPublicSubnet2RouteTable4EC8E34B",
+        "HelloEKSDefaultVpcPublicSubnet2RouteTableAssociationB37C017E",
+        "HelloEKSDefaultVpcPublicSubnet2Subnet01D6EF2E",
+        "HelloEKSDefaultVpc597961A2",
+        "HelloEKSDefaultVpcVPCGWA73B3820",
+        "HelloEKSCreationRoleDefaultPolicyF3AF0526",
+        "HelloEKSCreationRole089CC848",
+      ],
+      "Properties": {
+        "AssumeRoleArn": {
+          "Fn::GetAtt": [
+            "HelloEKSCreationRole089CC848",
+            "Arn",
+          ],
+        },
+        "AttributesRevision": 2,
+        "Config": {
+          "resourcesVpcConfig": {
+            "endpointPrivateAccess": true,
+            "endpointPublicAccess": true,
+            "securityGroupIds": [
+              {
+                "Fn::GetAtt": [
+                  "HelloEKSControlPlaneSecurityGroup1CCECD9D",
+                  "GroupId",
+                ],
+              },
+            ],
+            "subnetIds": [
+              {
+                "Ref": "HelloEKSDefaultVpcPublicSubnet1Subnet998499B5",
+              },
+              {
+                "Ref": "HelloEKSDefaultVpcPublicSubnet2Subnet01D6EF2E",
+              },
+              {
+                "Ref": "HelloEKSDefaultVpcPrivateSubnet1Subnet230DD8F4",
+              },
+              {
+                "Ref": "HelloEKSDefaultVpcPrivateSubnet2Subnet86C19273",
+              },
+            ],
+          },
+          "roleArn": {
+            "Fn::GetAtt": [
+              "HelloEKSRole81D11C68",
+              "Arn",
+            ],
+          },
+          "version": "1.21",
+        },
+        "ServiceToken": {
+          "Fn::GetAtt": [
+            "awscdkawseksClusterResourceProviderNestedStackawscdkawseksClusterResourceProviderNestedStackResource9827C454",
+            "Outputs.testawscdkawseksClusterResourceProviderframeworkonEvent05C9E6FDArn",
+          ],
+        },
+      },
+      "Type": "Custom::AWSCDK-EKS-Cluster",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "HelloEKSAwsAuthmanifest96361071": {
+      "DeletionPolicy": "Delete",
+      "DependsOn": [
+        "HelloEKSKubectlReadyBarrier734F439C",
+      ],
+      "Properties": {
+        "ClusterName": {
+          "Ref": "HelloEKS39C624A1",
+        },
+        "Manifest": {
+          "Fn::Join": [
+            "",
+            [
+              "[{"apiVersion":"v1","kind":"ConfigMap","metadata":{"name":"aws-auth","namespace":"kube-system","labels":{"aws.cdk.eks/prune-c8b67426cd591b0fab5b19c1c090cc0d7225b1faaa":""}},"data":{"mapRoles":"[{\\"rolearn\\":\\"",
+              {
+                "Fn::GetAtt": [
+                  "HelloEKSMastersRole53742E60",
+                  "Arn",
+                ],
+              },
+              "\\",\\"username\\":\\"",
+              {
+                "Fn::GetAtt": [
+                  "HelloEKSMastersRole53742E60",
+                  "Arn",
+                ],
+              },
+              "\\",\\"groups\\":[\\"system:masters\\"]},{\\"rolearn\\":\\"",
+              {
+                "Fn::GetAtt": [
+                  "HelloEKSNodegroupDefaultCapacityNodeGroupRoleCB785378",
+                  "Arn",
+                ],
+              },
+              "\\",\\"username\\":\\"system:node:{{EC2PrivateDNSName}}\\",\\"groups\\":[\\"system:bootstrappers\\",\\"system:nodes\\"]},{\\"rolearn\\":\\"",
+              {
+                "Fn::GetAtt": [
+                  "HelloEKSNodegroupnodegroupNodeGroupRole2D4F37A7",
+                  "Arn",
+                ],
+              },
+              "\\",\\"username\\":\\"system:node:{{EC2PrivateDNSName}}\\",\\"groups\\":[\\"system:bootstrappers\\",\\"system:nodes\\"]}]","mapUsers":"[]","mapAccounts":"[]"}}]",
+            ],
+          ],
+        },
+        "Overwrite": true,
+        "PruneLabel": "aws.cdk.eks/prune-c8b67426cd591b0fab5b19c1c090cc0d7225b1faaa",
+        "RoleArn": {
+          "Fn::GetAtt": [
+            "HelloEKSCreationRole089CC848",
+            "Arn",
+          ],
+        },
+        "ServiceToken": {
+          "Fn::GetAtt": [
+            "awscdkawseksKubectlProviderNestedStackawscdkawseksKubectlProviderNestedStackResourceA7AEBA6B",
+            "Outputs.testawscdkawseksKubectlProviderframeworkonEvent99848F43Arn",
+          ],
+        },
+      },
+      "Type": "Custom::AWSCDK-EKS-KubernetesResource",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "HelloEKSControlPlaneSecurityGroup1CCECD9D": {
+      "Properties": {
+        "GroupDescription": "EKS Control Plane Security Group",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "HelloEKSDefaultVpc597961A2",
+        },
+      },
+      "Type": "AWS::EC2::SecurityGroup",
+    },
+    "HelloEKSCreationRole089CC848": {
+      "DependsOn": [
+        "HelloEKSDefaultVpcIGW6A1DD40F",
+        "HelloEKSDefaultVpcPrivateSubnet1DefaultRoute7B783EED",
+        "HelloEKSDefaultVpcPrivateSubnet1RouteTable77A003B6",
+        "HelloEKSDefaultVpcPrivateSubnet1RouteTableAssociation6D01D1D5",
+        "HelloEKSDefaultVpcPrivateSubnet1Subnet230DD8F4",
+        "HelloEKSDefaultVpcPrivateSubnet2DefaultRoute1048BD98",
+        "HelloEKSDefaultVpcPrivateSubnet2RouteTable5363645A",
+        "HelloEKSDefaultVpcPrivateSubnet2RouteTableAssociationCD201A17",
+        "HelloEKSDefaultVpcPrivateSubnet2Subnet86C19273",
+        "HelloEKSDefaultVpcPublicSubnet1DefaultRoute7AEB8D74",
+        "HelloEKSDefaultVpcPublicSubnet1EIP349BFCCD",
+        "HelloEKSDefaultVpcPublicSubnet1NATGateway30841D88",
+        "HelloEKSDefaultVpcPublicSubnet1RouteTable7A83115C",
+        "HelloEKSDefaultVpcPublicSubnet1RouteTableAssociation7E9E4F0F",
+        "HelloEKSDefaultVpcPublicSubnet1Subnet998499B5",
+        "HelloEKSDefaultVpcPublicSubnet2DefaultRoute72E77E99",
+        "HelloEKSDefaultVpcPublicSubnet2EIP00143475",
+        "HelloEKSDefaultVpcPublicSubnet2NATGatewayAB1CC25C",
+        "HelloEKSDefaultVpcPublicSubnet2RouteTable4EC8E34B",
+        "HelloEKSDefaultVpcPublicSubnet2RouteTableAssociationB37C017E",
+        "HelloEKSDefaultVpcPublicSubnet2Subnet01D6EF2E",
+        "HelloEKSDefaultVpc597961A2",
+        "HelloEKSDefaultVpcVPCGWA73B3820",
+      ],
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":iam::",
+                      {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":root",
+                    ],
+                  ],
+                },
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "HelloEKSCreationRoleDefaultPolicyF3AF0526": {
+      "DependsOn": [
+        "HelloEKSDefaultVpcIGW6A1DD40F",
+        "HelloEKSDefaultVpcPrivateSubnet1DefaultRoute7B783EED",
+        "HelloEKSDefaultVpcPrivateSubnet1RouteTable77A003B6",
+        "HelloEKSDefaultVpcPrivateSubnet1RouteTableAssociation6D01D1D5",
+        "HelloEKSDefaultVpcPrivateSubnet1Subnet230DD8F4",
+        "HelloEKSDefaultVpcPrivateSubnet2DefaultRoute1048BD98",
+        "HelloEKSDefaultVpcPrivateSubnet2RouteTable5363645A",
+        "HelloEKSDefaultVpcPrivateSubnet2RouteTableAssociationCD201A17",
+        "HelloEKSDefaultVpcPrivateSubnet2Subnet86C19273",
+        "HelloEKSDefaultVpcPublicSubnet1DefaultRoute7AEB8D74",
+        "HelloEKSDefaultVpcPublicSubnet1EIP349BFCCD",
+        "HelloEKSDefaultVpcPublicSubnet1NATGateway30841D88",
+        "HelloEKSDefaultVpcPublicSubnet1RouteTable7A83115C",
+        "HelloEKSDefaultVpcPublicSubnet1RouteTableAssociation7E9E4F0F",
+        "HelloEKSDefaultVpcPublicSubnet1Subnet998499B5",
+        "HelloEKSDefaultVpcPublicSubnet2DefaultRoute72E77E99",
+        "HelloEKSDefaultVpcPublicSubnet2EIP00143475",
+        "HelloEKSDefaultVpcPublicSubnet2NATGatewayAB1CC25C",
+        "HelloEKSDefaultVpcPublicSubnet2RouteTable4EC8E34B",
+        "HelloEKSDefaultVpcPublicSubnet2RouteTableAssociationB37C017E",
+        "HelloEKSDefaultVpcPublicSubnet2Subnet01D6EF2E",
+        "HelloEKSDefaultVpc597961A2",
+        "HelloEKSDefaultVpcVPCGWA73B3820",
+      ],
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "iam:PassRole",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "HelloEKSRole81D11C68",
+                  "Arn",
+                ],
+              },
+            },
+            {
+              "Action": [
+                "eks:CreateCluster",
+                "eks:DescribeCluster",
+                "eks:DescribeUpdate",
+                "eks:DeleteCluster",
+                "eks:UpdateClusterVersion",
+                "eks:UpdateClusterConfig",
+                "eks:CreateFargateProfile",
+                "eks:TagResource",
+                "eks:UntagResource",
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                "*",
+              ],
+            },
+            {
+              "Action": [
+                "eks:DescribeFargateProfile",
+                "eks:DeleteFargateProfile",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+            {
+              "Action": [
+                "iam:GetRole",
+                "iam:listAttachedRolePolicies",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+            {
+              "Action": "iam:CreateServiceLinkedRole",
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+            {
+              "Action": [
+                "ec2:DescribeInstances",
+                "ec2:DescribeNetworkInterfaces",
+                "ec2:DescribeSecurityGroups",
+                "ec2:DescribeSubnets",
+                "ec2:DescribeRouteTables",
+                "ec2:DescribeDhcpOptions",
+                "ec2:DescribeVpcs",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "HelloEKSCreationRoleDefaultPolicyF3AF0526",
+        "Roles": [
+          {
+            "Ref": "HelloEKSCreationRole089CC848",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "HelloEKSDefaultVpc597961A2": {
+      "Properties": {
+        "CidrBlock": "10.0.0.0/16",
+        "EnableDnsHostnames": true,
+        "EnableDnsSupport": true,
+        "InstanceTenancy": "default",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "test/HelloEKS/DefaultVpc",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::VPC",
+    },
+    "HelloEKSDefaultVpcIGW6A1DD40F": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "test/HelloEKS/DefaultVpc",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::InternetGateway",
+    },
+    "HelloEKSDefaultVpcPrivateSubnet1DefaultRoute7B783EED": {
+      "Properties": {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "NatGatewayId": {
+          "Ref": "HelloEKSDefaultVpcPublicSubnet1NATGateway30841D88",
+        },
+        "RouteTableId": {
+          "Ref": "HelloEKSDefaultVpcPrivateSubnet1RouteTable77A003B6",
+        },
+      },
+      "Type": "AWS::EC2::Route",
+    },
+    "HelloEKSDefaultVpcPrivateSubnet1RouteTable77A003B6": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "kubernetes.io/role/internal-elb",
+            "Value": "1",
+          },
+          {
+            "Key": "Name",
+            "Value": "test/HelloEKS/DefaultVpc/PrivateSubnet1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "HelloEKSDefaultVpc597961A2",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "HelloEKSDefaultVpcPrivateSubnet1RouteTableAssociation6D01D1D5": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "HelloEKSDefaultVpcPrivateSubnet1RouteTable77A003B6",
+        },
+        "SubnetId": {
+          "Ref": "HelloEKSDefaultVpcPrivateSubnet1Subnet230DD8F4",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "HelloEKSDefaultVpcPrivateSubnet1Subnet230DD8F4": {
+      "Properties": {
+        "AvailabilityZone": {
+          "Fn::Select": [
+            0,
+            {
+              "Fn::GetAZs": "",
+            },
+          ],
+        },
+        "CidrBlock": "10.0.128.0/18",
+        "MapPublicIpOnLaunch": false,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Private",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Private",
+          },
+          {
+            "Key": "kubernetes.io/role/internal-elb",
+            "Value": "1",
+          },
+          {
+            "Key": "Name",
+            "Value": "test/HelloEKS/DefaultVpc/PrivateSubnet1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "HelloEKSDefaultVpc597961A2",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "HelloEKSDefaultVpcPrivateSubnet2DefaultRoute1048BD98": {
+      "Properties": {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "NatGatewayId": {
+          "Ref": "HelloEKSDefaultVpcPublicSubnet2NATGatewayAB1CC25C",
+        },
+        "RouteTableId": {
+          "Ref": "HelloEKSDefaultVpcPrivateSubnet2RouteTable5363645A",
+        },
+      },
+      "Type": "AWS::EC2::Route",
+    },
+    "HelloEKSDefaultVpcPrivateSubnet2RouteTable5363645A": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "kubernetes.io/role/internal-elb",
+            "Value": "1",
+          },
+          {
+            "Key": "Name",
+            "Value": "test/HelloEKS/DefaultVpc/PrivateSubnet2",
+          },
+        ],
+        "VpcId": {
+          "Ref": "HelloEKSDefaultVpc597961A2",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "HelloEKSDefaultVpcPrivateSubnet2RouteTableAssociationCD201A17": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "HelloEKSDefaultVpcPrivateSubnet2RouteTable5363645A",
+        },
+        "SubnetId": {
+          "Ref": "HelloEKSDefaultVpcPrivateSubnet2Subnet86C19273",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "HelloEKSDefaultVpcPrivateSubnet2Subnet86C19273": {
+      "Properties": {
+        "AvailabilityZone": {
+          "Fn::Select": [
+            1,
+            {
+              "Fn::GetAZs": "",
+            },
+          ],
+        },
+        "CidrBlock": "10.0.192.0/18",
+        "MapPublicIpOnLaunch": false,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Private",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Private",
+          },
+          {
+            "Key": "kubernetes.io/role/internal-elb",
+            "Value": "1",
+          },
+          {
+            "Key": "Name",
+            "Value": "test/HelloEKS/DefaultVpc/PrivateSubnet2",
+          },
+        ],
+        "VpcId": {
+          "Ref": "HelloEKSDefaultVpc597961A2",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "HelloEKSDefaultVpcPublicSubnet1DefaultRoute7AEB8D74": {
+      "DependsOn": [
+        "HelloEKSDefaultVpcVPCGWA73B3820",
+      ],
+      "Properties": {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": {
+          "Ref": "HelloEKSDefaultVpcIGW6A1DD40F",
+        },
+        "RouteTableId": {
+          "Ref": "HelloEKSDefaultVpcPublicSubnet1RouteTable7A83115C",
+        },
+      },
+      "Type": "AWS::EC2::Route",
+    },
+    "HelloEKSDefaultVpcPublicSubnet1EIP349BFCCD": {
+      "Properties": {
+        "Domain": "vpc",
+        "Tags": [
+          {
+            "Key": "kubernetes.io/role/elb",
+            "Value": "1",
+          },
+          {
+            "Key": "Name",
+            "Value": "test/HelloEKS/DefaultVpc/PublicSubnet1",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::EIP",
+    },
+    "HelloEKSDefaultVpcPublicSubnet1NATGateway30841D88": {
+      "DependsOn": [
+        "HelloEKSDefaultVpcPublicSubnet1DefaultRoute7AEB8D74",
+        "HelloEKSDefaultVpcPublicSubnet1RouteTableAssociation7E9E4F0F",
+      ],
+      "Properties": {
+        "AllocationId": {
+          "Fn::GetAtt": [
+            "HelloEKSDefaultVpcPublicSubnet1EIP349BFCCD",
+            "AllocationId",
+          ],
+        },
+        "SubnetId": {
+          "Ref": "HelloEKSDefaultVpcPublicSubnet1Subnet998499B5",
+        },
+        "Tags": [
+          {
+            "Key": "kubernetes.io/role/elb",
+            "Value": "1",
+          },
+          {
+            "Key": "Name",
+            "Value": "test/HelloEKS/DefaultVpc/PublicSubnet1",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::NatGateway",
+    },
+    "HelloEKSDefaultVpcPublicSubnet1RouteTable7A83115C": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "kubernetes.io/role/elb",
+            "Value": "1",
+          },
+          {
+            "Key": "Name",
+            "Value": "test/HelloEKS/DefaultVpc/PublicSubnet1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "HelloEKSDefaultVpc597961A2",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "HelloEKSDefaultVpcPublicSubnet1RouteTableAssociation7E9E4F0F": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "HelloEKSDefaultVpcPublicSubnet1RouteTable7A83115C",
+        },
+        "SubnetId": {
+          "Ref": "HelloEKSDefaultVpcPublicSubnet1Subnet998499B5",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "HelloEKSDefaultVpcPublicSubnet1Subnet998499B5": {
+      "Properties": {
+        "AvailabilityZone": {
+          "Fn::Select": [
+            0,
+            {
+              "Fn::GetAZs": "",
+            },
+          ],
+        },
+        "CidrBlock": "10.0.0.0/18",
+        "MapPublicIpOnLaunch": true,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Public",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Public",
+          },
+          {
+            "Key": "kubernetes.io/role/elb",
+            "Value": "1",
+          },
+          {
+            "Key": "Name",
+            "Value": "test/HelloEKS/DefaultVpc/PublicSubnet1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "HelloEKSDefaultVpc597961A2",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "HelloEKSDefaultVpcPublicSubnet2DefaultRoute72E77E99": {
+      "DependsOn": [
+        "HelloEKSDefaultVpcVPCGWA73B3820",
+      ],
+      "Properties": {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": {
+          "Ref": "HelloEKSDefaultVpcIGW6A1DD40F",
+        },
+        "RouteTableId": {
+          "Ref": "HelloEKSDefaultVpcPublicSubnet2RouteTable4EC8E34B",
+        },
+      },
+      "Type": "AWS::EC2::Route",
+    },
+    "HelloEKSDefaultVpcPublicSubnet2EIP00143475": {
+      "Properties": {
+        "Domain": "vpc",
+        "Tags": [
+          {
+            "Key": "kubernetes.io/role/elb",
+            "Value": "1",
+          },
+          {
+            "Key": "Name",
+            "Value": "test/HelloEKS/DefaultVpc/PublicSubnet2",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::EIP",
+    },
+    "HelloEKSDefaultVpcPublicSubnet2NATGatewayAB1CC25C": {
+      "DependsOn": [
+        "HelloEKSDefaultVpcPublicSubnet2DefaultRoute72E77E99",
+        "HelloEKSDefaultVpcPublicSubnet2RouteTableAssociationB37C017E",
+      ],
+      "Properties": {
+        "AllocationId": {
+          "Fn::GetAtt": [
+            "HelloEKSDefaultVpcPublicSubnet2EIP00143475",
+            "AllocationId",
+          ],
+        },
+        "SubnetId": {
+          "Ref": "HelloEKSDefaultVpcPublicSubnet2Subnet01D6EF2E",
+        },
+        "Tags": [
+          {
+            "Key": "kubernetes.io/role/elb",
+            "Value": "1",
+          },
+          {
+            "Key": "Name",
+            "Value": "test/HelloEKS/DefaultVpc/PublicSubnet2",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::NatGateway",
+    },
+    "HelloEKSDefaultVpcPublicSubnet2RouteTable4EC8E34B": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "kubernetes.io/role/elb",
+            "Value": "1",
+          },
+          {
+            "Key": "Name",
+            "Value": "test/HelloEKS/DefaultVpc/PublicSubnet2",
+          },
+        ],
+        "VpcId": {
+          "Ref": "HelloEKSDefaultVpc597961A2",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "HelloEKSDefaultVpcPublicSubnet2RouteTableAssociationB37C017E": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "HelloEKSDefaultVpcPublicSubnet2RouteTable4EC8E34B",
+        },
+        "SubnetId": {
+          "Ref": "HelloEKSDefaultVpcPublicSubnet2Subnet01D6EF2E",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "HelloEKSDefaultVpcPublicSubnet2Subnet01D6EF2E": {
+      "Properties": {
+        "AvailabilityZone": {
+          "Fn::Select": [
+            1,
+            {
+              "Fn::GetAZs": "",
+            },
+          ],
+        },
+        "CidrBlock": "10.0.64.0/18",
+        "MapPublicIpOnLaunch": true,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Public",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Public",
+          },
+          {
+            "Key": "kubernetes.io/role/elb",
+            "Value": "1",
+          },
+          {
+            "Key": "Name",
+            "Value": "test/HelloEKS/DefaultVpc/PublicSubnet2",
+          },
+        ],
+        "VpcId": {
+          "Ref": "HelloEKSDefaultVpc597961A2",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "HelloEKSDefaultVpcVPCGWA73B3820": {
+      "Properties": {
+        "InternetGatewayId": {
+          "Ref": "HelloEKSDefaultVpcIGW6A1DD40F",
+        },
+        "VpcId": {
+          "Ref": "HelloEKSDefaultVpc597961A2",
+        },
+      },
+      "Type": "AWS::EC2::VPCGatewayAttachment",
+    },
+    "HelloEKSKubectlReadyBarrier734F439C": {
+      "DependsOn": [
+        "HelloEKSCreationRoleDefaultPolicyF3AF0526",
+        "HelloEKSCreationRole089CC848",
+        "HelloEKS39C624A1",
+      ],
+      "Properties": {
+        "Type": "String",
+        "Value": "aws:cdk:eks:kubectl-ready",
+      },
+      "Type": "AWS::SSM::Parameter",
+    },
+    "HelloEKSMastersRole53742E60": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":iam::",
+                      {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":root",
+                    ],
+                  ],
+                },
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "HelloEKSNodegroupDefaultCapacity9EA40D1D": {
+      "Properties": {
+        "AmiType": "AL2_x86_64",
+        "ClusterName": {
+          "Ref": "HelloEKS39C624A1",
+        },
+        "ForceUpdateEnabled": true,
+        "InstanceTypes": [
+          "m5.large",
+        ],
+        "NodeRole": {
+          "Fn::GetAtt": [
+            "HelloEKSNodegroupDefaultCapacityNodeGroupRoleCB785378",
+            "Arn",
+          ],
+        },
+        "ScalingConfig": {
+          "DesiredSize": 2,
+          "MaxSize": 2,
+          "MinSize": 2,
+        },
+        "Subnets": [
+          {
+            "Ref": "HelloEKSDefaultVpcPrivateSubnet1Subnet230DD8F4",
+          },
+          {
+            "Ref": "HelloEKSDefaultVpcPrivateSubnet2Subnet86C19273",
+          },
+        ],
+      },
+      "Type": "AWS::EKS::Nodegroup",
+    },
+    "HelloEKSNodegroupDefaultCapacityNodeGroupRoleCB785378": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "ec2.",
+                      {
+                        "Ref": "AWS::URLSuffix",
+                      },
+                    ],
+                  ],
+                },
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/AmazonEKSWorkerNodePolicy",
+              ],
+            ],
+          },
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/AmazonEKS_CNI_Policy",
+              ],
+            ],
+          },
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/AmazonEC2ContainerRegistryReadOnly",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "HelloEKSNodegroupnodegroup4D5CAA8B": {
+      "Properties": {
+        "AmiType": "AL2_x86_64",
+        "ClusterName": {
+          "Ref": "HelloEKS39C624A1",
+        },
+        "ForceUpdateEnabled": true,
+        "InstanceTypes": [
+          "m5.xlarge",
+        ],
+        "NodeRole": {
+          "Fn::GetAtt": [
+            "HelloEKSNodegroupnodegroupNodeGroupRole2D4F37A7",
+            "Arn",
+          ],
+        },
+        "NodegroupName": "node-group",
+        "ScalingConfig": {
+          "DesiredSize": 3,
+          "MaxSize": 3,
+          "MinSize": 3,
+        },
+        "Subnets": [
+          {
+            "Ref": "HelloEKSDefaultVpcPrivateSubnet1Subnet230DD8F4",
+          },
+          {
+            "Ref": "HelloEKSDefaultVpcPrivateSubnet2Subnet86C19273",
+          },
+        ],
+      },
+      "Type": "AWS::EKS::Nodegroup",
+    },
+    "HelloEKSNodegroupnodegroupNodeGroupRole2D4F37A7": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "ec2.",
+                      {
+                        "Ref": "AWS::URLSuffix",
+                      },
+                    ],
+                  ],
+                },
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/AmazonEKSWorkerNodePolicy",
+              ],
+            ],
+          },
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/AmazonEKS_CNI_Policy",
+              ],
+            ],
+          },
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/AmazonEC2ContainerRegistryReadOnly",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "HelloEKSRole81D11C68": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "eks.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/AmazonEKSClusterPolicy",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "HelloEKSmanifestmynamespace3AA5B7F8": {
+      "DeletionPolicy": "Delete",
+      "DependsOn": [
+        "HelloEKSKubectlReadyBarrier734F439C",
+      ],
+      "Properties": {
+        "ClusterName": {
+          "Ref": "HelloEKS39C624A1",
+        },
+        "Manifest": "[{"apiVersion":"v1","kind":"Namespace","metadata":{"name":"my-app","labels":{"aws.cdk.eks/prune-c8f2c5a788790bfa67093f2777526bfb05a3e5e0f9":""}}}]",
+        "PruneLabel": "aws.cdk.eks/prune-c8f2c5a788790bfa67093f2777526bfb05a3e5e0f9",
+        "RoleArn": {
+          "Fn::GetAtt": [
+            "HelloEKSCreationRole089CC848",
+            "Arn",
+          ],
+        },
+        "ServiceToken": {
+          "Fn::GetAtt": [
+            "awscdkawseksKubectlProviderNestedStackawscdkawseksKubectlProviderNestedStackResourceA7AEBA6B",
+            "Outputs.testawscdkawseksKubectlProviderframeworkonEvent99848F43Arn",
+          ],
+        },
+      },
+      "Type": "Custom::AWSCDK-EKS-KubernetesResource",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "awscdkawseksClusterResourceProviderNestedStackawscdkawseksClusterResourceProviderNestedStackResource9827C454": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "Parameters": {
+          "referencetotestHelloEKSCreationRoleC440BEA8Arn": {
+            "Fn::GetAtt": [
+              "HelloEKSCreationRole089CC848",
+              "Arn",
+            ],
+          },
+        },
+        "TemplateURL": {
+          "Fn::Join": [
+            "",
+            [
+              "https://s3.",
+              {
+                "Ref": "AWS::Region",
+              },
+              ".",
+              {
+                "Ref": "AWS::URLSuffix",
+              },
+              "/",
+              {
+                "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+              },
+              "/044144f38c3bf7b589427d0e60c400de95aaa3e700584a6836a574c88b6c5aa8.json",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::CloudFormation::Stack",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "awscdkawseksKubectlProviderNestedStackawscdkawseksKubectlProviderNestedStackResourceA7AEBA6B": {
+      "DeletionPolicy": "Delete",
+      "DependsOn": [
+        "HelloEKSDefaultVpcPrivateSubnet1DefaultRoute7B783EED",
+        "HelloEKSDefaultVpcPrivateSubnet1RouteTableAssociation6D01D1D5",
+        "HelloEKSDefaultVpcPrivateSubnet2DefaultRoute1048BD98",
+        "HelloEKSDefaultVpcPrivateSubnet2RouteTableAssociationCD201A17",
+      ],
+      "Properties": {
+        "Parameters": {
+          "referencetotestHelloEKS4414B96EArn": {
+            "Fn::GetAtt": [
+              "HelloEKS39C624A1",
+              "Arn",
+            ],
+          },
+          "referencetotestHelloEKS4414B96EClusterSecurityGroupId": {
+            "Fn::GetAtt": [
+              "HelloEKS39C624A1",
+              "ClusterSecurityGroupId",
+            ],
+          },
+          "referencetotestHelloEKSCreationRoleC440BEA8Arn": {
+            "Fn::GetAtt": [
+              "HelloEKSCreationRole089CC848",
+              "Arn",
+            ],
+          },
+          "referencetotestHelloEKSDefaultVpcPrivateSubnet1SubnetBFD5A7F8Ref": {
+            "Ref": "HelloEKSDefaultVpcPrivateSubnet1Subnet230DD8F4",
+          },
+          "referencetotestHelloEKSDefaultVpcPrivateSubnet2SubnetCC85C5A5Ref": {
+            "Ref": "HelloEKSDefaultVpcPrivateSubnet2Subnet86C19273",
+          },
+        },
+        "TemplateURL": {
+          "Fn::Join": [
+            "",
+            [
+              "https://s3.",
+              {
+                "Ref": "AWS::Region",
+              },
+              ".",
+              {
+                "Ref": "AWS::URLSuffix",
+              },
+              "/",
+              {
+                "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+              },
+              "/4662220b35e248f1b0f2c398d754e831fb4e729a91c4a38c676f1b57c9caccf8.json",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::CloudFormation::Stack",
+      "UpdateReplacePolicy": "Delete",
     },
   },
   "Rules": {
