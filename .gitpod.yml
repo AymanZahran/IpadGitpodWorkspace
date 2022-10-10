@@ -40,7 +40,7 @@ tasks:
       cd Infrastructure
       yarn install && yarn build
       cdk bootstrap
-      cdk deploy --require-approval never
+      # cdk deploy --require-approval never
       echo "Kubernetes Cluster Deployed"
       gp sync-done deploy-kubernetes-cluster
 
