@@ -27,7 +27,6 @@ new ApiObject(kustomization_chart, 'kustomization', {
   },
   spec: {
     resources: [
-      'namespace.yaml',
       'https://storage.googleapis.com/tekton-releases/pipeline/latest/release.yaml',
       'https://storage.googleapis.com/tekton-releases/dashboard/latest/tekton-dashboard-release.yaml',
       'https://raw.githubusercontent.com/kubernetes/dashboard/v2.6.1/aio/deploy/recommended.yaml',

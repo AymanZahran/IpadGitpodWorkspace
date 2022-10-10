@@ -1089,7 +1089,7 @@ exports[`Snapshot 1`] = `
       },
       "Type": "AWS::IAM::Role",
     },
-    "HelloEKSmanifestmynamespace3AA5B7F8": {
+    "HelloEKSmanifestargocd110E5734": {
       "DeletionPolicy": "Delete",
       "DependsOn": [
         "HelloEKSKubectlReadyBarrier734F439C",
@@ -1098,8 +1098,8 @@ exports[`Snapshot 1`] = `
         "ClusterName": {
           "Ref": "HelloEKS39C624A1",
         },
-        "Manifest": "[{"apiVersion":"v1","kind":"Namespace","metadata":{"name":"my-app","labels":{"aws.cdk.eks/prune-c8f2c5a788790bfa67093f2777526bfb05a3e5e0f9":""}}}]",
-        "PruneLabel": "aws.cdk.eks/prune-c8f2c5a788790bfa67093f2777526bfb05a3e5e0f9",
+        "Manifest": "[{"metadata":{"name":"argocd-application","namespace":"argocd"},"spec":{"project":"default","source":{"repoURL":"https://github.com/AymanZahran/IpadGitpodWorkspace","targetRevision":"HEAD","path":"Configuration/dist"},"destination":{"server":"https://kubernetes.default.svc","namespace":"argocd"},"syncPolicy":{"syncOptions":[{"CreateNamespace":true}],"automated":{"prune":true,"selfHeal":true}}}}]",
+        "PruneLabel": "aws.cdk.eks/prune-c853cb51e4a0f921d7f9da39f9a1da207b7b043cde",
         "RoleArn": {
           "Fn::GetAtt": [
             "HelloEKSCreationRole089CC848",

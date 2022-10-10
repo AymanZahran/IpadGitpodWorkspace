@@ -19,7 +19,30 @@ export class MyStack extends Stack {
       desiredSize: 3,
     });
 
-    cluster.addManifest('argocd', {
+    cluster.addManifest('create-argo-namespace', {
+      apiVersion: 'v1',
+      kind: 'namespace',
+      metadata: {
+        name: 'argocd'
+      },
+    });
+    
+    cluster.addManifest('install-argo-crd', {
+      apiVersion: 'kustomize.config.k8s.io/v1beta1',
+      kind: 'Kustomization',
+      metadata: {
+        name: 'kustomization',
+      },
+      spec: {
+        resources: [
+          'https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml',
+        ],
+      },
+    });
+
+    cluster.addManifest('install-argo-application', {
+      apiVersion: 'v1',
+      kind: 'Application',
       metadata: {
         name: 'argocd-application',
         namespace: 'argocd',
