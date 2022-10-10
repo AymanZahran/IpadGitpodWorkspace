@@ -1,6 +1,7 @@
 // import 'source-map-support/register';
 // import { App, Stack, StackProps, aws_eks, aws_ec2 } from 'aws-cdk-lib';
-import { App, Stack, StackProps} from 'aws-cdk-lib';
+import { KubernetesManifest } from "aws-cdk-lib/aws-eks";
+import { App, Stack, StackProps } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import * as blueprints from '@aws-quickstart/eks-blueprints';
 
@@ -20,7 +21,7 @@ export class MyStack extends Stack {
       new blueprints.addons.KubeProxyAddOn(),
       new blueprints.addons.XrayAddOn()
     ];
-    
+
     new blueprints.EksBlueprint(app, { id: 'east-test-1', addOns}, props)
 
 
