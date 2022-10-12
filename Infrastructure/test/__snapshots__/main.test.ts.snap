@@ -1089,7 +1089,7 @@ exports[`Snapshot 1`] = `
       },
       "Type": "AWS::IAM::Role",
     },
-    "HelloEKSmanifestargocd110E5734": {
+    "HelloEKSmanifestcreateargonamespace3B7DAD3B": {
       "DeletionPolicy": "Delete",
       "DependsOn": [
         "HelloEKSKubectlReadyBarrier734F439C",
@@ -1098,8 +1098,62 @@ exports[`Snapshot 1`] = `
         "ClusterName": {
           "Ref": "HelloEKS39C624A1",
         },
-        "Manifest": "[{"metadata":{"name":"argocd-application","namespace":"argocd"},"spec":{"project":"default","source":{"repoURL":"https://github.com/AymanZahran/IpadGitpodWorkspace","targetRevision":"HEAD","path":"Configuration/dist"},"destination":{"server":"https://kubernetes.default.svc","namespace":"argocd"},"syncPolicy":{"syncOptions":[{"CreateNamespace":true}],"automated":{"prune":true,"selfHeal":true}}}}]",
-        "PruneLabel": "aws.cdk.eks/prune-c853cb51e4a0f921d7f9da39f9a1da207b7b043cde",
+        "Manifest": "[{"apiVersion":"v1","kind":"namespace","metadata":{"name":"argocd","labels":{"aws.cdk.eks/prune-c836c4917211c2f4904d435e2ed8fd87d415ae3752":""}}}]",
+        "PruneLabel": "aws.cdk.eks/prune-c836c4917211c2f4904d435e2ed8fd87d415ae3752",
+        "RoleArn": {
+          "Fn::GetAtt": [
+            "HelloEKSCreationRole089CC848",
+            "Arn",
+          ],
+        },
+        "ServiceToken": {
+          "Fn::GetAtt": [
+            "awscdkawseksKubectlProviderNestedStackawscdkawseksKubectlProviderNestedStackResourceA7AEBA6B",
+            "Outputs.testawscdkawseksKubectlProviderframeworkonEvent99848F43Arn",
+          ],
+        },
+      },
+      "Type": "Custom::AWSCDK-EKS-KubernetesResource",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "HelloEKSmanifestinstallargoapplication05292BE6": {
+      "DeletionPolicy": "Delete",
+      "DependsOn": [
+        "HelloEKSKubectlReadyBarrier734F439C",
+      ],
+      "Properties": {
+        "ClusterName": {
+          "Ref": "HelloEKS39C624A1",
+        },
+        "Manifest": "[{"apiVersion":"v1","kind":"Application","metadata":{"name":"argocd-application","namespace":"argocd","labels":{"aws.cdk.eks/prune-c82f9afcdf3ec931441087b4ae824b5263458ac6db":""}},"spec":{"project":"default","source":{"repoURL":"https://github.com/AymanZahran/IpadGitpodWorkspace","targetRevision":"HEAD","path":"Configuration/dist"},"destination":{"server":"https://kubernetes.default.svc","namespace":"argocd"},"syncPolicy":{"syncOptions":[{"CreateNamespace":true}],"automated":{"prune":true,"selfHeal":true}}}}]",
+        "PruneLabel": "aws.cdk.eks/prune-c82f9afcdf3ec931441087b4ae824b5263458ac6db",
+        "RoleArn": {
+          "Fn::GetAtt": [
+            "HelloEKSCreationRole089CC848",
+            "Arn",
+          ],
+        },
+        "ServiceToken": {
+          "Fn::GetAtt": [
+            "awscdkawseksKubectlProviderNestedStackawscdkawseksKubectlProviderNestedStackResourceA7AEBA6B",
+            "Outputs.testawscdkawseksKubectlProviderframeworkonEvent99848F43Arn",
+          ],
+        },
+      },
+      "Type": "Custom::AWSCDK-EKS-KubernetesResource",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "HelloEKSmanifestinstallargocrd289BD5E4": {
+      "DeletionPolicy": "Delete",
+      "DependsOn": [
+        "HelloEKSKubectlReadyBarrier734F439C",
+      ],
+      "Properties": {
+        "ClusterName": {
+          "Ref": "HelloEKS39C624A1",
+        },
+        "Manifest": "[{"apiVersion":"kustomize.config.k8s.io/v1beta1","kind":"Kustomization","metadata":{"name":"kustomization","labels":{"aws.cdk.eks/prune-c860c3faf00c45afa351d38e16bc5a7b6a062d4da7":""}},"spec":{"resources":["https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml"]}}]",
+        "PruneLabel": "aws.cdk.eks/prune-c860c3faf00c45afa351d38e16bc5a7b6a062d4da7",
         "RoleArn": {
           "Fn::GetAtt": [
             "HelloEKSCreationRole089CC848",

@@ -34,6 +34,8 @@ new ApiObject(kustomization_chart, 'kustomization', {
       'https://github.com/prometheus-operator/kube-prometheus/tree/main/manifests/setup',
       'https://github.com/prometheus-operator/kube-prometheus/tree/main/manifests',
       'https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.44.0/deploy/static/provider/cloud/deploy.yaml',
+      'https://raw.githubusercontent.com/tektoncd/catalog/main/task/git-clone/0.8/git-clone.yaml',
+      'https://raw.githubusercontent.com/tektoncd/catalog/main/task/kaniko/0.6/kaniko.yaml',
     ],
   },
 });
@@ -312,34 +314,6 @@ new ApiObject(mysql_chart, 'mysql-deployment', {
         ],
       },
     },
-  },
-});
-
-new ApiObject(ingress_chart, 'ingress-jenkins', {
-  apiVersion: 'v1',
-  kind: 'ingress',
-  metadata: {
-    name: 'jenkins',
-    namespace: 'default',
-  },
-  spec: {
-    ingressClassName: 'nginx',
-    rules: [
-      {
-        http: {
-          paths: [
-            {
-              path: '/jenkins',
-              pathType: 'Prefix',
-              backend: {
-                serviceName: 'jenkins',
-                servicePort: 80,
-              },
-            },
-          ],
-        },
-      },
-    ],
   },
 });
 

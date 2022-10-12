@@ -46,12 +46,13 @@ tasks:
 
   - name: Generate Kubernetes Manifests
     init: |
+      gp sync-await terraform-authenticated
+      gp sync-await provider-authenticated
+    command: |
       gp sync-await deploy-kubernetes-cluster
       cd Configuration
-    command: |
-      sleep 20
-      gp sync-done generate-kubernetes-manifests
       yarn install && yarn build
+      
   
   # - name: Launch ArgoCD
   #   init: |

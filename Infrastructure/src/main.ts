@@ -23,10 +23,10 @@ export class MyStack extends Stack {
       apiVersion: 'v1',
       kind: 'namespace',
       metadata: {
-        name: 'argocd'
+        name: 'argocd',
       },
     });
-    
+
     cluster.addManifest('install-argo-crd', {
       apiVersion: 'kustomize.config.k8s.io/v1beta1',
       kind: 'Kustomization',
