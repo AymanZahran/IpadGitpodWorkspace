@@ -22,6 +22,10 @@ spec:
       secretName: docker-credentials
   params:
   - name: repo-url
-    value: https://github.com/AymanZahran/IpadGitpodWorkspace
+    value: https://github.com/AymanZahran/IpadGitpodWorkspace/
+  - name: subdirectory
+    value: Application/mysql/
   - name: image-reference
     value: docker.io/aymanzahran/jenkins:1.2.1
+  
+    
