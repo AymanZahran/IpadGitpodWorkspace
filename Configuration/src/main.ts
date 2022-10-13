@@ -68,68 +68,133 @@ new ApiObject(argo_chart, 'Application', {
   },
 });
 
-new ApiObject(tekton_chart, 'hi', {
-  apiVersion: 'v1',
-  kind: 'Task',
-  metadata: {
-    name: 'hi',
-    namespace: 'tekton-pipelines',
-  },
-  spec: {
-    steps: [
-      {
-        name: 'hi',
-        image: 'ubuntu',
-        script: 'echo "Hello World!"',
-      },
-    ],
-  },
-});
-
-new ApiObject(tekton_chart, 'bye', {
-  apiVersion: 'v1',
-  kind: 'Task',
-  metadata: { name: 'bye' },
-  spec: {
-    params: [
-      {
-        name: 'username',
-        type: 'string',
-      },
-    ],
-    steps: [
-      {
-        name: 'bye',
-        image: 'ubuntu',
-        script: 'echo "Bye World!"',
-      },
-    ],
-  },
-});
-
-new ApiObject(tekton_chart, 'hi-bye', {
-  apiVersion: 'v1',
+new ApiObject(tekton_chart, 'clone-build-push', {
+  apiVersion: 'tekton.dev/v1beta1',
   kind: 'Pipeline',
-  metadata: { name: 'hi-bye' },
+  metadata: { name: 'clone-build-push' },
   spec: {
     params: [
       {
-        name: 'username',
-        type: 'string',
+        description: 'This pipeline clones a git repo, builds a Docker image with Kaniko and pushes it to a registry',
+        params: [
+          {
+            name: 'repo-url',
+            type: 'string',
+          },
+          {
+            name: 'image-reference',
+            type: 'string',
+          }
+        ],
+        workspaces: [
+          {
+            name: 'shared-data',
+            name: 'docker-credentials',
+          },
+        ],
       },
     ],
     tasks: [
       {
-        name: 'hi',
-        taskRef: { name: 'hi' },
+        name: 'fetch-source',
+        taskRef: {
+          name: 'git-clone',
+        },
+        workspaces: [
+          {
+            name: 'output',
+            workspace: 'shared-data',
+          },
+        ],
+        params: [
+          {
+            name: 'url',
+            value: '$(params.repo-url)',
+          },
+          {
+            name: 'subdirectory',
+            value: '',
+          },
+          {
+            name: 'build-push',
+            runAfter: ['fetch-source'],
+            taskRef: {
+              name: 'kaniko',
+            },
+            workspaces: [
+              {
+                name: 'source',
+                workspace: 'shared-data',
+              },
+              {
+                name: 'docker-config',
+                workspace: 'docker-credentials',
+              },
+            ],
+            params: [
+              {
+                name: 'IMAGE',
+                value: '$(params.image-reference)',
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+});
+
+new ApiObject(tekton_chart, 'clone-build-push', {
+  apiVersion: 'tekton.dev/v1beta1',
+  kind: 'Pipeline',
+  metadata: { generateName: 'clone-build-push-run-' },
+  spec: {
+    pipelineRef: {
+      name: 'clone-build-push',
+    },
+    podTemplate: {
+      securityContext: {
+        fsGroup: 65532,
+      },
+    },
+    workspaces: [
+      {
+        name: 'shared-data',
+        volumeClaimTemplate: {
+          spec: {
+            accessModes: ['ReadWriteOnce'],
+            resources: {
+              requests: {
+                storage: '1Gi',
+              },
+            },
+          },
+        },
       },
       {
-        name: 'bye',
-        taskRef: { name: 'bye' },
+        name: 'docker-credentials',
+        secret: {
+          secretName: 'docker-credentials',
+        },
+      },
+    ],
+    params: [
+      {
+        name: 'repo-url',
+        value: GIT_REPO,
+      },
+      {
+        name: 'subdirectory',
+        value: 'Application/mysql/',
+      },
+      {
+        name: 'image-refere nce',
+        value: 'docker.io/aymanzahran/jenkins:1.2.1',
       },
     ],
   },
 });
+
 
 new ApiObject(wordpress_chart, 'wordpress-service', {
   apiVersion: 'v1',
