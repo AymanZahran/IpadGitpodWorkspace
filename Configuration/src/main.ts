@@ -14,7 +14,8 @@ const GIT_REPO = 'https://github.com/AymanZahran/IpadGitpodWorkspace';
 
 const kustomization_chart = new MyChart(app, 'kustomization');
 const argo_chart = new MyChart(app, 'argo');
-const tekton_chart = new MyChart(app, 'tekton');
+const clone_build_push_tekton_chart = new MyChart(app, 'clone_build_push_tekton_chart');
+const clone_build_deploy_tekton_chart = new MyChart(app, 'clone_build_deploy_tekton_chart');
 const wordpress_chart = new MyChart(app, 'wordpress');
 const mysql_chart = new MyChart(app, 'mysql');
 const ingress_chart = new MyChart(app, 'ingress');
@@ -68,7 +69,7 @@ new ApiObject(argo_chart, 'Application', {
   },
 });
 
-new ApiObject(tekton_chart, 'clone-build-push', {
+new ApiObject(clone_build_push_tekton_chart, 'clone-build-push', {
   apiVersion: 'tekton.dev/v1beta1',
   kind: 'Pipeline',
   metadata: { name: 'clone-build-push' },
@@ -144,9 +145,9 @@ new ApiObject(tekton_chart, 'clone-build-push', {
   }
 });
 
-new ApiObject(tekton_chart, 'clone-build-push', {
+new ApiObject(clone_build_push_tekton_chart, 'clone-build-push', {
   apiVersion: 'tekton.dev/v1beta1',
-  kind: 'Pipeline',
+  kind: 'PipelineRun',
   metadata: { generateName: 'clone-build-push-run-' },
   spec: {
     pipelineRef: {
