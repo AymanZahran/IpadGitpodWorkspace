@@ -10,6 +10,8 @@ const project = new cdk8s.Cdk8sTypeScriptApp({
   // devDeps: [],             /* Build dependencies for this module. */
   // packageName: undefined,  /* The "name" in package.json. */
   github: false, /* Add GitHub workflows. */
-
+  gitignore: [
+    '!dist/',
+  ],
 });
 project.synth();
