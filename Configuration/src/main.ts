@@ -69,7 +69,7 @@ new ApiObject(argo_chart, 'Application', {
   },
 });
 
-new ApiObject(clone_build_push_tekton_chart, 'clone-build-push', {
+new ApiObject(clone_build_push_tekton_chart, 'clone-build-push-pipeline', {
   apiVersion: 'tekton.dev/v1beta1',
   kind: 'Pipeline',
   metadata: { name: 'clone-build-push' },
@@ -85,12 +85,16 @@ new ApiObject(clone_build_push_tekton_chart, 'clone-build-push', {
           {
             name: 'image-reference',
             type: 'string',
-          }
+          },
         ],
         workspaces: [
           {
             name: 'shared-data',
+            description: 'A workspace that contains the shared data between tasks',
+          },
+          {
             name: 'docker-credentials',
+            description: 'A workspace that contains the shared data between tasks',
           },
         ],
       },
@@ -114,7 +118,7 @@ new ApiObject(clone_build_push_tekton_chart, 'clone-build-push', {
           },
           {
             name: 'subdirectory',
-            value: '',
+            value: '$(params.subdirectory)',
           },
           {
             name: 'build-push',
@@ -136,16 +140,16 @@ new ApiObject(clone_build_push_tekton_chart, 'clone-build-push', {
               {
                 name: 'IMAGE',
                 value: '$(params.image-reference)',
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  }
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
 });
 
-new ApiObject(clone_build_push_tekton_chart, 'clone-build-push', {
+new ApiObject(clone_build_push_tekton_chart, 'clone-build-push-pipelinerun', {
   apiVersion: 'tekton.dev/v1beta1',
   kind: 'PipelineRun',
   metadata: { generateName: 'clone-build-push-run-' },
@@ -195,6 +199,82 @@ new ApiObject(clone_build_push_tekton_chart, 'clone-build-push', {
     ],
   },
 });
+
+// new ApiObject(clone_build_deploy_tekton_chart, 'clone-build-deploy-pipeline', {
+//   apiVersion: 'tekton.dev/v1beta1',
+//   kind: 'Pipeline',
+//   metadata: { name: 'clone-build-deploy' },
+//   spec: {
+//     params: [
+//       {
+//         description: 'This pipeline clones a git repo, yarn build and cdk deploy',
+//         params: [
+//           {
+//             name: 'repo-url',
+//             type: 'string',
+//           },
+//         ],
+//         workspaces: [
+//           {
+//             name: 'shared-data',
+//             description: 'A workspace that contains the shared data between tasks',
+//           },
+//           {
+//             name: 'docker-credentials',
+//             description: 'A workspace that contains the shared data between tasks',
+//           },
+//         ],
+//       },
+//     ],
+//     tasks: [
+//       {
+//         name: 'fetch-source',
+//         taskRef: {
+//           name: 'git-clone',
+//         },
+//         workspaces: [
+//           {
+//             name: 'output',
+//             workspace: 'shared-data',
+//           },
+//         ],
+//         params: [
+//           {
+//             name: 'url',
+//             value: '$(params.repo-url)',
+//           },
+//           {
+//             name: 'subdirectory',
+//             value: '',
+//           },
+//           {
+//             name: 'build-push',
+//             runAfter: ['fetch-source'],
+//             taskRef: {
+//               name: 'kaniko',
+//             },
+//             workspaces: [
+//               {
+//                 name: 'source',
+//                 workspace: 'shared-data',
+//               },
+//               {
+//                 name: 'docker-config',
+//                 workspace: 'docker-credentials',
+//               },
+//             ],
+//             params: [
+//               {
+//                 name: 'IMAGE',
+//                 value: '$(params.image-reference)',
+//               },
+//             ],
+//           },
+//         ],
+//       },
+//     ],
+//   },
+// });
 
 
 new ApiObject(wordpress_chart, 'wordpress-service', {
