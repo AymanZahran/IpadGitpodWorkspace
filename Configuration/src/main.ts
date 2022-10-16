@@ -15,7 +15,7 @@ const GIT_REPO = 'https://github.com/AymanZahran/IpadGitpodWorkspace';
 const kustomization_chart = new MyChart(app, 'kustomization');
 const argo_chart = new MyChart(app, 'argo');
 const clone_build_push_tekton_chart = new MyChart(app, 'clone_build_push_tekton_chart');
-const clone_build_deploy_tekton_chart = new MyChart(app, 'clone_build_deploy_tekton_chart');
+// const clone_build_deploy_tekton_chart = new MyChart(app, 'clone_build_deploy_tekton_chart');
 const wordpress_chart = new MyChart(app, 'wordpress');
 const mysql_chart = new MyChart(app, 'mysql');
 const ingress_chart = new MyChart(app, 'ingress');
@@ -90,11 +90,11 @@ new ApiObject(clone_build_push_tekton_chart, 'clone-build-push-pipeline', {
         workspaces: [
           {
             name: 'shared-data',
-            description: 'A workspace that contains the shared data between tasks',
+            description: 'A workspace that will be used by tasks to share data.',
           },
           {
             name: 'docker-credentials',
-            description: 'A workspace that contains the shared data between tasks',
+            description: 'A workspace that will be used by tasks to share data.',
           },
         ],
       },
@@ -199,82 +199,6 @@ new ApiObject(clone_build_push_tekton_chart, 'clone-build-push-pipelinerun', {
     ],
   },
 });
-
-// new ApiObject(clone_build_deploy_tekton_chart, 'clone-build-deploy-pipeline', {
-//   apiVersion: 'tekton.dev/v1beta1',
-//   kind: 'Pipeline',
-//   metadata: { name: 'clone-build-deploy' },
-//   spec: {
-//     params: [
-//       {
-//         description: 'This pipeline clones a git repo, yarn build and cdk deploy',
-//         params: [
-//           {
-//             name: 'repo-url',
-//             type: 'string',
-//           },
-//         ],
-//         workspaces: [
-//           {
-//             name: 'shared-data',
-//             description: 'A workspace that contains the shared data between tasks',
-//           },
-//           {
-//             name: 'docker-credentials',
-//             description: 'A workspace that contains the shared data between tasks',
-//           },
-//         ],
-//       },
-//     ],
-//     tasks: [
-//       {
-//         name: 'fetch-source',
-//         taskRef: {
-//           name: 'git-clone',
-//         },
-//         workspaces: [
-//           {
-//             name: 'output',
-//             workspace: 'shared-data',
-//           },
-//         ],
-//         params: [
-//           {
-//             name: 'url',
-//             value: '$(params.repo-url)',
-//           },
-//           {
-//             name: 'subdirectory',
-//             value: '',
-//           },
-//           {
-//             name: 'build-push',
-//             runAfter: ['fetch-source'],
-//             taskRef: {
-//               name: 'kaniko',
-//             },
-//             workspaces: [
-//               {
-//                 name: 'source',
-//                 workspace: 'shared-data',
-//               },
-//               {
-//                 name: 'docker-config',
-//                 workspace: 'docker-credentials',
-//               },
-//             ],
-//             params: [
-//               {
-//                 name: 'IMAGE',
-//                 value: '$(params.image-reference)',
-//               },
-//             ],
-//           },
-//         ],
-//       },
-//     ],
-//   },
-// });
 
 
 new ApiObject(wordpress_chart, 'wordpress-service', {
