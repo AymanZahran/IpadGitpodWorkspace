@@ -1,13 +1,12 @@
 {
-    "name": "Gitpod",
-    "build": {
-      "dockerfile": "Dockerfile"
-    },
-
-    "features": {
-      "ghcr.io/devcontainers/features/sshd:1": {
-        "version": "latest"
-      }
-    },
-    "remoteUser": "gitpod"
-  }
+  "name": "Gitpod",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/sshd:1": {
+      "version": "latest"
+    }
+  },
+  "remoteUser": "gitpod"
+}
